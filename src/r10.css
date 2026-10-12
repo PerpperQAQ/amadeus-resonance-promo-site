@@ -1,0 +1,237 @@
+/* ============================================================ 第十轮：命运石之门风格化版式（在 style.css 之后加载）
+   规则：不用细线框/胶囊标签/说明书表格；用 实验报告抬头（编号 + 时间戳 + 世界线读数）、齿轮刻度分隔、
+   细丝辉光数字、描边幽灵大字、扫描线填充的强调词、红/淡紫轻微色散、竖排日文副标题来分层次。 */
+[data-world="b"] .fx-tint{background:linear-gradient(180deg,rgba(7,5,9,.34),rgba(7,5,9,0) 22%,rgba(7,5,9,0) 70%,rgba(7,5,9,.62)),radial-gradient(120% 80% at 50% 115%,rgba(140,110,230,.2),transparent 62%),radial-gradient(70% 60% at 0% 0%,rgba(150,120,240,.12),transparent 70%)}
+
+/* ---- 左上 “开发中”：齿轮 + 扫描线辉光字 + 世界线读数 ---- */
+.dev{display:flex;align-items:center;gap:10px;padding-left:14px;position:relative;line-height:1;color:var(--acc)}
+.dev::before{content:'';position:absolute;left:0;top:50%;width:3px;height:30px;margin-top:-15px;background:repeating-linear-gradient(to bottom,rgba(var(--accrgb),.8) 0 1px,transparent 1px 4px);opacity:.75}
+.dev-gear{flex:none;width:22px;height:22px;overflow:visible;fill:none;stroke:var(--acc);stroke-width:1.3;stroke-linejoin:round;filter:drop-shadow(0 0 4px rgba(var(--accrgb),.75));animation:spin 9s linear infinite}
+.dev-gear circle{fill:rgba(var(--accrgb),.3)}
+.dev-txt{display:flex;flex-direction:column;align-items:flex-start}
+.dev-zh{font:900 15px/1 var(--serif);letter-spacing:.34em;color:transparent;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0 1px,transparent 1px 3px),linear-gradient(180deg,#fff6dc 0%,var(--acc) 72%,rgba(var(--accrgb),.8));
+  filter:drop-shadow(0 0 5px rgba(var(--accrgb),.8)) drop-shadow(1px 0 0 rgba(255,50,50,.35)) drop-shadow(-1px 0 0 rgba(170,140,255,.4));animation:devflick 7s steps(1) infinite}
+.dev-en{margin-top:5px;font:400 9px/1 var(--mono);letter-spacing:.3em;color:rgba(var(--accrgb),.72);white-space:nowrap}
+.dev-cur{font-style:normal;margin-left:.1em;animation:dot 1.1s steps(1) infinite}
+.dev-meter{display:block;flex:none;width:96px;margin-left:2px;opacity:.95}
+.dev-meter .mt-svg{filter:drop-shadow(0 0 3px rgba(255,110,20,.55))}
+@keyframes devflick{0%,100%{opacity:1}31%{opacity:.55}32%{opacity:1}33%{opacity:.7}34%{opacity:1}78%{opacity:.8}79%{opacity:1}}
+
+/* ---- 实验报告抬头 ---- */
+.kicker{position:relative;display:flex;align-items:center;gap:.95em;margin:0 0 1.8vh;font:400 clamp(10px,.78vw,12px)/1 var(--mono);letter-spacing:.24em;color:rgba(var(--accrgb),.86);text-transform:uppercase;white-space:nowrap;text-shadow:0 0 10px rgba(var(--accrgb),.45),0 1px 6px #000}
+.kicker b{font-weight:400;color:#fff1d8;display:inline-flex;align-items:center}
+.kicker b::before{content:'';display:inline-block;width:.6em;height:1.05em;margin-right:.7em;background:var(--acc);box-shadow:0 0 8px rgba(var(--accrgb),.9),0 0 18px rgba(var(--accrgb),.5);animation:dot 1.2s steps(1) infinite}
+.kicker .k-ts{color:rgba(237,232,220,.5);letter-spacing:.16em}
+.kicker .k-ts::before{content:'// ';color:rgba(var(--accrgb),.6)}
+/* 齿轮刻度分隔：小齿轮 + 尺规刻度（长短刻度），右侧渐隐 */
+.gt{position:relative;display:block;flex:none;width:clamp(56px,6.5vw,118px);height:11px}
+.gt::before{content:'';position:absolute;left:0;top:-1px;width:12px;height:12px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-12 -12 24 24'%3E%3Cpath fill='none' stroke='%23ffb347' stroke-width='1.8' d='M-1.6-11h3.2l.6 2.7 2 .9 2.4-1.5 2.3 2.3-1.5 2.4.9 2 2.7.6v3.2l-2.7.6-.9 2 1.5 2.4-2.3 2.3-2.4-1.5-2 .9-.6 2.7h-3.2l-.6-2.7-2-.9-2.4 1.5-2.3-2.3 1.5-2.4-.9-2-2.7-.6v-3.2l2.7-.6.9-2-1.5-2.4 2.3-2.3 2.4 1.5 2-.9z'/%3E%3Ccircle r='3.4' fill='%23ffb347'/%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 0 3px rgba(255,170,60,.8));animation:spin 14s linear infinite}
+.gt::after{content:'';position:absolute;left:16px;right:0;bottom:1px;height:9px;
+  background:repeating-linear-gradient(90deg,rgba(var(--accrgb),.95) 0 1px,transparent 1px 25px) left bottom/100% 9px no-repeat,repeating-linear-gradient(90deg,rgba(var(--accrgb),.6) 0 1px,transparent 1px 5px) left bottom/100% 4px no-repeat;
+  -webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent)}
+.sec:not(.in-view) .gt::before,.sec:not(.in-view) .kicker b::before{animation-play-state:paused}
+
+/* ---- 描边幽灵大字（章节英文关键词，压在标题后面） ---- */
+.ghost{position:absolute;z-index:-1;left:-.04em;top:-.12em;pointer-events:none;white-space:nowrap;user-select:none;
+  font:600 clamp(96px,12.5vw,230px)/.9 var(--cond);letter-spacing:.01em;color:transparent;-webkit-text-stroke:1px rgba(var(--accrgb),.28);
+  background:repeating-linear-gradient(0deg,rgba(var(--accrgb),.08) 0 1px,transparent 1px 4px);-webkit-background-clip:text;background-clip:text;
+  -webkit-mask-image:linear-gradient(180deg,#000 10%,rgba(0,0,0,.35) 70%,transparent);mask-image:linear-gradient(180deg,#000 10%,rgba(0,0,0,.35) 70%,transparent)}
+.sec-what .ghost{left:auto;right:-.06em}
+.sec-road .wrap{position:relative;isolation:isolate}
+.sec-road .ghost{top:-.25em;left:auto;right:var(--pad)}
+
+/* ---- 标题：暖白渐变填充 + 扫描线，重点词琥珀辉光 + 色散 ---- */
+.h1,.h2{color:#f6ead6;-webkit-text-stroke:0;text-shadow:none;
+  background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.16) 0 1px,transparent 1px 4px),linear-gradient(180deg,#fffaf0 0%,#f4e3c6 55%,#c9a77a 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 3px 14px rgba(0,0,0,.8)) drop-shadow(0 0 1px rgba(0,0,0,.7))}
+.h1 em,.h2 em{display:inline-block;font-family:var(--serif);font-weight:900;font-size:.98em;padding:0 .04em;text-shadow:none;
+  background-image:repeating-linear-gradient(0deg,rgba(40,10,0,.3) 0 1px,transparent 1px 3.5px),linear-gradient(180deg,#fff4d2 0%,var(--acc) 50%,rgb(var(--acc2rgb)) 150%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(1.6px 0 0 rgba(255,50,40,.42)) drop-shadow(-1.6px 0 0 rgba(160,130,255,.42)) drop-shadow(0 0 16px rgba(var(--accrgb),.62));
+  animation:emflick 9s steps(1) infinite}
+@keyframes emflick{0%,100%{opacity:1}46%{opacity:.82;transform:translateX(1px)}47%{opacity:1;transform:none}48%{opacity:.9}49%{opacity:1}}
+.sec:not(.in-view) .h1 em,.sec:not(.in-view) .h2 em{animation-play-state:paused}
+.ciph,.ciph em{-webkit-text-fill-color:currentColor!important;background:none!important;filter:none!important}
+.h2{font-size:clamp(38px,4.6vw,84px)}
+.sec-boundary .h2{font-size:clamp(32px,3.4vw,60px)}
+#hero .h1{font-size:clamp(46px,5.6vw,104px)}
+.lead{font:500 clamp(12px,.95vw,15px)/1 var(--mono);letter-spacing:.36em;color:rgba(var(--accrgb),.95);text-shadow:0 0 12px rgba(var(--accrgb),.5)}
+.triad{gap:.4em 0;font:400 clamp(17px,1.45vw,24px)/1.3 var(--disp);letter-spacing:.14em;color:#f0e4cf}
+.triad b{font:500 .62em/1 var(--cond);letter-spacing:.1em;color:var(--acc);margin-right:.5em;vertical-align:.3em;text-shadow:0 0 10px rgba(var(--accrgb),.8);-webkit-text-stroke:0}
+.triad li+li::before{content:'';display:inline-block;width:1.6em;height:1px;margin:0 .9em;vertical-align:.32em;background:linear-gradient(90deg,transparent,rgba(var(--accrgb),.8),transparent)}
+
+/* 竖排：中文 + 日文片假名副标题 */
+.vtag small{font:400 clamp(10px,.75vw,12px)/1 var(--sans);letter-spacing:.5em;color:rgba(var(--accrgb),.7);text-shadow:none}
+
+/* ---- 02 定位 ---- */
+.rows b{font-size:clamp(25px,2.3vw,38px);color:#f6ead6}
+.rows li{position:relative;padding-bottom:1.6vh}
+.rows li::after{content:'';position:absolute;left:calc(clamp(46px,4.2vw,64px) + 1.3em);bottom:0;width:min(220px,40%);height:5px;opacity:.55;
+  background:repeating-linear-gradient(90deg,rgba(var(--accrgb),.8) 0 1px,transparent 1px 6px);-webkit-mask-image:linear-gradient(90deg,#000,transparent);mask-image:linear-gradient(90deg,#000,transparent)}
+.rows li:last-child::after{display:none}
+
+/* ---- 03 双模式 ---- */
+.tab small{display:block;margin-bottom:.35em;font:400 13px/1 var(--mono);letter-spacing:.3em;color:rgba(var(--accrgb),.55);-webkit-text-stroke:0;text-shadow:none}
+.tab.is-on small{color:var(--acc)}
+.plist{counter-reset:pl}
+.plist li{counter-increment:pl}
+.plist b::before{width:.42em;height:.42em;border-radius:0;transform:rotate(45deg)}
+.plist b::after{content:'0' counter(pl);margin-left:.6em;font:500 .45em/1 var(--cond);letter-spacing:.12em;color:rgba(var(--accrgb),.7);-webkit-text-stroke:0;vertical-align:.5em}
+.sec-modes .note{color:rgba(var(--accrgb),.8);letter-spacing:.18em}
+
+/* ---- 04 边界：记忆磁盘 ---- */
+.sec-boundary .wrap-r{padding-left:max(var(--pad),32vw)}
+.b-grid{grid-template-columns:clamp(260px,27vw,470px) minmax(0,1fr);gap:clamp(20px,3vw,56px)}
+.disk .dk-plate{fill:rgba(6,5,4,.6);stroke:none}
+.disk .r-band{fill:none;stroke:rgba(var(--accrgb),.08);stroke-width:46;transition:stroke .45s}
+.disk .r-core-band{stroke-width:76;stroke:rgba(var(--accrgb),.14)}
+.disk .ring[data-tier="1"] .r-band{stroke-dasharray:22 4}
+.disk .ring[data-tier="2"] .r-band{stroke-dasharray:30 6 8 5 44 9 12 7}
+.disk .r-hatch{fill:none;stroke:url(#dk-hatch);stroke-width:46;opacity:.35;transition:opacity .45s}
+.disk .r-line{fill:none;stroke:rgba(255,255,255,.28);stroke-width:1.4;filter:none;stroke-dasharray:none}
+.disk .ring[data-tier="2"] .r-line{stroke-dasharray:2 5}
+.disk .ring[data-tier="3"] .r-line{stroke:rgba(var(--acc2rgb),.55);stroke-dasharray:10 6}
+.disk .r-hit{stroke-width:52}
+.disk .r-hit-core{stroke-width:76}
+.disk .ring:hover .r-band,.disk .ring:focus-visible .r-band{stroke:rgba(var(--accrgb),.22)}
+.disk .ring.is-on .r-band{stroke:rgba(var(--accrgb),.38);filter:drop-shadow(0 0 10px rgba(var(--accrgb),.5))}
+.disk .ring.is-on .r-line{stroke:var(--acc);stroke-width:2;filter:drop-shadow(0 0 4px rgba(var(--accrgb),.9))}
+.disk .ring[data-tier="3"].is-on .r-band{stroke:rgba(var(--acc2rgb),.22);filter:none}
+.disk .ring[data-tier="3"].is-on .r-hatch{opacity:1;animation:hatch .5s steps(2) infinite}
+.disk .ring[data-tier="3"].is-on .r-line{stroke:rgb(var(--acc2rgb));filter:drop-shadow(0 0 5px rgba(var(--acc2rgb),.9))}
+@keyframes hatch{50%{opacity:.6}}
+.dk-hr{fill:rgb(var(--acc2rgb));opacity:.5}
+.dk-s0{stop-color:rgb(var(--accrgb));stop-opacity:0}.dk-s1{stop-color:rgb(var(--accrgb));stop-opacity:.42}
+.dk-sweep{pointer-events:none;transform-origin:0 0;animation:sweep 5.5s linear infinite;mix-blend-mode:screen}
+.dk-beam{stroke:rgba(255,236,200,.85);stroke-width:1.4;filter:drop-shadow(0 0 4px rgba(var(--accrgb),1))}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.disk.scan .dk-sweep{animation-duration:1.1s}
+.dk-blip{fill:rgba(var(--accrgb),.5);transition:fill .3s}
+.dk-blip.on{fill:#fff1d2;filter:drop-shadow(0 0 5px rgba(var(--accrgb),1));animation:blip 1.6s ease-in-out infinite}
+.dk-blip.lock{fill:rgba(var(--acc2rgb),.7)}
+.dk-blip.lock.on{fill:rgb(var(--acc2rgb));filter:drop-shadow(0 0 5px rgba(var(--acc2rgb),1))}
+@keyframes blip{50%{opacity:.35}}
+.disk .r-tx{font:400 21px var(--disp);letter-spacing:.2em;fill:rgba(237,232,220,.6);text-anchor:middle;paint-order:stroke;stroke:rgba(0,0,0,.75);stroke-width:4px;pointer-events:none}
+.disk .r-tx.on{fill:#fff1d2;filter:drop-shadow(0 0 6px rgba(var(--accrgb),.9))}
+.disk .r-tx[data-tier="3"].on{fill:rgb(var(--acc2rgb))}
+.disk .r-en{font:400 10px var(--mono);letter-spacing:.3em;fill:rgba(var(--accrgb),.6);text-anchor:middle}
+.disk .r-core{fill:#fff1d2;filter:drop-shadow(0 0 10px rgba(var(--accrgb),1))}
+.sec:not(.in-view) .dk-sweep,.sec:not(.in-view) .dk-blip,.sec:not(.in-view) .r-hatch{animation-play-state:paused}
+.tier{background:none;padding:0 0 0 1.2em;min-height:11em;position:relative;border-radius:0}
+.tier::before{content:'';position:absolute;left:0;top:.2em;bottom:.2em;width:3px;background:repeating-linear-gradient(to bottom,var(--acc) 0 2px,transparent 2px 5px);box-shadow:0 0 8px rgba(var(--accrgb),.6)}
+.tier[data-tier="3"]{background:none}
+.tier[data-tier="3"]::before{background:repeating-linear-gradient(to bottom,rgb(var(--acc2rgb)) 0 2px,transparent 2px 5px);box-shadow:0 0 8px rgba(var(--acc2rgb),.6)}
+.tier small{display:flex;gap:1em;align-items:center;font:400 11px var(--mono);letter-spacing:.26em}
+.tier small .tier-no{font-style:normal;color:#fff1d8}
+.tier[data-tier="3"] small{color:rgb(var(--acc2rgb))}
+.tier h3{margin:.3em 0 .2em}
+.tier q{display:block;margin:.1em 0 .45em;quotes:'「' '」';font:900 clamp(18px,1.55vw,26px)/1.4 var(--serif);color:var(--acc);text-shadow:0 0 18px rgba(var(--accrgb),.5);min-height:1.4em}
+.tier[data-tier="3"] q{color:rgb(var(--acc2rgb));text-shadow:0 0 18px rgba(var(--acc2rgb),.5)}
+.tier q.typing::after{content:'▍';margin-left:.1em;animation:dot .7s steps(1) infinite}
+.b-notes li{position:relative;padding-left:1.4em}
+.b-notes li::before{content:'';position:absolute;left:0;top:.75em;width:.7em;height:1px;background:var(--acc);box-shadow:0 0 6px var(--acc)}
+
+/* ---- 05 表演：三个通道 ---- */
+.chain{gap:.8em}
+.chain i{display:inline-block;width:clamp(28px,3vw,54px);height:7px;background:repeating-linear-gradient(90deg,rgba(var(--accrgb),.9) 0 1px,transparent 1px 5px);position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%);mask-image:linear-gradient(90deg,transparent,#000 30%)}
+.trio{gap:clamp(12px,1.8vw,30px);margin-top:1vh}
+.tri{position:relative;padding:.6em 0 .2em;color:inherit;isolation:isolate}
+.tri::before{content:'';position:absolute;inset:-.4em -.6em;z-index:-1;opacity:0;transition:opacity .5s;background:radial-gradient(ellipse 80% 70% at 30% 45%,rgba(var(--accrgb),.2),transparent 75%)}
+.tri:hover::before,.tri:focus-visible::before,.tri.is-live::before{opacity:1}
+.tri-ch{display:block;font:400 10.5px/1 var(--mono);letter-spacing:.3em;color:rgba(var(--accrgb),.75)}
+.tri em{font-size:clamp(84px,9vw,168px);line-height:1.02;-webkit-text-stroke:1.2px rgba(255,236,210,.72);color:transparent;-webkit-text-fill-color:transparent;-webkit-background-clip:text;background-clip:text;
+  background-image:repeating-linear-gradient(0deg,rgba(255,236,210,.14) 0 1px,transparent 1px 4px)}
+.tri:hover em,.tri:focus-visible em{color:transparent;-webkit-text-stroke-color:var(--acc);text-shadow:none;background-image:repeating-linear-gradient(0deg,rgba(var(--accrgb),.6) 0 1px,transparent 1px 4px)}
+.tri.is-live em{-webkit-text-stroke-color:#fff2d6;background-image:repeating-linear-gradient(0deg,rgba(0,0,0,.3) 0 1px,transparent 1px 3.5px),linear-gradient(180deg,#fff4d2,var(--acc) 60%,rgb(var(--acc2rgb)));
+  filter:drop-shadow(0 0 22px rgba(var(--accrgb),.7)) drop-shadow(2px 0 0 rgba(255,50,40,.4)) drop-shadow(-2px 0 0 rgba(160,130,255,.4));animation:trilive .9s steps(2) 2}
+@keyframes trilive{50%{opacity:.7;transform:translateX(2px)}}
+.tri b{margin-top:.15em}
+.tri-viz{display:flex;align-items:flex-end;gap:3px;height:16px;margin:.7em 0 .4em}
+.tri-viz u{display:block;width:3px;height:3px;background:rgba(var(--accrgb),.45)}
+.tri.is-live .tri-viz u{background:var(--acc);box-shadow:0 0 6px rgba(var(--accrgb),.8);animation:viz .55s ease-in-out infinite alternate}
+.tri.is-live .tri-viz u:nth-child(2n){animation-duration:.42s}.tri.is-live .tri-viz u:nth-child(3n){animation-duration:.7s;animation-delay:-.2s}
+.tri[data-act="text"].is-live .tri-viz u{animation:vizt .5s steps(1) infinite}
+.tri[data-act="text"].is-live .tri-viz u:nth-child(n){animation-delay:calc(var(--i,0) * 80ms)}
+@keyframes viz{from{height:3px}to{height:16px}}
+@keyframes vizt{0%{opacity:.25}50%{opacity:1}}
+.tri-st{display:block;font:400 11px/1 var(--mono);letter-spacing:.2em;color:rgba(237,232,220,.55)}
+.tri.is-live .tri-st{color:var(--acc)}
+.tri.is-live .tri-st::before{content:'● ';color:#ff5a3a;animation:dot .8s steps(1) infinite}
+
+/* 人物身边的字幕轨（只在 05 章使用；跟随人物位置） */
+.subt{position:absolute;left:50%;bottom:15%;width:min(44vw,620px);transform:translate(-50%,8px);z-index:4;pointer-events:none;text-align:center;opacity:0;transition:opacity .35s,transform .35s var(--ease)}
+.subt[hidden]{display:none}
+.subt.on{opacity:1;transform:translate(-50%,0)}
+.subt::before{content:'';position:absolute;inset:-1.4em -2.6em -1.2em;z-index:-1;background:radial-gradient(ellipse 60% 62% at 50% 55%,rgba(5,4,3,.84),rgba(5,4,3,.52) 55%,transparent 80%)}
+.subt-name{display:inline-flex;align-items:center;gap:.7em;font:400 11px/1 var(--mono);letter-spacing:.34em;color:var(--acc);text-shadow:0 0 10px rgba(var(--accrgb),.8)}
+.subt-wave{display:inline-flex;gap:2px;align-items:center;height:12px}
+.subt-wave u{display:block;width:2px;height:calc(2px + var(--lvl,0) * 12px);background:var(--acc)}
+.subt-wave u:nth-child(2),.subt-wave u:nth-child(4){height:calc(2px + var(--lvl,0) * 8px)}
+.subt-jp{margin:.55em 0 0;font:400 clamp(12px,.95vw,15px)/1.5 var(--sans);letter-spacing:.06em;color:rgba(237,232,220,.7)}
+.subt-jp[hidden]{display:none}
+.subt-zh{margin:.25em 0 0;min-height:1.4em;font:900 clamp(18px,1.6vw,27px)/1.45 var(--serif);letter-spacing:.06em;color:#fff6e6;text-shadow:0 2px 12px #000,0 0 22px rgba(var(--accrgb),.4)}
+.subt[data-mode="voice"] .subt-zh,.subt[data-mode="voice"] .subt-jp{display:none}
+.subt[data-mode="voice"] .subt-name{font-size:13px}
+.subt[data-mode="voice"] .subt-wave{height:24px;gap:3px}
+.subt[data-mode="voice"] .subt-wave u{width:3px;height:calc(3px + var(--lvl,0) * 22px)}
+.stage.hidden .subt{display:none}
+
+/* ---- 06 本地：神社底图 + 缩小融入的 IBM 5100 ---- */
+.sec-local .l-grid{grid-template-columns:minmax(0,560px) minmax(0,1fr);align-items:end}
+.sec-local .prop-ibm{justify-content:flex-start;align-self:end;padding-left:1vw}
+.sec-local .ibm{width:clamp(170px,14.5vw,270px)}
+.sec-local .ibm-img img{filter:brightness(.68) contrast(1.05) saturate(.62) sepia(.18) drop-shadow(0 8px 10px rgba(0,0,0,.55))}
+.sec-local .ibm-tint{background:linear-gradient(to top,rgba(14,22,18,.8) 0,transparent 50%),linear-gradient(160deg,rgba(255,150,70,.4) 0%,rgba(120,150,120,.25) 50%,rgba(20,40,32,.7) 100%)}
+.sec-local .ibm-desk{left:-45%;right:-45%;bottom:-14%;height:34%;background:radial-gradient(ellipse 50% 50% at 50% 50%,rgba(8,10,8,.88),rgba(8,10,8,.42) 60%,transparent 76%);-webkit-mask-image:none;mask-image:none}
+.sec-local .ibm::after{content:'IBM 5100 · 保管于柳林神社';display:block;margin-top:1.6vh;text-align:center;font:400 10px/1 var(--mono);letter-spacing:.22em;color:rgba(var(--accrgb),.75);text-shadow:0 1px 6px #000}
+.p-aside{font-size:clamp(14px,1.02vw,16px);color:rgba(237,232,220,.8);margin-top:-.6em}
+.node i{font:500 12px/1 var(--cond);letter-spacing:.14em;font-style:normal;color:rgba(var(--accrgb),.6);align-self:center}
+.node{justify-content:flex-start}.node code{margin-left:auto}
+.node.is-on i{color:var(--acc);text-shadow:0 0 8px rgba(var(--accrgb),.8)}
+.rules li{position:relative;padding-left:1.1em}
+.rules li::before{content:'';position:absolute;left:0;top:.62em;width:5px;height:5px;background:var(--acc);transform:rotate(45deg);box-shadow:0 0 6px rgba(var(--accrgb),.8)}
+body[data-sec="local"] .fx-pad{background:linear-gradient(90deg,rgba(6,5,4,.88) 0,rgba(6,5,4,.7) 30%,rgba(6,5,4,.3) 52%,rgba(6,5,4,.12) 70%,rgba(6,5,4,.34))}
+
+/* ---- 07 路线：连线恢复（已完成实线发光 / 当前节点发光 / 后续虚线） ---- */
+.steps{margin-top:6vh}
+.st i{position:relative;z-index:2;width:11px;height:11px}
+.st::before{content:'';position:absolute;z-index:1;left:11px;top:5px;width:calc(100% + 1.6vw - 11px);height:1px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.45) 0 6px,transparent 6px 12px)}
+.st:last-child::before{display:none}
+.st.is-done::before{height:2px;top:4.5px;background:linear-gradient(90deg,var(--acc),rgba(var(--accrgb),.9));box-shadow:0 0 8px rgba(var(--accrgb),.8),0 0 18px rgba(var(--accrgb),.4)}
+.st.is-done::after{content:'';position:absolute;z-index:2;top:2px;left:11px;width:44px;height:7px;border-radius:50%;background:radial-gradient(closest-side,#fff6dc,rgba(var(--accrgb),.6),transparent);animation:runlight 2.6s cubic-bezier(.5,0,.5,1) infinite;pointer-events:none}
+@keyframes runlight{0%{transform:translateX(0);opacity:0}15%{opacity:1}85%{opacity:1}100%{transform:translateX(var(--seg,200px));opacity:0}}
+.st.is-current::before{background:linear-gradient(90deg,rgba(var(--accrgb),.9),rgba(var(--accrgb),.25) 50%,transparent 80%),repeating-linear-gradient(90deg,rgba(255,255,255,.45) 0 6px,transparent 6px 12px);height:1px}
+.st.is-current i{background:#fff1d2;border:2px solid var(--acc);box-shadow:0 0 0 5px rgba(var(--accrgb),.18),0 0 16px var(--acc),0 0 34px rgba(var(--accrgb),.6);animation:curpulse 2s ease-in-out infinite}
+@keyframes curpulse{50%{box-shadow:0 0 0 9px rgba(var(--accrgb),.06),0 0 22px var(--acc),0 0 44px rgba(var(--accrgb),.5)}}
+.sec:not(.in-view) .st::after,.sec:not(.in-view) .st i{animation-play-state:paused}
+.st-no{display:block;width:clamp(40px,3.3vw,54px);margin:0 0 .3em}
+.st:not(.is-done):not(.is-current) .st-no{opacity:.45;filter:saturate(.4)}
+.st b{font-size:clamp(22px,1.95vw,32px)}
+@media (max-width:900px){.st::before,.st::after{display:none!important}}
+
+/* ---- 08 终：D-mail ---- */
+.dmail{display:flex;flex-wrap:wrap;align-items:baseline;gap:.4em 1em;margin:0 0 3vh;font:400 clamp(11px,.85vw,13px)/1.4 var(--mono);letter-spacing:.18em;color:rgba(237,232,220,.62)}
+.dmail b{font-weight:400;color:#2a1405;background:var(--acc);padding:.15em .55em;letter-spacing:.24em;box-shadow:0 0 14px rgba(var(--accrgb),.6)}
+.dmail q{quotes:'「' '」';font:900 clamp(17px,1.4vw,23px)/1.4 var(--serif);letter-spacing:.06em;color:#fff1d8;text-shadow:0 0 16px rgba(var(--accrgb),.45)}
+.go small{font:400 11px/1 var(--mono);letter-spacing:.3em;color:rgba(var(--accrgb),.75);-webkit-text-stroke:0;text-shadow:none}
+
+@media (max-width:1280px){.b-grid{grid-template-columns:clamp(240px,25vw,360px) minmax(0,1fr)}.kicker .k-ts{display:none}}
+@media (max-width:1100px){.sec-boundary .wrap-r{padding-left:max(var(--pad),30vw)}.dev-meter{width:76px}.ghost{font-size:clamp(80px,11vw,150px)}}
+@media (max-width:900px){
+  .sec-boundary .wrap-r{padding-left:var(--pad)}
+  .b-grid{grid-template-columns:1fr}
+  .disk{max-width:300px;margin:0 auto 2vh;order:2}
+  .dev-en,.dev-meter{display:none}
+  .ghost{display:none}
+  .kicker{letter-spacing:.14em}
+  .sec-local .l-grid{grid-template-columns:1fr}
+  .subt{width:80vw}
+}
+@media (max-width:560px){.kicker .gt{display:none}.dev-zh{font-size:12px;letter-spacing:.2em}}
+/* IBM 5100：不再占半屏，作为前景小道具落在神社地面上（暗色地面阴影承托） */
+@media (min-width:901px){
+  .sec-local .l-grid{grid-template-columns:minmax(0,560px)}
+  .sec-local .prop-ibm{position:absolute;left:clamp(560px,45vw,980px);bottom:calc(var(--rail-h) + 5vh);padding:0;margin:0;z-index:1}
+}

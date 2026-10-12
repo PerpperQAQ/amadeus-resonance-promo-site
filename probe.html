@@ -1,0 +1,7 @@
+<!doctype html><meta charset="utf-8"><body style="margin:0;background:#445"><canvas id="c" style="width:720px;height:960px"></canvas>
+<script type="module">
+import { EmoteStage, MODELS } from './src/emote-stage.js';
+MODELS.lab = { psb: 'models/kurisu_ab_labcoat.expressions.psb' };
+const st = new EmoteStage({ canvas: document.getElementById('c'), base: './', resolution: 1, minLogoMs: 300 });
+window.st = st; st.setActive(true); st.start();
+</script>

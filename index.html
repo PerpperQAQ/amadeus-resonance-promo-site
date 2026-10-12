@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amadeus-Resonance · 她在你的本地世界线上</title>
+<meta name="description" content="Amadeus-Resonance：本地优先、单用户、自行配置运行的牧濑红莉栖 AI 陪伴应用（开发中）。课堂展示用产品宣传页。">
+<meta name="theme-color" content="#0a0c0b">
+<link rel="preload" as="image" type="image/webp" href="/img/boot-cg.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%230a0c0b' stroke='%23ffae2e' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='4' fill='%23ffae2e'/%3E%3C/svg%3E">
+</head>
+<body data-world="a" data-boot="on" data-sec="hero">
+
+<!-- 共用滤镜：色散（世界线迁移时短暂启用） -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="f-chroma" x="-10%" y="-5%" width="120%" height="110%" color-interpolation-filters="sRGB">
+      <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+      <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" result="gb"/>
+      <feOffset in="r" dx="-9" dy="0" result="r2" id="f-chroma-r"/>
+      <feOffset in="gb" dx="9" dy="0" result="gb2" id="f-chroma-b"/>
+      <feBlend in="r2" in2="gb2" mode="screen"/>
+    </filter>
+  </defs>
+</svg>
+
+<!-- ========== 开场：时间线跳动 → 世界线收束 ========== -->
+<div id="boot" role="dialog" aria-modal="true" aria-label="世界线入口" tabindex="-1">
+  <canvas class="bt-bgc" id="bt-bgc"></canvas>
+  <canvas class="bt-wl" id="bt-wl"></canvas>
+  <div class="bt-streaks"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bt-vhs"></div>
+  <div class="bt-tc" id="bt-tc">▶▶ 00:00:00:00</div>
+  <div class="bt-meter" id="bt-meter"></div>
+  <div class="bt-msg" id="bt-msg">世界线观测中</div>
+  <canvas class="bt-emote" id="bt-emote" width="120" height="160" title="E-mote"></canvas>
+  <div class="bt-skip" id="bt-skip">点击加速</div>
+  <div class="logo bt-logo" id="bt-logo" aria-hidden="true">
+    <img class="lg-base" src="/img/logo-base.webp" alt="" width="1120" height="483" decoding="async">
+    <img class="lg-gear lg-g1" src="/img/logo-gear-major.webp" alt="">
+    <img class="lg-gear lg-g2" src="/img/logo-gear-minor.webp" alt="">
+  </div>
+  <div class="bt-entry" id="bt-entry"></div>
+  <div class="bt-flare"></div>
+</div>
+
+<!-- ========== 世界线变动：覆盖层（辉光管读数 + IBM 5100 解码） ========== -->
+<div id="shift" aria-hidden="true">
+  <div class="sh-void"></div>
+  <div class="sh-streaks"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="sh-top"><div class="sh-meter" id="sh-meter"></div><div class="sh-cap" id="sh-cap">世界线变动率</div></div>
+  <div class="sh-ibm" id="sh-ibm"></div>
+  <div class="sh-flare"></div>
+  <div class="sh-black"></div>
+</div>
+
+<!-- 背景：每章一张，随章节交叉淡入 -->
+<div id="bgs" aria-hidden="true">
+  <i class="bgl" data-id="hero"></i><i class="bgl" data-id="what"></i><i class="bgl" data-id="modes"></i><i class="bgl" data-id="boundary"></i>
+  <i class="bgl" data-id="perform"></i><i class="bgl" data-id="local"></i><i class="bgl" data-id="road"></i><i class="bgl" data-id="outro"></i>
+</div>
+<div class="fx-tint" aria-hidden="true"></div>
+<div class="fx-pad" aria-hidden="true"></div>
+<div class="fx-grain" aria-hidden="true"></div>
+<div class="fx-vig" aria-hidden="true"></div>
+
+<!-- 左上：标识 + “开发中”状态读数（第十轮：齿轮 + 世界线读数式细丝数字） -->
+<header class="corner">
+  <a class="mark" href="#hero" data-go="hero" aria-label="回到开头：Amadeus-Resonance">
+    <img src="/img/logo-base.webp" alt="Amadeus Resonance" width="168" height="72" decoding="async">
+  </a>
+  <div class="dev" id="dev" role="status" aria-label="项目状态：开发中">
+    <svg class="dev-gear" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M-1.6-11h3.2l.6 2.7 2 .9 2.4-1.5 2.3 2.3-1.5 2.4.9 2 2.7.6v3.2l-2.7.6-.9 2 1.5 2.4-2.3 2.3-2.4-1.5-2 .9-.6 2.7h-3.2l-.6-2.7-2-.9-2.4 1.5-2.3-2.3 1.5-2.4-.9-2-2.7-.6v-3.2l2.7-.6.9-2-1.5-2.4 2.3-2.3 2.4 1.5 2-.9z"/><circle r="3.6"/></svg>
+    <span class="dev-txt"><b class="dev-zh">开发中</b><small class="dev-en" aria-hidden="true">IN DEVELOPMENT<i class="dev-cur">_</i></small></span>
+    <span class="dev-meter" id="dev-meter" aria-hidden="true"></span>
+  </div>
+</header>
+
+<a class="gh" href="https://github.com/PerpperQAQ/Amadeus-Resonance" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+
+<!-- 固定舞台：同一个动态人物贯穿整页 -->
+<div class="stage" id="stage" data-state="idle" aria-label="牧濑红莉栖（E-mote 动态形象）">
+  <canvas class="halo" id="halo" aria-hidden="true"></canvas>
+  <div class="stage-body" id="stage-body">
+    <canvas id="emote-canvas" class="emote-canvas" width="900" height="1200" role="img" aria-label="牧濑红莉栖的 E-mote 动态模型，点击可换表情与动作"></canvas>
+    <img class="stage-fallback" id="stage-fallback" src="/img/fallback-kurisu.webp" alt="" hidden>
+    <button class="stage-hit" id="stage-hit" type="button" aria-label="点击红莉栖：随机切换表情与动作"></button>
+  </div>
+  <div class="subt" id="subt" aria-live="polite" hidden><span class="subt-name">牧濑红莉栖<i class="subt-wave" aria-hidden="true"><u></u><u></u><u></u><u></u><u></u></i></span><p class="subt-jp" lang="ja"></p><p class="subt-zh"></p></div>
+  <div class="stage-msg" id="stage-msg" hidden><b>形象暂时无法加载</b><button type="button" id="stage-retry">重试</button></div>
+</div>
+<div class="credit-emote">Powered by E-mote · © M2 Co., Ltd.</div>
+
+<!-- 底部：世界线进度（兼作章节导航） -->
+<nav class="rail" id="rail" aria-label="章节：世界线进度"></nav>
+
+<div class="cursor-layer" id="cursor-layer" aria-hidden="true"></div>
+
+<main id="main">
+
+<!-- ========== 01 序 ========== -->
+<section class="sec sec-hero" id="hero" data-name="序" data-pos="hero">
+  <div class="wrap">
+    <div class="col">
+      <p class="kicker" aria-hidden="true"><b>LAB MEM 004</b><i class="gt"></i><span>MAKISE KURISU</span><span class="k-ts"></span></p>
+      <div class="logo" id="logo">
+        <img class="lg-base" src="/img/logo-base.webp" alt="Amadeus Resonance" width="1120" height="483" decoding="async">
+        <img class="lg-gear lg-g1" src="/img/logo-gear-major.webp" alt="" aria-hidden="true">
+        <img class="lg-gear lg-g2" src="/img/logo-gear-minor.webp" alt="" aria-hidden="true">
+        <i class="lg-shine" aria-hidden="true"></i>
+      </div>
+      <h1 class="h1 tx" data-b="另一条<em>世界线</em>，<br>同一个她。">她在你的<br><em>本地</em>世界线上</h1>
+      <p class="lead tx" data-b="牧濑红莉栖 · 白大褂版 · 开发中">牧濑红莉栖 · AI 陪伴应用 · 开发中</p>
+      <ul class="triad">
+        <li class="tx" data-b="&lt;b&gt;01&lt;/b&gt;在本机运行"><b>01</b>在本机运行</li>
+        <li class="tx" data-b="&lt;b&gt;02&lt;/b&gt;只有你和她"><b>02</b>只有你和她</li>
+        <li class="tx" data-b="&lt;b&gt;03&lt;/b&gt;服务由你选"><b>03</b>服务由你选</li>
+      </ul>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"><i></i></div>
+</section>
+
+<!-- ========== 02 定位 ========== -->
+<section class="sec sec-what" id="what" data-name="定位" data-pos="what">
+  <span class="vtag" aria-hidden="true">定位<small>ロケーション</small></span>
+  <div class="wrap wrap-r">
+    <div class="col">
+      <p class="kicker" aria-hidden="true"><b>REPORT 02</b><i class="gt"></i><span>LOCATION</span><span class="k-ts"></span></p>
+      <span class="ghost" aria-hidden="true">LOCAL</span>
+      <h2 class="h2 tx" data-b="同一个她，<br>落在<em>另一台机器</em>上。">不在云端，<br>在<em>你的电脑</em>上。</h2>
+      <ol class="rows">
+        <li><i class="no" data-no="01" aria-hidden="true"></i><b class="tx" data-b="本地优先">本地优先</b><span class="tx" data-b="界面、网关、核心服务都在本机启动。">界面、网关、核心服务都在本机启动；用哪家模型，你说了算。</span></li>
+        <li><i class="no" data-no="02" aria-hidden="true"></i><b class="tx" data-b="只有一个“你”">单用户</b><span class="tx" data-b="不做多租户，也没有别的账号。">不做 SaaS，没有别的账号。只有你，和她。</span></li>
+        <li><i class="no" data-no="03" aria-hidden="true"></i><b class="tx" data-b="凭据自己填">自行配置</b><span class="tx" data-b="选厂商、填 Key、测连接。远程模型会收到相关对话内容。">选厂商、填自己的 Key、测一次连接再保存。用远程模型时，相关内容会发给你选的服务。</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 03 双模式 ========== -->
+<section class="sec sec-modes" id="modes" data-name="双模式" data-pos="modes">
+  <span class="vtag" aria-hidden="true">双模式<small>ツーモード</small></span>
+  <div class="wrap">
+    <div class="col">
+      <p class="kicker" aria-hidden="true"><b>REPORT 03</b><i class="gt"></i><span>OPERATION · DUAL MODE</span><span class="k-ts"></span></p>
+      <span class="ghost" aria-hidden="true">DUAL</span>
+      <h2 class="h2 tx" data-b="两条路径，<br><em>同一个她</em>。">日常与 VN，<br><em>同一个她</em>。</h2>
+      <div class="tabs" role="tablist" aria-label="两种核心模式">
+        <button class="tab is-on" role="tab" id="tab-daily" aria-selected="true" aria-controls="panel-daily" data-mode="daily"><small aria-hidden="true">MODE.A</small>日常陪伴</button>
+        <button class="tab" role="tab" id="tab-vn" aria-selected="false" aria-controls="panel-vn" data-mode="vn" tabindex="-1"><small aria-hidden="true">MODE.B</small>VN 陪玩</button>
+        <i class="tab-bar" aria-hidden="true"></i>
+      </div>
+      <div class="panels">
+        <ul class="plist is-on" id="panel-daily" role="tabpanel" aria-labelledby="tab-daily">
+          <li><b class="tx" data-b="文字">打字聊天</b><span class="tx" data-b="边想边回">流式回复，不开语音也能聊</span></li>
+          <li><b class="tx" data-b="语音">开口说话</b><span class="tx" data-b="随时插话">说话就能打断她，识别的字看得见</span></li>
+          <li><b class="tx" data-b="记忆">长期记忆</b><span class="tx" data-b="只记要紧的">只记偏好和要紧的事；记忆服务出问题，也不耽误聊天</span></li>
+          <li><b class="tx" data-b="日语">日语语音</b><span class="tx" data-b="中文字幕常驻">她用日语开口，中文字幕常驻</span></li>
+        </ul>
+        <ul class="plist" id="panel-vn" role="tabpanel" aria-labelledby="tab-vn" hidden>
+          <li><b class="tx" data-b="一起看">一起看</b><span class="tx" data-b="只看你选的窗口">你选定游戏窗口，她只就画面说话</span></li>
+          <li><b class="tx" data-b="她来判断">她来判断</b><span class="tx" data-b="沉默也算回应">什么时候开口由她定，沉默也算回应</span></li>
+          <li><b class="tx" data-b="给出偏好">给出偏好</b><span class="tx" data-b="按不按由你">遇到选项，她会说自己的倾向；按不按，由你</span></li>
+          <li><b class="tx" data-b="不代点">不代点</b><span class="tx" data-b="不自动推进">不自动点击，也不自动推进剧情</span></li>
+        </ul>
+      </div>
+      <p class="note tx" data-b="VN 陪玩开发中 · 首要目标《STEINS;GATE RE:BOOT》">VN 陪玩仍在开发 · 首要目标是《STEINS;GATE RE:BOOT》</p>
+    </div>
+  </div>
+  <div class="prop prop-mw" id="prop-mw"></div>
+</section>
+
+<!-- ========== 04 边界（记忆磁盘） ========== -->
+<section class="sec sec-boundary" id="boundary" data-name="边界" data-pos="boundary">
+  <span class="vtag" aria-hidden="true">边界<small>メモリー</small></span>
+  <div class="wrap wrap-r">
+    <div class="b-grid">
+      <svg class="rings disk" id="rings" viewBox="-270 -270 540 540" role="group" aria-label="记忆磁盘：四层知识来源，点击或聚焦查看">
+        <defs>
+          <linearGradient id="dk-sweep" x1="0" y1="0" x2="1" y2="0"><stop class="dk-s0" offset="0"/><stop class="dk-s1" offset="1"/></linearGradient>
+          <pattern id="dk-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect class="dk-hr" width="2.2" height="7"/></pattern>
+        </defs>
+        <g class="r-spin"></g>
+        <circle class="dk-plate" r="246"/>
+        <g class="ring" data-tier="3" tabindex="0" role="button" aria-label="第四层 禁区：禁止全知"><circle class="r-band" r="216"/><circle class="r-hatch" r="216"/><circle class="r-hit" r="216"/><circle class="r-line" r="240"/></g>
+        <g class="ring" data-tier="2" tabindex="0" role="button" aria-label="第三层 既视感：只能含糊地说"><circle class="r-band" r="158"/><circle class="r-hit" r="158"/><circle class="r-line" r="182"/></g>
+        <g class="ring" data-tier="1" tabindex="0" role="button" aria-label="第二层 所见：只说画面里的"><circle class="r-band" r="100"/><circle class="r-hit" r="100"/><circle class="r-line" r="124"/></g>
+        <g class="ring is-on" data-tier="0" tabindex="0" role="button" aria-label="第一层 亲历：确定的个人记忆"><circle class="r-band r-core-band" r="38"/><circle class="r-hit r-hit-core" r="38"/><circle class="r-line" r="66"/></g>
+        <g class="dk-sweep"><path d="M0 0 L246 0 A246 246 0 0 0 188.5 -158.1 Z" fill="url(#dk-sweep)"/><line x2="246" class="dk-beam"/></g>
+        <g class="dk-blips"></g>
+        <g class="dk-labels" aria-hidden="true">
+          <text class="r-tx" data-tier="0" y="-74">亲历</text><text class="r-tx" data-tier="1" y="-132">所见</text><text class="r-tx" data-tier="2" y="-190">既视感</text><text class="r-tx" data-tier="3" y="-248">禁区</text>
+          <text class="r-en" x="0" y="254">SECTOR 0 ─ 3 · MEMORY DISK</text>
+        </g>
+        <circle class="r-core" r="12"/>
+      </svg>
+      <div class="col">
+        <p class="kicker" aria-hidden="true"><b>REPORT 04</b><i class="gt"></i><span>EPISTEMIC BOUNDARY</span><span class="k-ts"></span></p>
+        <h2 class="h2 tx" data-b="她记得什么，<br>又<em>漏掉</em>了什么。">她记得什么，<br>又<em>不该知道</em>什么。</h2>
+        <p class="p tx" data-b="四层信息分开存放，不能混用。">她是真结局之后的红莉栖：记得自己的经历，却不知道冈部那些循环的全部。信息分四层，不能混用。</p>
+        <div class="tier" id="tier" aria-live="polite" data-tier="0">
+          <small><i class="tier-no" id="td-no">SECTOR 0</i><span id="td-key">亲身经历</span></small>
+          <h3 id="td-title">确定的个人记忆</h3>
+          <q id="td-line">这个我记得，不用查。</q>
+          <p id="td-body">自己的经历、明确知道的事、你们对话里确认过的事，可以直接说。</p>
+        </div>
+        <ul class="b-notes">
+          <li class="tx" data-b="你不是冈部。">你不是冈部，是和她一起看的人。</li>
+          <li class="tx" data-b="屏幕里的她，是过去的自己。">屏幕里的红莉栖，她会当作“过去的自己”。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 05 表演 ========== -->
+<section class="sec sec-perform" id="perform" data-name="表演" data-pos="perform">
+  <span class="vtag" aria-hidden="true">表演<small>パフォーマンス</small></span>
+  <div class="wrap">
+    <div class="col col-wide">
+      <p class="kicker" aria-hidden="true"><b>REPORT 05</b><i class="gt"></i><span>PERFORMANCE EVENT</span><span class="k-ts"></span></p>
+      <span class="ghost" aria-hidden="true">SYNC</span>
+      <h2 class="h2 tx" data-b="一份计划，<br>三路<em>回响</em>。">字、声、形，<br>踩在<em>同一拍</em>上。</h2>
+      <p class="chain" aria-label="流程：观察、叙事、边界、导演">
+        <span class="tx" data-b="所见">观察</span><i aria-hidden="true"></i><span class="tx" data-b="所述">叙事</span><i aria-hidden="true"></i><span class="tx" data-b="所限">边界</span><i aria-hidden="true"></i><span class="tx" data-b="所演">导演</span>
+      </p>
+      <div class="trio" role="group" aria-label="点一下，看她演一次">
+        <button class="tri" type="button" data-act="text" aria-label="字：只出字幕"><small class="tri-ch" aria-hidden="true">CH.1 · TEXT</small><em>字</em><b class="tx" data-b="字幕">只出字幕</b><span class="tx" data-b="一句话，逐字出现">一句话，逐字打出来</span><i class="tri-viz" aria-hidden="true"><u></u><u></u><u></u><u></u><u></u><u></u></i><span class="tri-st">待命</span></button>
+        <button class="tri" type="button" data-act="voice" aria-label="声：播放一段原声"><small class="tri-ch" aria-hidden="true">CH.2 · VOICE</small><em>声</em><b class="tx" data-b="原声">原声一段</b><span class="tx" data-b="日语原声 + 口型">日语原声，口型跟着动</span><i class="tri-viz" aria-hidden="true"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></i><span class="tri-st">待命</span></button>
+        <button class="tri" type="button" data-act="form" aria-label="形：表情、动作、字幕与语音一起"><small class="tri-ch" aria-hidden="true">CH.3 · FORM</small><em>形</em><b class="tx" data-b="全套">全套演出</b><span class="tx" data-b="表情 · 动作 · 字幕 · 语音">表情、动作、字幕、语音一起</span><i class="tri-viz" aria-hidden="true"><u></u><u></u><u></u></i><span class="tri-st">待命</span></button>
+      </div>
+      <p class="note tx" data-b="原声取自游戏台词，仅作课堂展示；统一表演仍在开发中。">原声取自游戏台词，仅作课堂展示。产品里的统一表演仍在开发中。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 06 本地（柳林神社） ========== -->
+<section class="sec sec-local" id="local" data-name="本地" data-pos="local">
+  <span class="vtag" aria-hidden="true">本地<small>ローカル</small></span>
+  <div class="wrap">
+    <div class="l-grid">
+      <div class="col">
+        <p class="kicker" aria-hidden="true"><b>REPORT 06</b><i class="gt"></i><span>YANAGIBAYASHI SHRINE</span><span class="k-ts"></span></p>
+        <h2 class="h2 tx" data-b="三层服务，<br>只在<em>本机</em>运转。">三层服务，<br>都在<em>回环地址</em>上。</h2>
+        <p class="p p-aside tx" data-b="IBM 5100 曾藏在神社里。">IBM 5100 藏在柳林神社；Amadeus 的三层服务，默认只在本机上跑。</p>
+        <div class="nodes" id="nodes" role="tablist" aria-label="三层本地服务">
+          <button class="node is-on" type="button" role="tab" aria-selected="true" data-node="fe"><i aria-hidden="true">L1</i><b class="tx" data-b="界面">前端界面</b><code>127.0.0.1:5173</code></button>
+          <button class="node" type="button" role="tab" aria-selected="false" data-node="node"><i aria-hidden="true">L2</i><b class="tx" data-b="网关">本地网关</b><code>127.0.0.1:3002</code></button>
+          <button class="node" type="button" role="tab" aria-selected="false" data-node="py"><i aria-hidden="true">L3</i><b class="tx" data-b="核心">Python 服务</b><code>127.0.0.1:8001</code></button>
+        </div>
+        <ul class="rules">
+          <li class="tx" data-b="不带内置模型服务">不带内置模型服务</li>
+          <li class="tx" data-b="密钥与私有素材不入库">密钥和私有素材不进仓库</li>
+          <li class="tx" data-b="原始截图默认不留存（设计目标）">原始截图默认不留存 <small>设计目标</small></li>
+          <li class="tx" data-b="采集看得见、随时能停（设计目标）">屏幕采集看得见、随时能停 <small>设计目标</small></li>
+        </ul>
+      </div>
+      <div class="prop prop-ibm" id="prop-ibm"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 07 路线 ========== -->
+<section class="sec sec-road" id="road" data-name="路线" data-pos="road">
+  <span class="vtag" aria-hidden="true">路线<small>ロードマップ</small></span>
+  <div class="wrap">
+    <p class="kicker" aria-hidden="true"><b>REPORT 07</b><i class="gt"></i><span>ATTRACTOR FIELD · ROADMAP</span><span class="k-ts"></span></p>
+    <span class="ghost" aria-hidden="true">ROADMAP</span>
+    <h2 class="h2 tx" data-b="线，还在<em>延伸</em>。">世界线，<br>仍在<em>开发中</em>。</h2>
+    <ol class="steps">
+      <li class="st is-done"><i></i><span class="st-no" data-no="00" aria-hidden="true"></span><small class="tx" data-b="已有基础">已有基础</small><u class="stg">阶段 0–6.25</u><b class="tx" data-b="基础">打地基</b><span class="tx" data-b="对话、角色、记忆、语音与屏幕采集的技术基础">对话、角色、记忆、语音和屏幕采集的技术基础</span></li>
+      <li class="st is-current"><i></i><span class="st-no" data-no="06" aria-hidden="true"></span><small class="tx" data-b="开发中">正在做</small><u class="stg">阶段 6 · VN V2</u><b class="tx" data-b="VN 核心">VN 核心</b><span class="tx" data-b="叙事、知识边界与表演仍在整合，完整陪玩体验待验证">叙事理解、知识边界和表演还在整合，完整陪玩体验待验证</span></li>
+      <li class="st"><i></i><span class="st-no" data-no="08" aria-hidden="true"></span><small class="tx" data-b="暂缓">暂缓</small><u class="stg">阶段 8</u><b class="tx" data-b="桌面化">桌面应用</b><span class="tx" data-b="macOS / Windows 的 Electron 应用，目前暂缓">macOS / Windows 的 Electron 应用；已有部分实现，目前暂缓</span></li>
+      <li class="st"><i></i><span class="st-no" data-no="09" aria-hidden="true"></span><small class="tx" data-b="规划">规划中</small><u class="stg">阶段 9</u><b class="tx" data-b="校准">Re:Boot 校准</b><span class="tx" data-b="对齐实际画面与术语">对着实际游戏画面，校准界面与术语</span></li>
+      <li class="st"><i></i><span class="st-no" data-no="10" aria-hidden="true"></span><small class="tx" data-b="规划">规划中</small><u class="stg">阶段 10</u><b class="tx" data-b="发行">验收发行</b><span class="tx" data-b="安装、升级与隐私检查">整体验收，再出候选版本</span></li>
+    </ol>
+    <p class="note tx" data-b="课堂展示页：交互均为示意，不含用户规模或性能数据。">课堂展示页：交互只是示意，没有任何用户规模或性能数据。</p>
+  </div>
+</section>
+
+<!-- ========== 08 终 ========== -->
+<section class="sec sec-outro" id="outro" data-name="终" data-pos="outro">
+  <div class="wrap">
+    <div class="col col-wide">
+      <p class="kicker" aria-hidden="true"><b>REPORT 08</b><i class="gt"></i><span>EL PSY KONGROO</span><span class="k-ts"></span></p>
+      <h2 class="h2 h2-xl tx" data-b="线，<br><em>还没有收束</em>。">实验，<br><em>仍在继续</em>。</h2>
+      <p class="dmail" aria-label="D-mail：收件人，未来的你。项目还没写完，记得回来看看。"><b aria-hidden="true">D-MAIL</b><span aria-hidden="true">TO: 未来的你</span><q class="tx" data-b="这条线还没写完，记得回来。">项目还没写完，记得回来看看。</q></p>
+      <div class="prop prop-dm" id="prop-dm" title="世界线变动率读数仪：点击读数跳变"></div>
+      <div class="cta">
+        <a class="go" href="https://github.com/PerpperQAQ/Amadeus-Resonance" target="_blank" rel="noopener noreferrer"><small aria-hidden="true">SOURCE</small><span>github.com/PerpperQAQ/Amadeus-Resonance</span><i aria-hidden="true">↗</i></a>
+        <button class="up" id="to-top" type="button">回到开头 ↑</button>
+      </div>
+      <p class="credits tx" data-b="《命运石之门》相关美术、角色模型与原声版权属原权利方（©MAGES./Chiyo St. Inc. ©MAGES./NITRO PLUS 等），仅作课堂展示，不对外分发。E-mote SDK © M2 Co., Ltd.。页面设计与代码为作业原创。">《命运石之门》相关美术、角色模型与原声版权属原权利方（©MAGES./Chiyo St. Inc. ©MAGES./NITRO PLUS 等），仅作课堂展示，不对外分发。E-mote SDK © M2 Co., Ltd.。页面设计与代码为作业原创。</p>
+      <p class="credits credits-img">道具图像：IBM 5100 实拍抠图 © <a href="https://commons.wikimedia.org/wiki/File:IBM_5100_-_MfK_Bern.jpg" target="_blank" rel="noopener noreferrer">Sandstein / Wikimedia Commons</a>（CC BY-SA 3.0，衍生图同样以 CC BY-SA 共享）；开屏底图（作者 Amadeus 项目 ready 界面使用的红莉栖近景 CG）、柳林神社 CG、电话微波炉（取自《命运石之门 Re:Boot》官方实验室背景图）与手机（官方界面图）© MAGES./Chiyo St. Inc. ©MAGES./NITRO PLUS 等权利方，仅作课堂展示，不对外分发。详见 ASSETS.md。</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

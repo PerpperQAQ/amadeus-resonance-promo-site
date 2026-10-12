@@ -1,0 +1,40 @@
+{
+  "release": "runtime-assets-r10-v1",
+  "files": [
+    {
+      "path": "models/kurisu_ab.expressions.psb",
+      "bytes": 215126292,
+      "sha256": "9cff277e36477c91e4eef61d616028fd959d1862352aff75871de32acc7404ca"
+    },
+    {
+      "path": "models/kurisu_ab_labcoat.expressions.psb",
+      "bytes": 222572967,
+      "sha256": "45fe7095876a52db28b0880051aaa5b27a1e695b6b990f79e362986650f269c4"
+    },
+    {
+      "path": "vendor/emote/emotedriver.js",
+      "bytes": 1055706,
+      "sha256": "c86f9c1a58042677d5556453604bc5565f949a72fcca042537358e632fa4a0b1"
+    },
+    {
+      "path": "vendor/emote/emoteplayer.js",
+      "bytes": 43614,
+      "sha256": "1707b05bdc9429b40085863a94c64174af24f6c7dff6ebe36680dac8aee3096e"
+    },
+    {
+      "path": "vendor/emote/emote_logo_d2.emtbytes",
+      "bytes": 2118784,
+      "sha256": "4566496db5346cd35ccba7fa41cda2d8107deb8a762bb849dac8ae75c56ef060"
+    },
+    {
+      "path": "audio/kurisu-crs_1897.m4a",
+      "bytes": 183402,
+      "sha256": "fc0531a0109b5f31e96f43508f84911b4c04099915335d40d340c4e7afcd1d1e"
+    },
+    {
+      "path": "audio/kurisu-crs_2148.m4a",
+      "bytes": 90506,
+      "sha256": "25755a8bf5c5996d5eaeddcd3ac478f3da03756218486e83ab746fa2c101956e"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.tmp/
+.preview.pid
+.preview.log
+.playwright-cli/
+output/playwright/
+# E-mote 模型不进入 Git 历史；Owner 授权的 Pages 发布通过 Release 附件恢复
+public/models/*.psb
+public/vendor/emote/
+# 角色原声（版权属原权利方）不进入 Git 历史；Pages 通过 Release 附件恢复
+public/audio/

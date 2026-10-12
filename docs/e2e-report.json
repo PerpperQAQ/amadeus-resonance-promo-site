@@ -1,0 +1,3604 @@
+{
+  "base": "http://127.0.0.1:5287/",
+  "at": "2026-10-12T01:44:09.868Z",
+  "results": {
+    "1920x1080": {
+      "checks": [
+        {
+          "name": "开场动画可见",
+          "pass": true
+        },
+        {
+          "name": "开场：大号读数（8 个位置，细线数字、无玻璃管）、世界线画布存在，且 logo 已就位但数字阶段尚未显示",
+          "pass": true,
+          "extra": {
+            "digits": 8,
+            "wl": true,
+            "glyphs": 7,
+            "glass": 0,
+            "logo": true,
+            "wlW": 1920
+          }
+        },
+        {
+          "name": "数字演出期间点击不会跳过开屏",
+          "pass": true
+        },
+        {
+          "name": "进入按钮默认显示乱码（APL/十六进制），不是台词",
+          "pass": true,
+          "extra": "⍺≤·3⍴⍉·A>⍞⌈⌈⍉∘_"
+        },
+        {
+          "name": "进入按钮位于屏幕下半部（世界线汇聚点附近）",
+          "pass": true,
+          "extra": {
+            "state": "ready",
+            "disabled": false,
+            "txt": "⍺≤·3⍴⍉·A>⍞⌈⌈⍉∘_",
+            "x": 960,
+            "y": 973,
+            "aria": "El Psy Kongroo · 进入",
+            "emote": "ready"
+          }
+        },
+        {
+          "name": "开屏底图：红莉栖 CG（WebP）已加载并作为底图",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 136,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条独立线（起点互不相同、出发时刻各异），从左缘/底缘进入",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 136,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线几何：路径与节点游移均不穿过人物脸部/颈领口/真由理的脸，汇聚点在避让区之外",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 136,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条逐条汇入，各亮闪一次",
+          "pass": true,
+          "extra": 6
+        },
+        {
+          "name": "世界线与数字变动并行播放（数字阶段 run 期间世界线已在生长）",
+          "pass": true,
+          "extra": {
+            "samples": 93,
+            "par": 42,
+            "maxGrowInRun": 0.83
+          }
+        },
+        {
+          "name": "Amadeus logo：数字变动（run）结束之前不可见",
+          "pass": true,
+          "extra": {
+            "run": 50
+          }
+        },
+        {
+          "name": "世界线汇聚在数字锁定前后完成（run 阶段内 grow 已 ≥ 0.9）",
+          "pass": true
+        },
+        {
+          "name": "开屏 Amadeus logo：数字变动结束后出现，位于左上区域，不遮人物脸部/按钮/HUD",
+          "pass": true,
+          "extra": {
+            "L": [
+              61,
+              78,
+              301,
+              181
+            ],
+            "W": 1920,
+            "H": 1080,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "开屏 logo：双齿轮图层存在且缓慢旋转，字标在齿轮上方（不遮字）",
+          "pass": true,
+          "extra": {
+            "L": [
+              61,
+              78,
+              301,
+              181
+            ],
+            "W": 1920,
+            "H": 1080,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "汇聚后世界线仍持续有动态（汇集点周围画面随时间变化）",
+          "pass": true,
+          "extra": {
+            "d12": 60776,
+            "d23": 191898,
+            "frames": 385
+          }
+        },
+        {
+          "name": "世界线默认变体 a（远景线 12 条）",
+          "pass": true,
+          "extra": {
+            "F": 12,
+            "variant": "a"
+          }
+        },
+        {
+          "name": "E-mote 模型加载完成（state=ready）",
+          "pass": true,
+          "extra": "ready"
+        },
+        {
+          "name": "开屏键盘焦点留在入口，背景内容不可操作",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后开屏不会自动结束（等待用户点击）",
+          "pass": true
+        },
+        {
+          "name": "悬停后按钮文字解码为 “El Psy Kongroo”",
+          "pass": true
+        },
+        {
+          "name": "移开后恢复乱码",
+          "pass": true
+        },
+        {
+          "name": "点击按钮后才进入主页（开屏在模型就绪之后、点击之后才结束）",
+          "pass": true
+        },
+        {
+          "name": "点击进入落在首页顶部，背景恢复可操作",
+          "pass": true
+        },
+        {
+          "name": "顶部菜单栏已移除",
+          "pass": true
+        },
+        {
+          "name": "表情面板已移除",
+          "pass": true
+        },
+        {
+          "name": "首屏无辉光管读数",
+          "pass": true
+        },
+        {
+          "name": "世界线节点数 = 章节数",
+          "pass": true,
+          "extra": {
+            "topbar": false,
+            "chips": 0,
+            "nodes": 8,
+            "secs": 8,
+            "hasNixieHero": false,
+            "bgs": 8,
+            "gh": true,
+            "logoGear": 2
+          }
+        },
+        {
+          "name": "每章一张底图（8）",
+          "pass": true
+        },
+        {
+          "name": "道具：IBM 5100 / 微波炉为实拍图并带署名，读数仪为橙色细线数字（7 位）",
+          "pass": true,
+          "extra": {
+            "n": 3,
+            "bad": 0,
+            "ibm": true,
+            "mw": true,
+            "tubes": 7,
+            "credit": true
+          }
+        },
+        {
+          "name": "Logo 双齿轮图层存在",
+          "pass": true
+        },
+        {
+          "name": "Logo 字标在齿轮上方（不遮挡文字）",
+          "pass": true,
+          "extra": {
+            "base": 2,
+            "gear": 1
+          }
+        },
+        {
+          "name": "世界线进度条有绘制内容",
+          "pass": true,
+          "extra": 2393
+        },
+        {
+          "name": "进度条高度压缩到 24–40px、贴底",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "页码为辉光数字（橙色细线数字，两位，无玻璃管）",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "进度条线条近乎笔直（竖向分布 ≤ 34px）",
+          "pass": true,
+          "extra": {
+            "spanPx": 33
+          }
+        },
+        {
+          "name": "世界线从左往右：滚动进度由左向右点亮，线条沿整页宽度水平延伸",
+          "pass": true,
+          "extra": {
+            "h0": 0.075,
+            "h1": 0.925,
+            "span": {
+              "w": 0.8697916666666666,
+              "h": 0.9411764705882353
+            }
+          }
+        },
+        {
+          "name": "节点 1（hero）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "01  序",
+            "sec": "hero",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → what：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 2,
+            "n1": 3,
+            "from": [
+              "calm",
+              "tilt"
+            ],
+            "to": [
+              "shy",
+              "sway"
+            ],
+            "kind": "peek"
+          }
+        },
+        {
+          "name": "节点 2（what）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "02  定位",
+            "sec": "what",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → modes：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 3,
+            "n1": 4,
+            "from": [
+              "shy",
+              "sway"
+            ],
+            "to": [
+              "smile",
+              "tilt"
+            ],
+            "kind": "slide"
+          }
+        },
+        {
+          "name": "节点 3（modes）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "03  双模式",
+            "sec": "modes",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → boundary：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 4,
+            "n1": 5,
+            "from": [
+              "smile",
+              "tilt"
+            ],
+            "to": [
+              "shy",
+              "nod"
+            ],
+            "kind": "iris"
+          }
+        },
+        {
+          "name": "节点 4（boundary）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "04  边界",
+            "sec": "boundary",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → perform：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 5,
+            "n1": 6,
+            "from": [
+              "shy",
+              "nod"
+            ],
+            "to": [
+              "smug",
+              "lean"
+            ],
+            "kind": "push"
+          }
+        },
+        {
+          "name": "节点 5（perform）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "05  表演",
+            "sec": "perform",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → local：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 6,
+            "n1": 7,
+            "from": [
+              "smug",
+              "lean"
+            ],
+            "to": [
+              "surprise",
+              "peek"
+            ],
+            "kind": "cut"
+          }
+        },
+        {
+          "name": "节点 6（local）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "06  本地",
+            "sec": "local",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → road：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 7,
+            "n1": 8,
+            "from": [
+              "surprise",
+              "peek"
+            ],
+            "to": [
+              "calm",
+              "nod"
+            ],
+            "kind": null
+          }
+        },
+        {
+          "name": "节点 7（road）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "07  路线",
+            "sec": "road",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → outro：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 8,
+            "n1": 9,
+            "from": [
+              "calm",
+              "nod"
+            ],
+            "to": [
+              "surprise",
+              "tilt"
+            ],
+            "kind": "iris"
+          }
+        },
+        {
+          "name": "节点 8（outro）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "08  终",
+            "sec": "outro",
+            "top": 0
+          }
+        },
+        {
+          "name": "切换章节会触发表情切换",
+          "pass": true,
+          "extra": {
+            "delta": 7
+          }
+        },
+        {
+          "name": "切章表情/动作序列无连续重复",
+          "pass": true,
+          "extra": [
+            "outro:far:shy/away",
+            "hero:slide:calm/tilt",
+            "what:peek:shy/sway",
+            "modes:slide:smile/tilt",
+            "boundary:iris:shy/nod",
+            "perform:push:smug/lean",
+            "local:cut:surprise/peek",
+            "road:null:calm/nod",
+            "outro:iris:surprise/tilt"
+          ]
+        },
+        {
+          "name": "章节表情有多样性（≥3 种）",
+          "pass": true,
+          "extra": [
+            "表情_普通",
+            "表情_照れる",
+            "表情_笑う",
+            "表情_ニヤニヤ",
+            "表情_驚き00"
+          ]
+        },
+        {
+          "name": "点击人物：表情随机且不连续重复",
+          "pass": true,
+          "extra": [
+            "表情_喜ぶ01",
+            "表情_むっとする",
+            "表情_照れる",
+            "表情_眠そう",
+            "表情_喜ぶ01",
+            "表情_驚き00",
+            "表情_照れる",
+            "表情_怒る"
+          ]
+        },
+        {
+          "name": "同一瞬间连发 12 次点击只触发 ≤2 次切换",
+          "pass": true,
+          "extra": {
+            "burst": 1
+          }
+        },
+        {
+          "name": "连点 24 次被节流且状态正常",
+          "pass": true,
+          "extra": {
+            "delta": 2,
+            "spentMs": 796
+          }
+        },
+        {
+          "name": "人物光环有绘制内容",
+          "pass": true,
+          "extra": 79102
+        },
+        {
+          "name": "自定义指针（齿轮，无拖尾）已启用",
+          "pass": true,
+          "extra": {
+            "on": true,
+            "dot": true,
+            "has": true,
+            "gear": true,
+            "trail": false
+          }
+        },
+        {
+          "name": "人物换场动效：至少出现 3 种不同方式",
+          "pass": true,
+          "extra": {
+            "last": "rise",
+            "used": [
+              "far",
+              "slide",
+              "peek",
+              "iris",
+              "push",
+              "cut",
+              "rise"
+            ],
+            "count": 9,
+            "kinds": [
+              "slide",
+              "push",
+              "rise",
+              "far",
+              "iris",
+              "flip",
+              "peek",
+              "cut"
+            ]
+          }
+        },
+        {
+          "name": "悬停可点击元素：指针展开为齿轮环",
+          "pass": true
+        },
+        {
+          "name": "点击产生涟漪元素",
+          "pass": true
+        },
+        {
+          "name": "VN 面板切换",
+          "pass": true
+        },
+        {
+          "name": "知识边界环可点击切换",
+          "pass": true
+        },
+        {
+          "name": "本地服务节点切换 → IBM 5100 屏幕解码出新内容",
+          "pass": true,
+          "extra": "⍎∊ ⍓⌸ 61 B5 ⌈⍏ A0 8F |⍠⍎ ⍥9 6∆ ∊7 9⍕ ⊖7 74 |⍐F ⍙C D⌽ C⍎ ⍟1 E"
+        },
+        {
+          "name": "世界线变动 #1 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 7847,
+            "world": "b",
+            "shifts": 1,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_困る03"
+          }
+        },
+        {
+          "name": "世界线变动演出分段完整（失稳→空间撕裂→压暗转红→橙色数字跳变→锁定→黑场换线→显现）",
+          "pass": true,
+          "extra": [
+            "glitch",
+            "tear",
+            "dim",
+            "digits",
+            "lock",
+            "swap",
+            "reveal"
+          ]
+        },
+        {
+          "name": "世界线变动 #2 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 7267,
+            "world": "a",
+            "shifts": 2,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_睨む"
+          }
+        },
+        {
+          "name": "世界线变动 #3 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 7617,
+            "world": "b",
+            "shifts": 3,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_普通"
+          }
+        },
+        {
+          "name": "世界线变动 #4 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 6576,
+            "world": "a",
+            "shifts": 4,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_むっとする"
+          }
+        },
+        {
+          "name": "低配降级：lite 模式下变动演出完整、不含 url() 滤镜、结束后无残留",
+          "pass": true,
+          "extra": {
+            "ms": 5771,
+            "mid": {
+              "f": "none",
+              "gh": "has-cursor wl-gh"
+            },
+            "s2": {
+              "lite": true,
+              "ph": [
+                "glitch",
+                "tear",
+                "dim",
+                "digits",
+                "lock",
+                "swap",
+                "reveal"
+              ],
+              "wl": "",
+              "cls": "has-cursor",
+              "ciph": 0
+            }
+          }
+        },
+        {
+          "name": "重复触发计数正确（进行中的重复触发被忽略）",
+          "pass": true,
+          "extra": 5
+        },
+        {
+          "name": "窗口缩放后无横向溢出",
+          "pass": true
+        },
+        {
+          "name": "控制台 / 页面零错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "键盘 Enter 可进入主页",
+          "pass": true
+        },
+        {
+          "name": "模型加载慢：按钮为加载态、不可点、显示加载进度",
+          "pass": true,
+          "extra": {
+            "st": "loading",
+            "dis": true,
+            "note": "⍝ LOADING 10% · 0x1996"
+          }
+        },
+        {
+          "name": "模型加载中：Enter / 点击均不会进入",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后按钮变为可点",
+          "pass": true
+        },
+        {
+          "name": "模型加载失败：按钮降级为可点（offline）",
+          "pass": true,
+          "extra": {
+            "st": "offline",
+            "dis": false
+          }
+        },
+        {
+          "name": "模型加载失败：仍可点击进入主页",
+          "pass": true
+        },
+        {
+          "name": "开屏底图无黑边：7 种窗口比例（含 2560×1440、超宽、竖向）均 cover 满屏",
+          "pass": true,
+          "extra": [
+            {
+              "w": 1920,
+              "h": 1080,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1440,
+              "h": 900,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1280,
+              "h": 720,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1024,
+              "h": 768,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 2560,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 3440,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 800,
+              "h": 1200,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            }
+          ]
+        },
+        {
+          "name": "?wl=b：暖橙高密度变体可预览（远景线 18 条）",
+          "pass": true,
+          "extra": {
+            "F": 18,
+            "variant": "b",
+            "cg": true
+          }
+        },
+        {
+          "name": "CG 底图加载失败：回退到纯黑星图背景，世界线仍在",
+          "pass": true,
+          "extra": {
+            "cg": false,
+            "fail": true,
+            "field": true,
+            "lines": 6,
+            "rects": 0
+          }
+        },
+        {
+          "name": "CG 加载失败后无计时器访问已移除元素的错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "CG 底图加载失败：仍可点击进入主页",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "memMB": 779,
+      "pass": true
+    },
+    "1440x900": {
+      "checks": [
+        {
+          "name": "开场动画可见",
+          "pass": true
+        },
+        {
+          "name": "开场：大号读数（8 个位置，细线数字、无玻璃管）、世界线画布存在，且 logo 已就位但数字阶段尚未显示",
+          "pass": true,
+          "extra": {
+            "digits": 8,
+            "wl": true,
+            "glyphs": 7,
+            "glass": 0,
+            "logo": true,
+            "wlW": 1440
+          }
+        },
+        {
+          "name": "数字演出期间点击不会跳过开屏",
+          "pass": true
+        },
+        {
+          "name": "进入按钮默认显示乱码（APL/十六进制），不是台词",
+          "pass": true,
+          "extra": "⍝⍫·→4⎕·←#⊃⌿⌈&⍒_"
+        },
+        {
+          "name": "进入按钮位于屏幕下半部（世界线汇聚点附近）",
+          "pass": true,
+          "extra": {
+            "state": "ready",
+            "disabled": false,
+            "txt": "⍝⍫·→4⎕·←#⊃⌿⌈&⍒_",
+            "x": 720,
+            "y": 810,
+            "aria": "El Psy Kongroo · 进入",
+            "emote": "ready"
+          }
+        },
+        {
+          "name": "开屏底图：红莉栖 CG（WebP）已加载并作为底图",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 113,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条独立线（起点互不相同、出发时刻各异），从左缘/底缘进入",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 113,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线几何：路径与节点游移均不穿过人物脸部/颈领口/真由理的脸，汇聚点在避让区之外",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 113,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条逐条汇入，各亮闪一次",
+          "pass": true,
+          "extra": 6
+        },
+        {
+          "name": "世界线与数字变动并行播放（数字阶段 run 期间世界线已在生长）",
+          "pass": true,
+          "extra": {
+            "samples": 91,
+            "par": 35,
+            "maxGrowInRun": 0.89
+          }
+        },
+        {
+          "name": "Amadeus logo：数字变动（run）结束之前不可见",
+          "pass": true,
+          "extra": {
+            "run": 56
+          }
+        },
+        {
+          "name": "世界线汇聚在数字锁定前后完成（run 阶段内 grow 已 ≥ 0.9）",
+          "pass": true
+        },
+        {
+          "name": "开屏 Amadeus logo：数字变动结束后出现，位于左上区域，不遮人物脸部/按钮/HUD",
+          "pass": true,
+          "extra": {
+            "L": [
+              46,
+              65,
+              226,
+              142
+            ],
+            "W": 1440,
+            "H": 900,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "开屏 logo：双齿轮图层存在且缓慢旋转，字标在齿轮上方（不遮字）",
+          "pass": true,
+          "extra": {
+            "L": [
+              46,
+              65,
+              226,
+              142
+            ],
+            "W": 1440,
+            "H": 900,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "汇聚后世界线仍持续有动态（汇集点周围画面随时间变化）",
+          "pass": true,
+          "extra": {
+            "d12": 100484,
+            "d23": 20665,
+            "frames": 383
+          }
+        },
+        {
+          "name": "世界线默认变体 a（远景线 12 条）",
+          "pass": true,
+          "extra": {
+            "F": 12,
+            "variant": "a"
+          }
+        },
+        {
+          "name": "E-mote 模型加载完成（state=ready）",
+          "pass": true,
+          "extra": "ready"
+        },
+        {
+          "name": "开屏键盘焦点留在入口，背景内容不可操作",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后开屏不会自动结束（等待用户点击）",
+          "pass": true
+        },
+        {
+          "name": "悬停后按钮文字解码为 “El Psy Kongroo”",
+          "pass": true
+        },
+        {
+          "name": "移开后恢复乱码",
+          "pass": true
+        },
+        {
+          "name": "点击按钮后才进入主页（开屏在模型就绪之后、点击之后才结束）",
+          "pass": true
+        },
+        {
+          "name": "点击进入落在首页顶部，背景恢复可操作",
+          "pass": true
+        },
+        {
+          "name": "顶部菜单栏已移除",
+          "pass": true
+        },
+        {
+          "name": "表情面板已移除",
+          "pass": true
+        },
+        {
+          "name": "首屏无辉光管读数",
+          "pass": true
+        },
+        {
+          "name": "世界线节点数 = 章节数",
+          "pass": true,
+          "extra": {
+            "topbar": false,
+            "chips": 0,
+            "nodes": 8,
+            "secs": 8,
+            "hasNixieHero": false,
+            "bgs": 8,
+            "gh": true,
+            "logoGear": 2
+          }
+        },
+        {
+          "name": "每章一张底图（8）",
+          "pass": true
+        },
+        {
+          "name": "道具：IBM 5100 / 微波炉为实拍图并带署名，读数仪为橙色细线数字（7 位）",
+          "pass": true,
+          "extra": {
+            "n": 3,
+            "bad": 0,
+            "ibm": true,
+            "mw": true,
+            "tubes": 7,
+            "credit": true
+          }
+        },
+        {
+          "name": "Logo 双齿轮图层存在",
+          "pass": true
+        },
+        {
+          "name": "Logo 字标在齿轮上方（不遮挡文字）",
+          "pass": true,
+          "extra": {
+            "base": 2,
+            "gear": 1
+          }
+        },
+        {
+          "name": "世界线进度条有绘制内容",
+          "pass": true,
+          "extra": 1554
+        },
+        {
+          "name": "进度条高度压缩到 24–40px、贴底",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "页码为辉光数字（橙色细线数字，两位，无玻璃管）",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "进度条线条近乎笔直（竖向分布 ≤ 34px）",
+          "pass": true,
+          "extra": {
+            "spanPx": 25
+          }
+        },
+        {
+          "name": "世界线从左往右：滚动进度由左向右点亮，线条沿整页宽度水平延伸",
+          "pass": true,
+          "extra": {
+            "h0": 0.075,
+            "h1": 0.925,
+            "span": {
+              "w": 0.8708333333333333,
+              "h": 0.7058823529411765
+            }
+          }
+        },
+        {
+          "name": "节点 1（hero）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "01  序",
+            "sec": "hero",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → what：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 2,
+            "n1": 3,
+            "from": [
+              "smile",
+              "sway"
+            ],
+            "to": [
+              "pout",
+              "tilt"
+            ],
+            "kind": "peek"
+          }
+        },
+        {
+          "name": "节点 2（what）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "02  定位",
+            "sec": "what",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → modes：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 3,
+            "n1": 4,
+            "from": [
+              "pout",
+              "tilt"
+            ],
+            "to": [
+              "joy",
+              "sway"
+            ],
+            "kind": "slide"
+          }
+        },
+        {
+          "name": "节点 3（modes）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "03  双模式",
+            "sec": "modes",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → boundary：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 4,
+            "n1": 5,
+            "from": [
+              "joy",
+              "sway"
+            ],
+            "to": [
+              "smug",
+              "cross"
+            ],
+            "kind": "iris"
+          }
+        },
+        {
+          "name": "节点 4（boundary）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "04  边界",
+            "sec": "boundary",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → perform：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 5,
+            "n1": 6,
+            "from": [
+              "smug",
+              "cross"
+            ],
+            "to": [
+              "glare",
+              "nod"
+            ],
+            "kind": "push"
+          }
+        },
+        {
+          "name": "节点 5（perform）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "05  表演",
+            "sec": "perform",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → local：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 6,
+            "n1": 7,
+            "from": [
+              "glare",
+              "nod"
+            ],
+            "to": [
+              "surprise",
+              "cross"
+            ],
+            "kind": "cut"
+          }
+        },
+        {
+          "name": "节点 6（local）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "06  本地",
+            "sec": "local",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → road：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 7,
+            "n1": 8,
+            "from": [
+              "surprise",
+              "cross"
+            ],
+            "to": [
+              "calm",
+              "nod"
+            ],
+            "kind": null
+          }
+        },
+        {
+          "name": "节点 7（road）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "07  路线",
+            "sec": "road",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → outro：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 8,
+            "n1": 9,
+            "from": [
+              "calm",
+              "nod"
+            ],
+            "to": [
+              "shy",
+              "tilt"
+            ],
+            "kind": "iris"
+          }
+        },
+        {
+          "name": "节点 8（outro）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "08  终",
+            "sec": "outro",
+            "top": 0
+          }
+        },
+        {
+          "name": "切换章节会触发表情切换",
+          "pass": true,
+          "extra": {
+            "delta": 7
+          }
+        },
+        {
+          "name": "切章表情/动作序列无连续重复",
+          "pass": true,
+          "extra": [
+            "outro:far:shy/tilt",
+            "hero:slide:smile/sway",
+            "what:peek:pout/tilt",
+            "modes:slide:joy/sway",
+            "boundary:iris:smug/cross",
+            "perform:push:glare/nod",
+            "local:cut:surprise/cross",
+            "road:null:calm/nod",
+            "outro:iris:shy/tilt"
+          ]
+        },
+        {
+          "name": "章节表情有多样性（≥3 种）",
+          "pass": true,
+          "extra": [
+            "表情_笑う",
+            "表情_むっとする",
+            "表情_喜ぶ01",
+            "表情_ニヤニヤ",
+            "表情_睨む",
+            "表情_驚き00",
+            "表情_普通",
+            "表情_照れる"
+          ]
+        },
+        {
+          "name": "点击人物：表情随机且不连续重复",
+          "pass": true,
+          "extra": [
+            "表情_照れる",
+            "表情_驚き00",
+            "表情_笑う",
+            "表情_怒る",
+            "表情_照れる",
+            "表情_普通",
+            "表情_睨む",
+            "表情_むっとする"
+          ]
+        },
+        {
+          "name": "同一瞬间连发 12 次点击只触发 ≤2 次切换",
+          "pass": true,
+          "extra": {
+            "burst": 1
+          }
+        },
+        {
+          "name": "连点 24 次被节流且状态正常",
+          "pass": true,
+          "extra": {
+            "delta": 2,
+            "spentMs": 818
+          }
+        },
+        {
+          "name": "人物光环有绘制内容",
+          "pass": true,
+          "extra": 54202
+        },
+        {
+          "name": "自定义指针（齿轮，无拖尾）已启用",
+          "pass": true,
+          "extra": {
+            "on": true,
+            "dot": true,
+            "has": true,
+            "gear": true,
+            "trail": false
+          }
+        },
+        {
+          "name": "人物换场动效：至少出现 3 种不同方式",
+          "pass": true,
+          "extra": {
+            "last": "rise",
+            "used": [
+              "far",
+              "slide",
+              "peek",
+              "iris",
+              "push",
+              "cut",
+              "rise"
+            ],
+            "count": 9,
+            "kinds": [
+              "slide",
+              "push",
+              "rise",
+              "far",
+              "iris",
+              "flip",
+              "peek",
+              "cut"
+            ]
+          }
+        },
+        {
+          "name": "悬停可点击元素：指针展开为齿轮环",
+          "pass": true
+        },
+        {
+          "name": "点击产生涟漪元素",
+          "pass": true
+        },
+        {
+          "name": "VN 面板切换",
+          "pass": true
+        },
+        {
+          "name": "知识边界环可点击切换",
+          "pass": true
+        },
+        {
+          "name": "本地服务节点切换 → IBM 5100 屏幕解码出新内容",
+          "pass": true,
+          "extra": "3⍓ 6⍥ ≥1 4≥ 2⍲ ⍵8 ∇4 |A⌿ ⍘B F1 ⍟D E9 ⍨⍞ ⌈⍗ |⍐⍓ B⍏ ⍫D 13 D∘ ⍒"
+        },
+        {
+          "name": "世界线变动 #1 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5955,
+            "world": "b",
+            "shifts": 1,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_笑う"
+          }
+        },
+        {
+          "name": "世界线变动演出分段完整（失稳→空间撕裂→压暗转红→橙色数字跳变→锁定→黑场换线→显现）",
+          "pass": true,
+          "extra": [
+            "glitch",
+            "tear",
+            "dim",
+            "digits",
+            "lock",
+            "swap",
+            "reveal"
+          ]
+        },
+        {
+          "name": "世界线变动 #2 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5711,
+            "world": "a",
+            "shifts": 2,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_普通"
+          }
+        },
+        {
+          "name": "世界线变动 #3 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5703,
+            "world": "b",
+            "shifts": 3,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_眠そう"
+          }
+        },
+        {
+          "name": "世界线变动 #4 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5676,
+            "world": "a",
+            "shifts": 4,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_照れる"
+          }
+        },
+        {
+          "name": "低配降级：lite 模式下变动演出完整、不含 url() 滤镜、结束后无残留",
+          "pass": true,
+          "extra": {
+            "ms": 5629,
+            "mid": {
+              "f": "none",
+              "gh": "has-cursor wl-gh"
+            },
+            "s2": {
+              "lite": true,
+              "ph": [
+                "glitch",
+                "tear",
+                "dim",
+                "digits",
+                "lock",
+                "swap",
+                "reveal"
+              ],
+              "wl": "",
+              "cls": "has-cursor",
+              "ciph": 0
+            }
+          }
+        },
+        {
+          "name": "重复触发计数正确（进行中的重复触发被忽略）",
+          "pass": true,
+          "extra": 5
+        },
+        {
+          "name": "窗口缩放后无横向溢出",
+          "pass": true
+        },
+        {
+          "name": "控制台 / 页面零错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "键盘 Enter 可进入主页",
+          "pass": true
+        },
+        {
+          "name": "模型加载慢：按钮为加载态、不可点、显示加载进度",
+          "pass": true,
+          "extra": {
+            "st": "loading",
+            "dis": true,
+            "note": "⍝ LOADING 10% · 0x1996"
+          }
+        },
+        {
+          "name": "模型加载中：Enter / 点击均不会进入",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后按钮变为可点",
+          "pass": true
+        },
+        {
+          "name": "模型加载失败：按钮降级为可点（offline）",
+          "pass": true,
+          "extra": {
+            "st": "offline",
+            "dis": false
+          }
+        },
+        {
+          "name": "模型加载失败：仍可点击进入主页",
+          "pass": true
+        },
+        {
+          "name": "开屏底图无黑边：7 种窗口比例（含 2560×1440、超宽、竖向）均 cover 满屏",
+          "pass": true,
+          "extra": [
+            {
+              "w": 1920,
+              "h": 1080,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1440,
+              "h": 900,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1280,
+              "h": 720,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1024,
+              "h": 768,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 2560,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 3440,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 800,
+              "h": 1200,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            }
+          ]
+        },
+        {
+          "name": "?wl=b：暖橙高密度变体可预览（远景线 18 条）",
+          "pass": true,
+          "extra": {
+            "F": 18,
+            "variant": "b",
+            "cg": true
+          }
+        },
+        {
+          "name": "CG 底图加载失败：回退到纯黑星图背景，世界线仍在",
+          "pass": true,
+          "extra": {
+            "cg": false,
+            "fail": true,
+            "field": true,
+            "lines": 6,
+            "rects": 0
+          }
+        },
+        {
+          "name": "CG 加载失败后无计时器访问已移除元素的错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "CG 底图加载失败：仍可点击进入主页",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "memMB": 795,
+      "pass": true
+    },
+    "1280x720": {
+      "checks": [
+        {
+          "name": "开场动画可见",
+          "pass": true
+        },
+        {
+          "name": "开场：大号读数（8 个位置，细线数字、无玻璃管）、世界线画布存在，且 logo 已就位但数字阶段尚未显示",
+          "pass": true,
+          "extra": {
+            "digits": 8,
+            "wl": true,
+            "glyphs": 7,
+            "glass": 0,
+            "logo": true,
+            "wlW": 1280
+          }
+        },
+        {
+          "name": "数字演出期间点击不会跳过开屏",
+          "pass": true
+        },
+        {
+          "name": "进入按钮默认显示乱码（APL/十六进制），不是台词",
+          "pass": true,
+          "extra": "⊤∘·≥⌿∨·×⌹B⌊⍝@⍵_"
+        },
+        {
+          "name": "进入按钮位于屏幕下半部（世界线汇聚点附近）",
+          "pass": true,
+          "extra": {
+            "state": "loading",
+            "disabled": true,
+            "txt": "⊤∘·≥⌿∨·×⌹B⌊⍝@⍵_",
+            "x": 640,
+            "y": 649,
+            "aria": "El Psy Kongroo · 进入",
+            "emote": "loading"
+          }
+        },
+        {
+          "name": "开屏底图：红莉栖 CG（WebP）已加载并作为底图",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 91,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条独立线（起点互不相同、出发时刻各异），从左缘/底缘进入",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 91,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线几何：路径与节点游移均不穿过人物脸部/颈领口/真由理的脸，汇聚点在避让区之外",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 91,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条逐条汇入，各亮闪一次",
+          "pass": true,
+          "extra": 6
+        },
+        {
+          "name": "世界线与数字变动并行播放（数字阶段 run 期间世界线已在生长）",
+          "pass": true,
+          "extra": {
+            "samples": 120,
+            "par": 43,
+            "maxGrowInRun": 0.87
+          }
+        },
+        {
+          "name": "Amadeus logo：数字变动（run）结束之前不可见",
+          "pass": true,
+          "extra": {
+            "run": 60
+          }
+        },
+        {
+          "name": "世界线汇聚在数字锁定前后完成（run 阶段内 grow 已 ≥ 0.9）",
+          "pass": true
+        },
+        {
+          "name": "开屏 Amadeus logo：数字变动结束后出现，位于左上区域，不遮人物脸部/按钮/HUD",
+          "pass": true,
+          "extra": {
+            "L": [
+              41,
+              52,
+              201,
+              121
+            ],
+            "W": 1280,
+            "H": 720,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "开屏 logo：双齿轮图层存在且缓慢旋转，字标在齿轮上方（不遮字）",
+          "pass": true,
+          "extra": {
+            "L": [
+              41,
+              52,
+              201,
+              121
+            ],
+            "W": 1280,
+            "H": 720,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "汇聚后世界线仍持续有动态（汇集点周围画面随时间变化）",
+          "pass": true,
+          "extra": {
+            "d12": 80646,
+            "d23": 110225,
+            "frames": 466
+          }
+        },
+        {
+          "name": "世界线默认变体 a（远景线 12 条）",
+          "pass": true,
+          "extra": {
+            "F": 12,
+            "variant": "a"
+          }
+        },
+        {
+          "name": "模型未就绪：按钮为加载态且不可点",
+          "pass": true,
+          "extra": {
+            "state": "loading",
+            "disabled": true,
+            "txt": "⊤∘·≥⌿∨·×⌹B⌊⍝@⍵_",
+            "x": 640,
+            "y": 649,
+            "aria": "El Psy Kongroo · 进入",
+            "emote": "loading"
+          }
+        },
+        {
+          "name": "模型未就绪：点击/Enter 不会进入主页",
+          "pass": true
+        },
+        {
+          "name": "E-mote 模型加载完成（state=ready）",
+          "pass": true,
+          "extra": "ready"
+        },
+        {
+          "name": "开屏键盘焦点留在入口，背景内容不可操作",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后开屏不会自动结束（等待用户点击）",
+          "pass": true
+        },
+        {
+          "name": "悬停后按钮文字解码为 “El Psy Kongroo”",
+          "pass": true
+        },
+        {
+          "name": "移开后恢复乱码",
+          "pass": true
+        },
+        {
+          "name": "点击按钮后才进入主页（开屏在模型就绪之后、点击之后才结束）",
+          "pass": true
+        },
+        {
+          "name": "点击进入落在首页顶部，背景恢复可操作",
+          "pass": true
+        },
+        {
+          "name": "顶部菜单栏已移除",
+          "pass": true
+        },
+        {
+          "name": "表情面板已移除",
+          "pass": true
+        },
+        {
+          "name": "首屏无辉光管读数",
+          "pass": true
+        },
+        {
+          "name": "世界线节点数 = 章节数",
+          "pass": true,
+          "extra": {
+            "topbar": false,
+            "chips": 0,
+            "nodes": 8,
+            "secs": 8,
+            "hasNixieHero": false,
+            "bgs": 8,
+            "gh": true,
+            "logoGear": 2
+          }
+        },
+        {
+          "name": "每章一张底图（8）",
+          "pass": true
+        },
+        {
+          "name": "道具：IBM 5100 / 微波炉为实拍图并带署名，读数仪为橙色细线数字（7 位）",
+          "pass": true,
+          "extra": {
+            "n": 3,
+            "bad": 0,
+            "ibm": true,
+            "mw": true,
+            "tubes": 7,
+            "credit": true
+          }
+        },
+        {
+          "name": "Logo 双齿轮图层存在",
+          "pass": true
+        },
+        {
+          "name": "Logo 字标在齿轮上方（不遮挡文字）",
+          "pass": true,
+          "extra": {
+            "base": 2,
+            "gear": 1
+          }
+        },
+        {
+          "name": "世界线进度条有绘制内容",
+          "pass": true,
+          "extra": 1201
+        },
+        {
+          "name": "进度条高度压缩到 24–40px、贴底",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "页码为辉光数字（橙色细线数字，两位，无玻璃管）",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "进度条线条近乎笔直（竖向分布 ≤ 34px）",
+          "pass": true,
+          "extra": {
+            "spanPx": 23
+          }
+        },
+        {
+          "name": "世界线从左往右：滚动进度由左向右点亮，线条沿整页宽度水平延伸",
+          "pass": true,
+          "extra": {
+            "h0": 0.075,
+            "h1": 0.911,
+            "span": {
+              "w": 0.8578125,
+              "h": 0.6470588235294118
+            }
+          }
+        },
+        {
+          "name": "节点 1（hero）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "01  序",
+            "sec": "hero",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → what：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 2,
+            "n1": 3,
+            "from": [
+              "sleepy",
+              "nod"
+            ],
+            "to": [
+              "calm",
+              "tilt"
+            ],
+            "kind": "slide"
+          }
+        },
+        {
+          "name": "节点 2（what）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "02  定位",
+            "sec": "what",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → modes：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 3,
+            "n1": 4,
+            "from": [
+              "calm",
+              "tilt"
+            ],
+            "to": [
+              "shy",
+              "sway"
+            ],
+            "kind": "push"
+          }
+        },
+        {
+          "name": "节点 3（modes）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "03  双模式",
+            "sec": "modes",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → boundary：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 4,
+            "n1": 5,
+            "from": [
+              "shy",
+              "sway"
+            ],
+            "to": [
+              "calm",
+              "away"
+            ],
+            "kind": "far"
+          }
+        },
+        {
+          "name": "节点 4（boundary）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "04  边界",
+            "sec": "boundary",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → perform：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 5,
+            "n1": 6,
+            "from": [
+              "calm",
+              "away"
+            ],
+            "to": [
+              "smile",
+              "nod"
+            ],
+            "kind": "flip"
+          }
+        },
+        {
+          "name": "节点 5（perform）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "05  表演",
+            "sec": "perform",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → local：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 6,
+            "n1": 7,
+            "from": [
+              "smile",
+              "nod"
+            ],
+            "to": [
+              "calm",
+              "away"
+            ],
+            "kind": "slide"
+          }
+        },
+        {
+          "name": "节点 6（local）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "06  本地",
+            "sec": "local",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → road：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 7,
+            "n1": 8,
+            "from": [
+              "calm",
+              "away"
+            ],
+            "to": [
+              "shy",
+              "nod"
+            ],
+            "kind": null
+          }
+        },
+        {
+          "name": "节点 7（road）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "07  路线",
+            "sec": "road",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → outro：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 8,
+            "n1": 9,
+            "from": [
+              "shy",
+              "nod"
+            ],
+            "to": [
+              "sleepy",
+              "tilt"
+            ],
+            "kind": "far"
+          }
+        },
+        {
+          "name": "节点 8（outro）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "08  终",
+            "sec": "outro",
+            "top": 0
+          }
+        },
+        {
+          "name": "切换章节会触发表情切换",
+          "pass": true,
+          "extra": {
+            "delta": 7
+          }
+        },
+        {
+          "name": "切章表情/动作序列无连续重复",
+          "pass": true,
+          "extra": [
+            "outro:iris:surprise/tilt",
+            "hero:far:sleepy/nod",
+            "what:slide:calm/tilt",
+            "modes:push:shy/sway",
+            "boundary:far:calm/away",
+            "perform:flip:smile/nod",
+            "local:slide:calm/away",
+            "road:null:shy/nod",
+            "outro:far:sleepy/tilt"
+          ]
+        },
+        {
+          "name": "章节表情有多样性（≥3 种）",
+          "pass": true,
+          "extra": [
+            "表情_眠そう",
+            "表情_普通",
+            "表情_照れる",
+            "表情_笑う"
+          ]
+        },
+        {
+          "name": "点击人物：表情随机且不连续重复",
+          "pass": true,
+          "extra": [
+            "表情_ニヤニヤ",
+            "表情_困る03",
+            "表情_怒る",
+            "表情_ニヤニヤ",
+            "表情_笑う",
+            "表情_照れる",
+            "表情_驚き00",
+            "表情_困る03"
+          ]
+        },
+        {
+          "name": "同一瞬间连发 12 次点击只触发 ≤2 次切换",
+          "pass": true,
+          "extra": {
+            "burst": 1
+          }
+        },
+        {
+          "name": "连点 24 次被节流且状态正常",
+          "pass": true,
+          "extra": {
+            "delta": 2,
+            "spentMs": 503
+          }
+        },
+        {
+          "name": "人物光环有绘制内容",
+          "pass": true,
+          "extra": 33840
+        },
+        {
+          "name": "自定义指针（齿轮，无拖尾）已启用",
+          "pass": true,
+          "extra": {
+            "on": true,
+            "dot": true,
+            "has": true,
+            "gear": true,
+            "trail": false
+          }
+        },
+        {
+          "name": "人物换场动效：至少出现 3 种不同方式",
+          "pass": true,
+          "extra": {
+            "last": "slide",
+            "used": [
+              "iris",
+              "far",
+              "slide",
+              "push",
+              "flip"
+            ],
+            "count": 9,
+            "kinds": [
+              "slide",
+              "push",
+              "rise",
+              "far",
+              "iris",
+              "flip",
+              "peek",
+              "cut"
+            ]
+          }
+        },
+        {
+          "name": "悬停可点击元素：指针展开为齿轮环",
+          "pass": true
+        },
+        {
+          "name": "点击产生涟漪元素",
+          "pass": true
+        },
+        {
+          "name": "VN 面板切换",
+          "pass": true
+        },
+        {
+          "name": "知识边界环可点击切换",
+          "pass": true
+        },
+        {
+          "name": "本地服务节点切换 → IBM 5100 屏幕解码出新内容",
+          "pass": true,
+          "extra": "⍘○ ⍏⍝ ⍵⍝ B4 ⍺⍺ 16 ⍙D |A⍳ 9⍗ C⌊ ⍗0 ≥D ⍣⍬ ∊⍟ |⍘⍺ ⌷E ⌸⍍ 8⍔ 3⍲ 1"
+        },
+        {
+          "name": "世界线变动 #1 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5981,
+            "world": "b",
+            "shifts": 1,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_困る03"
+          }
+        },
+        {
+          "name": "世界线变动演出分段完整（失稳→空间撕裂→压暗转红→橙色数字跳变→锁定→黑场换线→显现）",
+          "pass": true,
+          "extra": [
+            "glitch",
+            "tear",
+            "dim",
+            "digits",
+            "lock",
+            "swap",
+            "reveal"
+          ]
+        },
+        {
+          "name": "世界线变动 #2 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5856,
+            "world": "a",
+            "shifts": 2,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_笑う"
+          }
+        },
+        {
+          "name": "世界线变动 #3 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5902,
+            "world": "b",
+            "shifts": 3,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_困る03"
+          }
+        },
+        {
+          "name": "世界线变动 #4 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5681,
+            "world": "a",
+            "shifts": 4,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_むっとする"
+          }
+        },
+        {
+          "name": "低配降级：lite 模式下变动演出完整、不含 url() 滤镜、结束后无残留",
+          "pass": true,
+          "extra": {
+            "ms": 5742,
+            "mid": {
+              "f": "none",
+              "gh": "has-cursor wl-gh"
+            },
+            "s2": {
+              "lite": true,
+              "ph": [
+                "glitch",
+                "tear",
+                "dim",
+                "digits",
+                "lock",
+                "swap",
+                "reveal"
+              ],
+              "wl": "",
+              "cls": "has-cursor",
+              "ciph": 0
+            }
+          }
+        },
+        {
+          "name": "重复触发计数正确（进行中的重复触发被忽略）",
+          "pass": true,
+          "extra": 5
+        },
+        {
+          "name": "窗口缩放后无横向溢出",
+          "pass": true
+        },
+        {
+          "name": "控制台 / 页面零错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "键盘 Enter 可进入主页",
+          "pass": true
+        },
+        {
+          "name": "模型加载慢：按钮为加载态、不可点、显示加载进度",
+          "pass": true,
+          "extra": {
+            "st": "loading",
+            "dis": true,
+            "note": "⍝ LOADING 10% · 0x1996"
+          }
+        },
+        {
+          "name": "模型加载中：Enter / 点击均不会进入",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后按钮变为可点",
+          "pass": true
+        },
+        {
+          "name": "模型加载失败：按钮降级为可点（offline）",
+          "pass": true,
+          "extra": {
+            "st": "offline",
+            "dis": false
+          }
+        },
+        {
+          "name": "模型加载失败：仍可点击进入主页",
+          "pass": true
+        },
+        {
+          "name": "开屏底图无黑边：7 种窗口比例（含 2560×1440、超宽、竖向）均 cover 满屏",
+          "pass": true,
+          "extra": [
+            {
+              "w": 1920,
+              "h": 1080,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1440,
+              "h": 900,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1280,
+              "h": 720,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1024,
+              "h": 768,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 2560,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 3440,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 800,
+              "h": 1200,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            }
+          ]
+        },
+        {
+          "name": "?wl=b：暖橙高密度变体可预览（远景线 18 条）",
+          "pass": true,
+          "extra": {
+            "F": 18,
+            "variant": "b",
+            "cg": true
+          }
+        },
+        {
+          "name": "CG 底图加载失败：回退到纯黑星图背景，世界线仍在",
+          "pass": true,
+          "extra": {
+            "cg": false,
+            "fail": true,
+            "field": true,
+            "lines": 6,
+            "rects": 0
+          }
+        },
+        {
+          "name": "CG 加载失败后无计时器访问已移除元素的错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "CG 底图加载失败：仍可点击进入主页",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "memMB": 795,
+      "pass": true
+    },
+    "1024x768": {
+      "checks": [
+        {
+          "name": "开场动画可见",
+          "pass": true
+        },
+        {
+          "name": "开场：大号读数（8 个位置，细线数字、无玻璃管）、世界线画布存在，且 logo 已就位但数字阶段尚未显示",
+          "pass": true,
+          "extra": {
+            "digits": 8,
+            "wl": true,
+            "glyphs": 7,
+            "glass": 0,
+            "logo": true,
+            "wlW": 1024
+          }
+        },
+        {
+          "name": "数字演出期间点击不会跳过开屏",
+          "pass": true
+        },
+        {
+          "name": "进入按钮默认显示乱码（APL/十六进制），不是台词",
+          "pass": true,
+          "extra": "∇4·×F*·0⍱⍒⍱7E<_"
+        },
+        {
+          "name": "进入按钮位于屏幕下半部（世界线汇聚点附近）",
+          "pass": true,
+          "extra": {
+            "state": "ready",
+            "disabled": false,
+            "txt": "∇4·×F*·0⍱⍒⍱7E<_",
+            "x": 512,
+            "y": 690,
+            "aria": "El Psy Kongroo · 进入",
+            "emote": "ready"
+          }
+        },
+        {
+          "name": "开屏底图：红莉栖 CG（WebP）已加载并作为底图",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 97,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条独立线（起点互不相同、出发时刻各异），从左缘/底缘进入",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 97,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线几何：路径与节点游移均不穿过人物脸部/颈领口/真由理的脸，汇聚点在避让区之外",
+          "pass": true,
+          "extra": {
+            "cg": true,
+            "bg": true,
+            "cgOn": true,
+            "lines": 6,
+            "rects": 3,
+            "samples": 7272,
+            "bad": 0,
+            "hit": [],
+            "minD": 97,
+            "edge": true,
+            "t0s": 6,
+            "endOut": true,
+            "arrived": 6
+          }
+        },
+        {
+          "name": "开屏世界线：6 条逐条汇入，各亮闪一次",
+          "pass": true,
+          "extra": 6
+        },
+        {
+          "name": "世界线与数字变动并行播放（数字阶段 run 期间世界线已在生长）",
+          "pass": true,
+          "extra": {
+            "samples": 92,
+            "par": 35,
+            "maxGrowInRun": 0.85
+          }
+        },
+        {
+          "name": "Amadeus logo：数字变动（run）结束之前不可见",
+          "pass": true,
+          "extra": {
+            "run": 52
+          }
+        },
+        {
+          "name": "世界线汇聚在数字锁定前后完成（run 阶段内 grow 已 ≥ 0.9）",
+          "pass": true
+        },
+        {
+          "name": "开屏 Amadeus logo：数字变动结束后出现，位于左上区域，不遮人物脸部/按钮/HUD",
+          "pass": true,
+          "extra": {
+            "L": [
+              33,
+              55,
+              183,
+              120
+            ],
+            "W": 1024,
+            "H": 768,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "开屏 logo：双齿轮图层存在且缓慢旋转，字标在齿轮上方（不遮字）",
+          "pass": true,
+          "extra": {
+            "L": [
+              33,
+              55,
+              183,
+              120
+            ],
+            "W": 1024,
+            "H": 768,
+            "topLeft": true,
+            "noFace": true,
+            "noHud": true,
+            "noBtn": true,
+            "imgs": [
+              true,
+              true,
+              true
+            ],
+            "zBase": 2,
+            "zGear": 1,
+            "spin": "spin"
+          }
+        },
+        {
+          "name": "汇聚后世界线仍持续有动态（汇集点周围画面随时间变化）",
+          "pass": true,
+          "extra": {
+            "d12": 66600,
+            "d23": 28623,
+            "frames": 389
+          }
+        },
+        {
+          "name": "世界线默认变体 a（远景线 12 条）",
+          "pass": true,
+          "extra": {
+            "F": 12,
+            "variant": "a"
+          }
+        },
+        {
+          "name": "E-mote 模型加载完成（state=ready）",
+          "pass": true,
+          "extra": "ready"
+        },
+        {
+          "name": "开屏键盘焦点留在入口，背景内容不可操作",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后开屏不会自动结束（等待用户点击）",
+          "pass": true
+        },
+        {
+          "name": "悬停后按钮文字解码为 “El Psy Kongroo”",
+          "pass": true
+        },
+        {
+          "name": "移开后恢复乱码",
+          "pass": true
+        },
+        {
+          "name": "点击按钮后才进入主页（开屏在模型就绪之后、点击之后才结束）",
+          "pass": true
+        },
+        {
+          "name": "点击进入落在首页顶部，背景恢复可操作",
+          "pass": true
+        },
+        {
+          "name": "顶部菜单栏已移除",
+          "pass": true
+        },
+        {
+          "name": "表情面板已移除",
+          "pass": true
+        },
+        {
+          "name": "首屏无辉光管读数",
+          "pass": true
+        },
+        {
+          "name": "世界线节点数 = 章节数",
+          "pass": true,
+          "extra": {
+            "topbar": false,
+            "chips": 0,
+            "nodes": 8,
+            "secs": 8,
+            "hasNixieHero": false,
+            "bgs": 8,
+            "gh": true,
+            "logoGear": 2
+          }
+        },
+        {
+          "name": "每章一张底图（8）",
+          "pass": true
+        },
+        {
+          "name": "道具：IBM 5100 / 微波炉为实拍图并带署名，读数仪为橙色细线数字（7 位）",
+          "pass": true,
+          "extra": {
+            "n": 3,
+            "bad": 0,
+            "ibm": true,
+            "mw": true,
+            "tubes": 7,
+            "credit": true
+          }
+        },
+        {
+          "name": "Logo 双齿轮图层存在",
+          "pass": true
+        },
+        {
+          "name": "Logo 字标在齿轮上方（不遮挡文字）",
+          "pass": true,
+          "extra": {
+            "base": 2,
+            "gear": 1
+          }
+        },
+        {
+          "name": "世界线进度条有绘制内容",
+          "pass": true,
+          "extra": 979
+        },
+        {
+          "name": "进度条高度压缩到 24–40px、贴底",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "页码为辉光数字（橙色细线数字，两位，无玻璃管）",
+          "pass": true,
+          "extra": {
+            "h": 34,
+            "bottom": 0,
+            "digits": 2,
+            "d": [
+              true,
+              true
+            ],
+            "glass": 0,
+            "secNo": 12
+          }
+        },
+        {
+          "name": "进度条线条近乎笔直（竖向分布 ≤ 34px）",
+          "pass": true,
+          "extra": {
+            "spanPx": 24
+          }
+        },
+        {
+          "name": "世界线从左往右：滚动进度由左向右点亮，线条沿整页宽度水平延伸",
+          "pass": true,
+          "extra": {
+            "h0": 0.094,
+            "h1": 0.894,
+            "span": {
+              "w": 0.828125,
+              "h": 0.6470588235294118
+            }
+          }
+        },
+        {
+          "name": "节点 1（hero）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "01  序",
+            "sec": "hero",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → what：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 2,
+            "n1": 3,
+            "from": [
+              "smile",
+              "nod"
+            ],
+            "to": [
+              "calm",
+              "tilt"
+            ],
+            "kind": "far"
+          }
+        },
+        {
+          "name": "节点 2（what）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "02  定位",
+            "sec": "what",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → modes：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 3,
+            "n1": 4,
+            "from": [
+              "calm",
+              "tilt"
+            ],
+            "to": [
+              "smile",
+              "nod"
+            ],
+            "kind": "rise"
+          }
+        },
+        {
+          "name": "节点 3（modes）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "03  双模式",
+            "sec": "modes",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → boundary：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 4,
+            "n1": 5,
+            "from": [
+              "smile",
+              "nod"
+            ],
+            "to": [
+              "glare",
+              "tilt"
+            ],
+            "kind": "far"
+          }
+        },
+        {
+          "name": "节点 4（boundary）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "04  边界",
+            "sec": "boundary",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → perform：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 5,
+            "n1": 6,
+            "from": [
+              "glare",
+              "tilt"
+            ],
+            "to": [
+              "smile",
+              "lean"
+            ],
+            "kind": "push"
+          }
+        },
+        {
+          "name": "节点 5（perform）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "05  表演",
+            "sec": "perform",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → local：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 6,
+            "n1": 7,
+            "from": [
+              "smile",
+              "lean"
+            ],
+            "to": [
+              "worry",
+              "away"
+            ],
+            "kind": "slide"
+          }
+        },
+        {
+          "name": "节点 6（local）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "06  本地",
+            "sec": "local",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → road：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 7,
+            "n1": 8,
+            "from": [
+              "worry",
+              "away"
+            ],
+            "to": [
+              "calm",
+              "nod"
+            ],
+            "kind": null
+          }
+        },
+        {
+          "name": "节点 7（road）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "07  路线",
+            "sec": "road",
+            "top": 0
+          }
+        },
+        {
+          "name": "切章 → outro：触发了新的表情+动作（表情、动作均与上一次不同）",
+          "pass": true,
+          "extra": {
+            "n0": 8,
+            "n1": 9,
+            "from": [
+              "calm",
+              "nod"
+            ],
+            "to": [
+              "smile",
+              "tilt"
+            ],
+            "kind": "iris"
+          }
+        },
+        {
+          "name": "节点 8（outro）：悬停有名称、点击可达",
+          "pass": true,
+          "extra": {
+            "tip": "08  终",
+            "sec": "outro",
+            "top": 0
+          }
+        },
+        {
+          "name": "切换章节会触发表情切换",
+          "pass": true,
+          "extra": {
+            "delta": 7
+          }
+        },
+        {
+          "name": "切章表情/动作序列无连续重复",
+          "pass": true,
+          "extra": [
+            "outro:far:shy/away",
+            "hero:slide:smile/nod",
+            "what:far:calm/tilt",
+            "modes:rise:smile/nod",
+            "boundary:far:glare/tilt",
+            "perform:push:smile/lean",
+            "local:slide:worry/away",
+            "road:null:calm/nod",
+            "outro:iris:smile/tilt"
+          ]
+        },
+        {
+          "name": "章节表情有多样性（≥3 种）",
+          "pass": true,
+          "extra": [
+            "表情_笑う",
+            "表情_普通",
+            "表情_睨む",
+            "表情_困る03"
+          ]
+        },
+        {
+          "name": "点击人物：表情随机且不连续重复",
+          "pass": true,
+          "extra": [
+            "表情_驚き00",
+            "表情_普通",
+            "表情_睨む",
+            "表情_困る03",
+            "表情_眠そう",
+            "表情_照れる",
+            "表情_眠そう",
+            "表情_睨む"
+          ]
+        },
+        {
+          "name": "同一瞬间连发 12 次点击只触发 ≤2 次切换",
+          "pass": true,
+          "extra": {
+            "burst": 1
+          }
+        },
+        {
+          "name": "连点 24 次被节流且状态正常",
+          "pass": true,
+          "extra": {
+            "delta": 2,
+            "spentMs": 763
+          }
+        },
+        {
+          "name": "人物光环有绘制内容",
+          "pass": true,
+          "extra": 37483
+        },
+        {
+          "name": "自定义指针（齿轮，无拖尾）已启用",
+          "pass": true,
+          "extra": {
+            "on": true,
+            "dot": true,
+            "has": true,
+            "gear": true,
+            "trail": false
+          }
+        },
+        {
+          "name": "人物换场动效：至少出现 3 种不同方式",
+          "pass": true,
+          "extra": {
+            "last": "push",
+            "used": [
+              "far",
+              "slide",
+              "rise",
+              "push",
+              "iris"
+            ],
+            "count": 9,
+            "kinds": [
+              "slide",
+              "push",
+              "rise",
+              "far",
+              "iris",
+              "flip",
+              "peek",
+              "cut"
+            ]
+          }
+        },
+        {
+          "name": "悬停可点击元素：指针展开为齿轮环",
+          "pass": true
+        },
+        {
+          "name": "点击产生涟漪元素",
+          "pass": true
+        },
+        {
+          "name": "VN 面板切换",
+          "pass": true
+        },
+        {
+          "name": "知识边界环可点击切换",
+          "pass": true
+        },
+        {
+          "name": "本地服务节点切换 → IBM 5100 屏幕解码出新内容",
+          "pass": true,
+          "extra": "69 DA ⌷5 ≤⌷ ⍓⍱ ⍪6 9B |F⍗ ≤⍠ ⍨⍚ ⍨⍗ 5⍋ ∊⍛ 8⊥ |∘⍤ 7E B○ 68 ⍱0 ⌽"
+        },
+        {
+          "name": "世界线变动 #1 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 6455,
+            "world": "b",
+            "shifts": 1,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_眠そう"
+          }
+        },
+        {
+          "name": "世界线变动演出分段完整（失稳→空间撕裂→压暗转红→橙色数字跳变→锁定→黑场换线→显现）",
+          "pass": true,
+          "extra": [
+            "glitch",
+            "tear",
+            "dim",
+            "digits",
+            "lock",
+            "swap",
+            "reveal"
+          ]
+        },
+        {
+          "name": "世界线变动 #2 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 7102,
+            "world": "a",
+            "shifts": 2,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_驚き00"
+          }
+        },
+        {
+          "name": "世界线变动 #3 → b：完成、文案重组为新文案、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 5948,
+            "world": "b",
+            "shifts": 3,
+            "txt": "另一条世界线，同一个她。"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（alt 白大褂）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "alt",
+            "state": "ready",
+            "cur": "表情_照れる"
+          }
+        },
+        {
+          "name": "世界线变动 #4 → a：完成、文案还原、无残留乱码",
+          "pass": true,
+          "extra": {
+            "ms": 6049,
+            "world": "a",
+            "shifts": 4,
+            "txt": "她在你的本地世界线上"
+          }
+        },
+        {
+          "name": "  └ 模型随世界线切换（ab 外套）且可正常换表情",
+          "pass": true,
+          "extra": {
+            "alias": "ab",
+            "state": "ready",
+            "cur": "表情_むっとする"
+          }
+        },
+        {
+          "name": "低配降级：lite 模式下变动演出完整、不含 url() 滤镜、结束后无残留",
+          "pass": true,
+          "extra": {
+            "ms": 8974,
+            "mid": {
+              "f": "none",
+              "gh": "has-cursor wl-gh"
+            },
+            "s2": {
+              "lite": true,
+              "ph": [
+                "glitch",
+                "tear",
+                "dim",
+                "digits",
+                "lock",
+                "swap",
+                "reveal"
+              ],
+              "wl": "",
+              "cls": "has-cursor",
+              "ciph": 0
+            }
+          }
+        },
+        {
+          "name": "重复触发计数正确（进行中的重复触发被忽略）",
+          "pass": true,
+          "extra": 5
+        },
+        {
+          "name": "窗口缩放后无横向溢出",
+          "pass": true
+        },
+        {
+          "name": "控制台 / 页面零错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "键盘 Enter 可进入主页",
+          "pass": true
+        },
+        {
+          "name": "模型加载慢：按钮为加载态、不可点、显示加载进度",
+          "pass": true,
+          "extra": {
+            "st": "loading",
+            "dis": true,
+            "note": "⍝ LOADING 10% · 0x1996"
+          }
+        },
+        {
+          "name": "模型加载中：Enter / 点击均不会进入",
+          "pass": true
+        },
+        {
+          "name": "模型就绪后按钮变为可点",
+          "pass": true
+        },
+        {
+          "name": "模型加载失败：按钮降级为可点（offline）",
+          "pass": true,
+          "extra": {
+            "st": "offline",
+            "dis": false
+          }
+        },
+        {
+          "name": "模型加载失败：仍可点击进入主页",
+          "pass": true
+        },
+        {
+          "name": "开屏底图无黑边：7 种窗口比例（含 2560×1440、超宽、竖向）均 cover 满屏",
+          "pass": true,
+          "extra": [
+            {
+              "w": 1920,
+              "h": 1080,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1440,
+              "h": 900,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1280,
+              "h": 720,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 1024,
+              "h": 768,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 2560,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 3440,
+              "h": 1440,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            },
+            {
+              "w": 800,
+              "h": 1200,
+              "covers": true,
+              "bars": false,
+              "size": "cover"
+            }
+          ]
+        },
+        {
+          "name": "?wl=b：暖橙高密度变体可预览（远景线 18 条）",
+          "pass": true,
+          "extra": {
+            "F": 18,
+            "variant": "b",
+            "cg": true
+          }
+        },
+        {
+          "name": "CG 底图加载失败：回退到纯黑星图背景，世界线仍在",
+          "pass": true,
+          "extra": {
+            "cg": false,
+            "fail": true,
+            "field": true,
+            "lines": 6,
+            "rects": 0
+          }
+        },
+        {
+          "name": "CG 加载失败后无计时器访问已移除元素的错误",
+          "pass": true,
+          "extra": []
+        },
+        {
+          "name": "CG 底图加载失败：仍可点击进入主页",
+          "pass": true
+        }
+      ],
+      "errors": [],
+      "memMB": 796,
+      "pass": true
+    }
+  }
+}

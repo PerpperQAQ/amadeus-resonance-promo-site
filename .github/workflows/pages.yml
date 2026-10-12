@@ -1,0 +1,47 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: [pages-source]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/configure-pages@v5
+      - name: Restore runtime assets outside Git history
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          RELEASE=$(node -p "JSON.parse(require('node:fs').readFileSync('scripts/pages-assets.json')).release")
+          gh release download "$RELEASE" --pattern runtime-assets.tar.gz --dir "$RUNNER_TEMP/runtime-assets"
+          tar -xzf "$RUNNER_TEMP/runtime-assets/runtime-assets.tar.gz" -C public
+          node scripts/verify-pages-assets.mjs public
+      - run: npm ci
+      - run: npm run build
+      - run: node scripts/verify-pages-assets.mjs dist
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5

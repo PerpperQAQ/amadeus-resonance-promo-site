@@ -1,0 +1,19 @@
+{
+  "name": "amadeus-resonance-promo-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Amadeus-Resonance 课堂展示用纯前端宣传页（Vite + 原生 JS + E-mote WebGL SDK）",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 5287 --strictPort",
+    "build": "vite build",
+    "deploy": "node scripts/publish-pages-source.mjs",
+    "preview": "vite preview --host 127.0.0.1 --port 5287 --strictPort",
+    "fonts": "python3 scripts/build-fonts.py",
+    "test:e2e": "node scripts/e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.64.0",
+    "vite": "^8.3.4"
+  }
+}
