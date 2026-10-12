@@ -6,7 +6,9 @@
 
 以 `94e77f6` 为基线；Owner 明确授权完整效果公开下载，模型、SDK、原声仍不进入 Git 历史。独立仓库、网站地址、自动部署流程和素材版本维护方式统一见 [README 发布说明](README.md#github-pages-发布)。正式工程范围不变。
 
-本轮构建及 7 项大素材的源文件/产物 SHA-256 校验通过；本地按 `/amadeus-resonance-promo-site/` 子路径执行 1440×900 主流程、A→B→A 与 lite 换装，全数通过，控制台错误 0。原始报告：`output/playwright/pages-local/report.json`。线上结果需以成功的 Pages Actions 和实际访问为准。
+本轮构建及 7 项大素材的源文件/产物 SHA-256 校验通过；本地按 `/amadeus-resonance-promo-site/` 子路径执行 1440×900 主流程、A→B→A 与 lite 换装，全数通过，控制台错误 0。原始报告：`output/playwright/pages-local/report.json`。线上结果需以成功的 Pages Actions 和实际访问为准。 线上实测报告保存在 `output/playwright/pages-live/report.json`。
+
+发布时发现 Pages 对 SDK Logo 启用 HTTP gzip，`Content-Length` 为压缩后长度，Fetch 的读取结果却已解压，原加载器因此报 `offset is out of bounds`。`fetchBytes` 现仅在未编码响应中使用该长度预分配；压缩响应交由 Fetch 完整读取。真实 gzip 回归验证解压后 2,118,784 字节与原件 SHA-256 一致，真实人物进入 ready，错误 0；模型与 SDK 原件未改。
 
 ## 项目与边界
 

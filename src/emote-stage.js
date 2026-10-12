@@ -80,7 +80,11 @@ function loadSdk(base) {
 async function fetchBytes(url, onProgress, signal) {
   const res = await fetch(url, { signal });
   if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + url);
-  const total = Number(res.headers.get('content-length')) || 0;
+  // Fetch transparently decodes HTTP compression. Content-Length then describes
+  // wire bytes, not the decoded stream (GitHub Pages gzips the SDK logo/model).
+  const encoding = res.headers.get('content-encoding');
+  const total = !encoding || encoding === 'identity'
+    ? Number(res.headers.get('content-length')) || 0 : 0;
   if (!res.body || !total) {
     const buf = new Uint8Array(await res.arrayBuffer());
     onProgress?.(1);
