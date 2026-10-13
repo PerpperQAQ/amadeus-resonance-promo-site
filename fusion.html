@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amadeus-Resonance · 融合概念稿</title>
+<meta name="description" content="Amadeus-Resonance：本地优先、单用户的牧濑红莉栖 AI 陪伴应用（开发中）。">
+<link rel="icon" href="data:,">
+</head>
+<body data-world="a" data-sec="hero">
+
+<!-- 顶部：黑色导航带，橙字编号页签，齿轮十字分隔 -->
+<header class="nav" id="nav">
+  <div class="nav-bar">
+    <a class="nav-logo" href="#hero" data-go="hero" aria-label="Amadeus-Resonance：回到开头">
+      <svg class="nav-gear" viewBox="-12 -12 24 24" aria-hidden="true"><path d="M-1.6-11h3.2l.6 2.7 2 .9 2.4-1.5 2.3 2.3-1.5 2.4.9 2 2.7.6v3.2l-2.7.6-.9 2 1.5 2.4-2.3 2.3-2.4-1.5-2 .9-.6 2.7h-3.2l-.6-2.7-2-.9-2.4 1.5-2.3-2.3 1.5-2.4-.9-2-2.7-.6v-3.2l2.7-.6.9-2-1.5-2.4 2.3-2.3 2.4 1.5 2-.9z"/><circle r="3.4"/></svg>
+      <b>AMADEUS</b><i>RESONANCE</i>
+    </a>
+    <nav class="tabs" id="tabs" aria-label="章节"></nav>
+    <div class="nav-r">
+      <span class="nav-act">REPORT <b id="act-no">01</b> / 08</span>
+      <span class="nav-wl">WL <b id="wl-read">1.048596</b></span>
+      <span class="clock" id="clock">--:--:--</span>
+    </div>
+  </div>
+  
+</header>
+
+<!-- 右侧：菱形章节导航 -->
+<nav class="rail" id="rail" aria-label="章节进度"></nav>
+
+<!-- 人物：唯一的 E-mote 画布，切章时移到对应章节的分割线上 -->
+<div class="kurisu" id="kurisu">
+  <canvas id="emote-canvas" class="emote" width="900" height="1200" role="img" aria-label="牧濑红莉栖（E-mote 动态模型），点击会换表情"></canvas>
+  <img class="k-fallback" id="k-fallback" src="img/fallback-kurisu.webp" alt="" hidden>
+  <button class="k-hit" id="k-hit" type="button" aria-label="点击红莉栖"></button>
+  <p class="say" id="say" aria-live="polite"><b>KURISU</b><span id="say-t"></span></p>
+</div>
+
+<main>
+<!-- ================= 01 序：纸面（实验报告）｜终端 ================= -->
+<section class="sec hero" id="hero" data-sec="hero" data-n="01">
+  <div class="side side-l" data-on="paper"><div class="grid"></div><div class="gears" data-gears="a"></div></div>
+  <div class="side side-r" data-on="ink"><div class="scanbg"></div><p class="bignum" aria-hidden="true">01</p></div>
+  <svg class="edge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line class="edge-l" x1="0" y1="0" x2="0" y2="100"/></svg>
+  <div class="slot"></div>
+  <div class="scanover" aria-hidden="true"></div>
+
+  <div class="ui ui-l" data-on="paper">
+    <p class="report">LAB REPORT No.001 <i>✠</i> AMADEUS-RESONANCE <i>✠</i> <span class="ts"></span></p>
+    <p class="tags"><span>STATUS · <b>开发中</b></span><span>LOCAL-FIRST</span><span>SINGLE USER</span></p>
+    <h1 class="h"><span>牧濑红莉栖，</span><span>在你的电脑上<em>醒来</em>。</span></h1>
+    <p class="lead">本地优先、单用户的 AI 陪伴应用。日常陪伴与 VN 陪玩，是两种核心模式。</p>
+    <p class="tw" data-tw>THIS BUILD RUNS ON YOUR OWN MACHINE. THE MODEL SERVICE IS YOUR CHOICE. SHE REMEMBERS WHAT YOU CONFIRM.</p>
+    <p class="note note-hero" aria-hidden="true">她不是助手。<br>——是会记得你的人。</p>
+    <ul class="stats">
+      <li><b>2</b><span>核心模式</span></li>
+      <li><b>3</b><span>本地服务</span></li>
+      <li><b>1</b><span>位用户</span></li>
+    </ul>
+    <p class="cta"><button class="btn btn-ink" type="button" data-go="mem">读取记忆 <i>↓</i></button><a class="btn btn-line" href="https://github.com/PerpperQAQ/Amadeus-Resonance" target="_blank" rel="noopener noreferrer">GitHub <i>↗</i></a></p>
+  </div>
+
+  <div class="ui ui-r" data-on="ink">
+    <div class="read">
+      <p class="read-h">AMADEUS TERMINAL <span>· 本页实时</span></p>
+      <p class="nixie" id="nixie">1.048596</p>
+      <dl class="kv">
+        <div><dt>MODEL</dt><dd id="kv-model">kurisu_ab</dd><dd class="st" id="kv-state">LOADING</dd></div>
+        <div><dt>EXPR</dt><dd id="kv-expr">—</dd></div>
+        <div><dt>GAZE</dt><dd id="kv-gaze">+0.00 / +0.00</dd></div>
+        <div><dt>RENDER</dt><dd id="kv-fps">— fps</dd></div>
+        <div><dt>LINK</dt><dd>127.0.0.1 · 网页演示，不连接后端</dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <div class="ticker" aria-hidden="true"><div class="tk" id="tk"></div></div>
+</section>
+
+<!-- ================= 04 记忆：终端｜纸面（实验报告） ================= -->
+<section class="sec mem" id="mem" data-sec="mem" data-n="04">
+  <div class="side side-l" data-on="ink"><div class="scanbg"></div><p class="bignum" aria-hidden="true">04</p></div>
+  <div class="side side-r" data-on="paper"><div class="grid"></div><div class="gears" data-gears="b"></div></div>
+  <svg class="edge" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line class="edge-l" x1="0" y1="0" x2="0" y2="100"/></svg>
+  <div class="slot"></div>
+  <div class="scanover" aria-hidden="true"></div>
+
+  <div class="ui ui-l" data-on="ink">
+    <p class="report">LAB REPORT No.004 <i>✠</i> MEMORY / EPISTEMIC BOUNDARY</p>
+    <h2 class="h"><span>记得你说过的事，</span><span>也知道<em>哪些不该知道</em>。</span></h2>
+    <p class="lead">长期记忆按来源分层；你的记忆与 VN 剧情状态分开存放。</p>
+    <div class="mlog-box">
+      <p class="read-h">MEMORY I/O <span>· 示例记录，非真实数据</span></p>
+      <ol class="mlog" id="mlog"></ol>
+    </div>
+  </div>
+
+  <div class="ui ui-r" data-on="paper">
+    <p class="note note-mem" aria-hidden="true">分清“记得”和“好像见过”。</p>
+    <div class="form">
+      <p class="form-h"><b>SOURCE TIERS</b><span>知识来源 · 点一层读取</span></p>
+      <ul class="tiers" id="tiers" role="listbox" aria-label="四层知识来源">
+        <li role="option" tabindex="0" data-t="0"><i class="box"></i><b>T0</b><span>亲历</span><small>确定的个人记忆</small></li>
+        <li role="option" tabindex="0" data-t="1"><i class="box"></i><b>T1</b><span>所见</span><small>只来自你选定的窗口</small></li>
+        <li role="option" tabindex="0" data-t="2"><i class="box"></i><b>T2</b><span>既视感</span><small>别的世界线，只剩碎片</small></li>
+        <li role="option" tabindex="0" data-t="3"><i class="box"></i><b>T3</b><span>禁区</span><small>未解锁的剧情与作品外资料</small></li>
+      </ul>
+      <div class="detail" id="detail">
+        <figure class="obs" id="obs"><img id="obs-img" alt=""><figcaption id="obs-cap">OBSERVATION FRAME</figcaption><i class="redact">CLASSIFIED<small>禁止读取</small></i></figure>
+        <p class="tw tw-rule" id="rule">SELECT A TIER.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 其余章节：概念稿只做两屏 -->
+<section class="sec rest" id="rest" data-sec="rest">
+  <div class="side side-l" data-on="paper"><div class="grid"></div></div>
+  <div class="rest-in">
+    <p class="report">LAB REPORT No.005 – 008 <i>✠</i> 未建</p>
+    <p class="rest-t">后面的章节还没做。<br>见 <code>docs/CONCEPT_FUSION.md</code> 的章节规划。</p>
+    <button class="btn btn-ink" type="button" data-go="hero">回到开头 <i>↑</i></button>
+  </div>
+</section>
+</main>
+
+<!-- 世界线变动：扫描式转场（读数逐位跳变） -->
+<div class="shift" id="shift" aria-hidden="true"><p class="shift-n" id="shift-n">1.048596</p><p class="shift-t">WORLDLINE SHIFT</p></div>
+
+<p class="credit">E-mote © M2 Co., Ltd. · 概念稿</p>
+<script type="module" src="/src/fusion.js"></script>
+</body>
+</html>

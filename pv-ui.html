@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amadeus Resonance · 记忆 · UI 语言对照</title>
+<link rel="icon" href="data:,">
+</head>
+<body data-ui="card">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="mis"><feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0" result="r"/><feOffset in="r" dx="2" result="ro"/><feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="g"/><feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="b"/><feOffset in="b" dx="-2" result="bo"/><feBlend in="ro" in2="g" mode="screen" result="rg"/><feBlend in="rg" in2="bo" mode="screen"/></filter>
+  <filter id="marker"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="5"/></filter>
+</svg>
+
+<main class="stage" id="stage">
+  <figure class="bg"><img src="img/cinema/stage-lab.webp" alt="未来道具研究所（原作背景）" data-lens></figure>
+  <div class="actor" id="actor"><canvas id="emote-canvas" width="720" height="960" aria-label="牧濑红莉栖（E-mote）"></canvas><img id="fallback" src="img/fallback-kurisu.webp" alt="牧濑红莉栖" hidden></div>
+
+  <!-- A · 纸卡 -->
+  <section class="ui ui-card" data-v="card" aria-label="A 纸卡">
+    <header class="ttl"><b class="jp">記憶領域のアーカイブ</b><small>记忆</small></header>
+    <h1 class="hl"><span>记住你这件事，</span><span>你来决定我怎么做。</span></h1>
+    <div class="row">
+      <button class="pc" data-mem="mem0" data-tip="観測"><b>Mem0</b><i class="stp">推荐</i></button>
+      <button class="pc" data-mem="local" data-tip="観測"><b>本地</b><i class="stp">本机</i></button>
+      <button class="pc" data-mem="off" data-tip="観測"><b>关闭</b><i class="stp">不记</i></button>
+    </div>
+    <div class="drw">
+      <button class="pc dr" data-drawer="us" data-tip="開く"><img src="img/pv/mem-story.webp" alt="" data-lens><b>你和我</b></button>
+      <button class="pc dr" data-drawer="story" data-tip="開く"><img src="img/cinema/mem-lab-obs.webp" alt="" data-lens><b>看过的故事</b></button>
+      <button class="sq" data-eject data-tip="切断" aria-label="断开">⏏</button>
+    </div>
+    <p class="say" data-say><span class="you"></span><span class="her"></span></p>
+  </section>
+
+  <!-- B · 辉光管 -->
+  <section class="ui ui-nixie" data-v="nixie" aria-label="B 辉光管">
+    <header class="ttl"><b class="jp">記憶領域のアーカイブ</b><small>记忆</small></header>
+    <h1 class="hl"><span>记住你这件事，</span><span>你来决定我怎么做。</span></h1>
+    <div class="rig">
+      <div class="tubes" id="tubes" data-lens-dom>
+        <i class="tube"><b></b></i><i class="tube"><b></b></i><i class="tube dot"><b></b></i><i class="tube"><b></b></i><i class="tube"><b></b></i>
+      </div>
+      <div class="plates">
+        <button class="plate" data-mem="mem0" data-tip="観測"><span>MEM0</span><small>推荐</small></button>
+        <button class="plate" data-mem="local" data-tip="観測"><span>本地</span><small>LOCAL</small></button>
+        <button class="plate" data-mem="off" data-tip="観測"><span>关闭</span><small>OFF</small></button>
+        <button class="plate red" data-eject data-tip="切断"><span>⏏ 断开</span></button>
+      </div>
+      <div class="plates two">
+        <button class="plate dr" data-drawer="us" data-tip="開く"><i class="lamp"></i><span>你和我</span></button>
+        <button class="plate dr" data-drawer="story" data-tip="開く"><i class="lamp"></i><span>看过的故事</span></button>
+      </div>
+    </div>
+    <p class="say" data-say><span class="you"></span><span class="her"></span></p>
+  </section>
+
+  <!-- C · 翻盖手机 -->
+  <section class="ui ui-phone" data-v="phone" aria-label="C 翻盖手机">
+    <header class="ttl"><b class="jp">記憶領域のアーカイブ</b><small>记忆</small></header>
+    <h1 class="hl"><span>记住你这件事，</span><span>你来决定我怎么做。</span></h1>
+    <div class="phone">
+      <div class="lid"><i class="spk"></i>
+        <div class="scr" id="scr" data-lens-dom>
+          <div class="sb"><span class="ant" id="ant"><i></i><i></i><i></i></span><span class="clk">10:24</span><span class="bat"></span></div>
+          <div class="pane menu" id="menu">
+            <p class="h">記憶設定</p>
+            <button data-mem="mem0" data-tip="選択">1 Mem0<em>推荐</em></button>
+            <button data-mem="local" data-tip="選択">2 本地</button>
+            <button data-mem="off" data-tip="選択">3 关闭</button>
+            <p class="h">フォルダ</p>
+            <button data-drawer="us" data-tip="開く">▸ 你和我</button>
+            <button data-drawer="story" data-tip="開く">▸ 看过的故事</button>
+          </div>
+          <div class="pane mail" id="mail" data-say><span class="you"></span><span class="her"></span><p class="sending" id="sending">送信中…</p></div>
+          <p class="kengai" id="kengai">圏外</p>
+        </div>
+      </div>
+      <div class="hinge"></div>
+      <div class="base">
+        <div class="keys">
+          <button class="k" data-mem="mem0" data-tip="押す">1</button><button class="k" data-mem="local" data-tip="押す">2</button><button class="k" data-mem="off" data-tip="押す">3</button>
+          <i class="k">4</i><i class="k">5</i><i class="k">6</i><i class="k">7</i><i class="k">8</i><i class="k">9</i>
+          <i class="k">＊</i><i class="k">0</i><button class="k red" data-eject data-tip="切断">⏏</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D · 研究所白板 -->
+  <section class="ui ui-lab" data-v="lab" aria-label="D 研究所白板">
+    <div class="board" data-lens-dom>
+      <span class="tape">未来ガジェット No.8　記憶領域のアーカイブ<small>　记忆</small></span>
+      <h1 class="hl"><span>记住你这件事，</span><span>你来决定我怎么做。</span></h1>
+      <div class="notes">
+        <button class="note y" data-mem="mem0" data-tip="観測">Mem0<small>（推荐）</small><svg class="ring" viewBox="0 0 120 80"><path d="M14 44 C10 14 104 8 108 38 C112 66 26 76 16 52 C12 40 30 22 60 20"/></svg></button>
+        <button class="note p" data-mem="local" data-tip="観測">本地<svg class="ring" viewBox="0 0 120 80"><path d="M14 44 C10 14 104 8 108 38 C112 66 26 76 16 52 C12 40 30 22 60 20"/></svg></button>
+        <button class="note b" data-mem="off" data-tip="観測">关闭<svg class="ring" viewBox="0 0 120 80"><path d="M14 44 C10 14 104 8 108 38 C112 66 26 76 16 52 C12 40 30 22 60 20"/></svg></button>
+      </div>
+      <svg class="arrow" viewBox="0 0 200 120"><path d="M10 10 C70 20 120 50 170 100 M150 98 L172 102 L166 80"/></svg>
+      <div class="polas">
+        <button class="pola" data-drawer="us" data-tip="開く"><img src="img/pv/mem-story.webp" alt="" data-lens><b>你和我</b></button>
+        <button class="pola" data-drawer="story" data-tip="開く"><img src="img/cinema/mem-lab-obs.webp" alt="" data-lens><b>看过的故事</b></button>
+      </div>
+      <button class="sticker" data-eject data-tip="切断">⏏ 断开</button>
+    </div>
+    <p class="say" data-say><span class="you"></span><span class="her"></span></p>
+  </section>
+
+  <nav class="switch" aria-label="UI 语言">
+    <button data-ui="card" title="纸卡">A</button><button data-ui="nixie" title="辉光管">B</button><button data-ui="phone" title="翻盖手机">C</button><button data-ui="lab" title="研究所白板">D</button>
+  </nav>
+  <p class="corner">表情为演示编排</p>
+</main>
+<div class="cur" id="cur" aria-hidden="true"><i class="lens" id="lens"></i><b class="tip" id="tip"></b></div>
+<script type="module" src="/src/pv-ui/pv-ui.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amadeus-Resonance · 剧场概念稿</title>
+<meta name="description" content="Amadeus-Resonance：本地优先、单用户的牧濑红莉栖 AI 陪伴应用（开发中）。">
+<link rel="icon" href="data:,">
+</head>
+<body data-world="a" data-sec="hero">
+
+<!-- 加载：暗屏 + 转动的齿轮（项目标志里的齿轮图） -->
+<div class="loader" id="loader" aria-hidden="true"><img src="img/logo-gear-major.webp" alt=""></div>
+
+<!-- 唯一的固定导航：右上角两个黑块 -->
+<div class="ctl" id="ctl">
+  <button class="blk" id="b-menu" type="button" aria-expanded="false" aria-controls="menu" aria-label="打开目录"><i class="burger" aria-hidden="true"><b></b><b></b><b></b></i></button>
+  <button class="blk" id="b-world" type="button" aria-label="切换世界线（D）" title="世界线（D）"><span id="b-world-t">α</span></button>
+</div>
+
+<nav class="menu" id="menu" aria-label="目录" hidden>
+  <ul>
+    <li><a href="#hero" data-jump="hero"><b>PROLOGUE</b><span>序 章</span></a></li>
+    <li><a href="#mem" data-jump="mem"><b>MEMORY</b><span>记 忆</span></a></li>
+    <li><a href="#her" data-jump="her"><b>KURISU</b><span>牧 濑 红 莉 栖</span></a></li>
+  </ul>
+</nav>
+
+<!-- 她的台词：屏幕下方的黑底字幕条 -->
+<p class="line" id="line" aria-live="polite"><span class="cap-line"><span class="txt" id="line-t"></span></span></p>
+<div class="subt" id="subt" hidden aria-live="polite"><p class="subt-jp"></p><p class="subt-zh"></p></div>
+
+<a class="totop blk" id="totop" href="#hero" aria-label="回到顶部">↑</a>
+
+<div class="kurisu" id="kurisu">
+  <canvas id="emote-canvas" class="emote" width="900" height="1200" role="img" aria-label="牧濑红莉栖（E-mote 动态模型）"></canvas>
+  <img class="k-fallback" id="k-fallback" src="img/fallback-kurisu.webp" alt="" hidden>
+</div>
+
+<main id="main">
+  <!-- 01 序 -->
+  <section class="sc hero" id="hero" data-sec="hero" aria-label="序">
+    <figure class="plate plate-kv" id="kv"><img id="kv-img" src="img/cinema/kv-ghost-obs.webp" alt=""></figure>
+    <div class="slot"></div>
+    <p class="secname secname-hero"><b data-scramble>PROLOGUE</b><span>序 章</span></p>
+    <div class="copy">
+      <img class="logo" src="img/logo-amadeus-resonance.webp" alt="Amadeus Resonance">
+      <h1 class="h cap" data-reveal><span class="cap-line"><span class="txt"><ruby>她<rt>Amadeus</rt></ruby>在你的<ruby>本机<rt>世界线</rt></ruby>上，</span></span><br><span class="cap-line"><span class="txt">醒来。</span></span></h1>
+      <p class="s">本地优先、只属于你一个人的牧濑红莉栖 AI 陪伴。开发中。</p>
+    </div>
+  </section>
+
+  <!-- 02 记忆：画廊 -->
+  <section class="sc mem" id="mem" data-sec="mem" aria-label="记忆">
+    <figure class="plate plate-mem" id="gal"><img class="g0 on" alt=""><img class="g1" alt=""></figure>
+    <div class="slot"></div>
+    <div class="copy">
+      <p class="secname"><b data-scramble>MEMORY</b><span>记 忆</span></p>
+      <h2 class="h cap" data-reveal><span class="cap-line"><span class="txt">她只<ruby>记得<rt>观测</rt></ruby>，</span></span><br><span class="cap-line"><span class="txt">亲历过的事。</span></span></h2>
+      <p class="s">没经历过的，她不会装作知道。</p>
+    </div>
+    <ul class="frags" id="frags" aria-label="记忆片段">
+      <li><button type="button" data-f="0" aria-pressed="true"><img src="img/cinema/mem-rooftop-obs.webp" alt=""><span>屋顶 · 一起经历过</span></button></li>
+      <li><button type="button" data-f="1" aria-pressed="false"><img src="img/cinema/mem-lab-obs.webp" alt=""><span>实验室 · 她自己的记忆</span></button></li>
+      <li><button type="button" data-f="2" aria-pressed="false"><img src="img/cinema/mem-radiokan-obs.webp" alt=""><span>人工卫星 · 似曾相识</span></button></li>
+      <li><button type="button" data-f="3" aria-pressed="false" class="sealed"><img src="img/cinema/mem-meter-obs.webp" alt=""><span>另一条世界线 · 她没经历过</span></button></li>
+    </ul>
+  </section>
+
+  <!-- 03 她：人物区（模型在左，标题在右，下方一排状态缩略图） -->
+  <section class="sc her" id="her" data-sec="her" aria-label="牧濑红莉栖">
+    <figure class="plate plate-stage"><img src="img/cinema/stage-lab-obs.webp" alt=""></figure>
+    <div class="slot"></div>
+    <div class="copy">
+      <p class="secname"><b data-scramble>KURISU</b><span>牧 濑 红 莉 栖</span></p>
+      <h2 class="h cap" data-reveal><span class="cap-line"><span class="txt">她不是<ruby>助手<rt>Assistant</rt></ruby>。</span></span><br><span class="cap-line"><span class="txt">是会回应你的人。</span></span></h2>
+      <p class="s" id="state-name">平静</p>
+      <div class="states">
+        <button class="blk arrow" id="st-prev" type="button" aria-label="上一个状态">←</button>
+        <ul class="thumbs" id="thumbs" aria-label="状态"></ul>
+        <button class="blk arrow" id="st-next" type="button" aria-label="下一个状态">→</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="/src/cinema.js"></script>
+</body>
+</html>

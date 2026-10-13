@@ -1,5 +1,5 @@
 {
-  "release": "runtime-assets-r10-v1",
+  "release": "runtime-assets-pv-ab-v2",
   "files": [
     {
       "path": "models/kurisu_ab.expressions.psb",
@@ -35,6 +35,26 @@
       "path": "audio/kurisu-crs_2148.m4a",
       "bytes": 90506,
       "sha256": "25755a8bf5c5996d5eaeddcd3ac478f3da03756218486e83ab746fa2c101956e"
+    },
+    {
+      "path": "models/kurisu_ab.lite.v2.psbz",
+      "bytes": 13612661,
+      "sha256": "60f80a4becc2ad67d277b107201f17a2d18e33f9032bd2710b7f29205a410842"
+    },
+    {
+      "path": "models/kurisu_ab_labcoat.lite.v2.psbz",
+      "bytes": 12961079,
+      "sha256": "c8a70dd4951954beb075a42f03e12afb721d17f0471168f01a9895cbbe019fd6"
+    },
+    {
+      "path": "models/kurisu_ab.poster.v2.webp",
+      "bytes": 32064,
+      "sha256": "3a3a6484191867a5905ccf0ffa227333d9f138fbc9e2bcb18a74b8f5d246a372"
+    },
+    {
+      "path": "models/kurisu_ab_labcoat.poster.v2.webp",
+      "bytes": 29982,
+      "sha256": "eef64b4dd51c6170de55bd552ebc4f6e9d1f53197ffb91e8c53b5717d4201cd9"
     }
   ]
 }

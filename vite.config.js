@@ -3,5 +3,5 @@ export default defineConfig({
   base: './',
   server: { host: '127.0.0.1', port: 5287, strictPort: true },
   preview: { host: '127.0.0.1', port: 5287, strictPort: true },
-  build: { target: 'es2020', chunkSizeWarningLimit: 1500 },
+  build: { target: 'es2020', chunkSizeWarningLimit: 1500, rollupOptions: { input: { main: 'index.html', previewAlias: 'pv-ab.html' } } },
 });

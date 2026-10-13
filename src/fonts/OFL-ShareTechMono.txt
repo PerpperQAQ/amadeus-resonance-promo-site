@@ -1,0 +1,6 @@
+Copyright 2012 the Share Tech Mono Project Authors (https://github.com/danhhong/ShareTechMono)
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is also available with a FAQ at: https://scripts.sil.org/OFL
+
+Font file in this repo: ar-mono.woff2 (subset), used by pv-ab hero=c2 as "PV Mono".

@@ -14,10 +14,17 @@ const DRIVER = 'vendor/emote/emotedriver.js';
 const PLAYER = 'vendor/emote/emoteplayer.js';
 const LOGO = 'vendor/emote/emote_logo_d2.emtbytes';
 // 可切换的模型（同一套 E-mote 骨架/时间线，服装与立绘不同）。目录 JSON 复用 kurisu_ab 的（切换后会校验时间线标签是否齐全）。
+// 轻量版：scripts/model-lite.py 生成（RGBA4444 + 抖动 + gzip，约 7 MB）。重新生成时把版本号 +1，旧缓存会被清掉。
+import { installGlStateCache, installMipmaps } from './gl-state-cache.js';
+export const LITE_VERSION = 2;
 export const MODELS = {
-  ab: { psb: 'models/kurisu_ab.expressions.psb', label: 'kurisu_ab' },
-  alt: { psb: 'models/kurisu_ab_labcoat.expressions.psb', label: 'kurisu_ab_labcoat' },
+  ab: { psb: 'models/kurisu_ab.expressions.psb', lite: `models/kurisu_ab.lite.v${LITE_VERSION}.psbz`, poster: `models/kurisu_ab.poster.v${LITE_VERSION}.webp`, label: 'kurisu_ab' },
+  alt: { psb: 'models/kurisu_ab_labcoat.expressions.psb', lite: `models/kurisu_ab_labcoat.lite.v${LITE_VERSION}.psbz`, poster: `models/kurisu_ab_labcoat.poster.v${LITE_VERSION}.webp`, label: 'kurisu_ab_labcoat' },
 };
+// QA：?lite=0 读原始 .psb，?lite=N 读指定版本的轻量模型
+{ const qv = new URLSearchParams(globalThis.location?.search || '').get('lite');
+  if (qv !== null && /^\d+$/.test(qv)) for (const m of Object.values(MODELS)) m.lite = qv === '0' ? null : m.lite.replace(/\.v\d+\./, `.v${qv}.`); }
+const MODEL_CACHE = 'emote-models';
 const CATALOG = 'models/kurisu_ab-catalog.json';
 
 // 画布基准尺寸（与 SDK 渲染画布一致）。实际像素 = 基准 × 分辨率系数 k。
@@ -43,9 +50,28 @@ const MOTIONS = {
   away:  [{ to: { head_LR: -100, body_LR: -60, head_UD: -30 }, ms: 520, hold: 1000 }, { to: Z, ms: 800 }],
   peek:  [{ to: { head_slant: -90, body_LR: 80, head_LR: 40 }, ms: 560, hold: 700 }, { to: { head_slant: 40, body_LR: 20 }, ms: 500 }, { to: Z, ms: 700 }],
   cross: [{ to: { body_UD: 30, head_UD: 20 }, set: { arm_type: 1 }, ms: 380, hold: 2600 }, { to: Z, set: { arm_type: 0 }, ms: 500 }],
+  think: [{ to: { head_slant: -70, head_UD: 30, head_LR: -30 }, set: { arm_type: 1 }, ms: 600, hold: 1600 }, { to: Z, set: { arm_type: 0 }, ms: 700 }],
+  shrug: [{ to: { body_UD: -60, head_slant: 45, body_slant: -30 }, ms: 380, hold: 500 }, { to: Z, ms: 600 }],
+  bow: [{ to: { body_UD: 100, head_UD: 100 }, ms: 700, hold: 600 }, { to: Z, ms: 800 }],
 };
 let sdkPromise = null;
 const sdkState = { device: null, onDevice: null, onStop: null };
+const STAGES = new Set();
+const TICK = { live: new Set(), raf: 0, last: null, vtime: 0, cost: [], n: 0 };
+export const emoteTicker = TICK;  // 调试/QA：TICK.cost = 最近 600 帧 drawAnimation 耗时（ms）
+function tick(t) {
+  TICK.raf = 0;
+  const dev = sdkState.device;
+  if (!dev || document.hidden || !TICK.live.size) { TICK.last = null; return; }
+  if (TICK.last !== null) TICK.vtime += Math.min(t - TICK.last, 100);
+  TICK.last = t; TICK.n++;
+  // 降频实例（every>1，如背景剪影）：只在每 every 帧中的一帧参与绘制，其余帧保持上一帧画面
+  for (const s of TICK.live) { if (s.every > 1) s._setHidden(TICK.n % s.every !== 0); else if (s._hid) s._setHidden(false); }
+  const c0 = performance.now();
+  try { dev.drawAnimation(TICK.vtime); TICK.cost.push(performance.now() - c0); TICK.at = c0; if (TICK.cost.length > 600) TICK.cost.shift(); for (const s of TICK.live) s.stats.frames++; }
+  catch (e) { for (const s of [...TICK.live]) { s.state = 'error'; s._cancelRaf(); s._emit('error', { message: String(e?.message || e) }); } return; }
+  TICK.raf = requestAnimationFrame(tick);
+}
 
 function loadScript(src) {
   return new Promise((resolve, reject) => {
@@ -77,9 +103,46 @@ function loadSdk(base) {
   return sdkPromise;
 }
 
+/**
+ * 取模型字节：优先轻量版（Cache Storage 命中即秒开；否则下载 .psbz 并写入缓存），
+ * 用 DecompressionStream('gzip') 解压；不支持、404 或解压失败时回退原始 .psb。
+ * 若服务器已透明解码（收到的已是 PSB 头），直接使用。
+ */
+export async function fetchModelBytes(base, model, onProgress, signal) {
+  if (model.lite && typeof DecompressionStream === 'function') {
+    try { return await fetchLite(new URL(base + model.lite, location.href).href, onProgress, signal); }
+    catch (err) { if (err?.name === 'AbortError') throw err; console.warn('[emote] 轻量模型不可用，回退原始 PSB：', err?.message || err); }
+  }
+  return fetchBytes(base + model.psb, onProgress, signal);
+}
+async function fetchLite(url, onProgress, signal) {
+  let cache = null;
+  try { cache = await caches.open(MODEL_CACHE); } catch { cache = null; }
+  let res = cache ? await cache.match(url) : null;
+  if (!res) {
+    res = await fetch(url, { signal });
+    if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + url);
+    if (cache) {
+      const copy = res.clone();
+      cache.put(url, copy).then(() => pruneCache(cache, url)).catch(() => {});
+    }
+  }
+  const bytes = await readBytes(res, onProgress, url);
+  const isGzip = bytes[0] === 0x1f && bytes[1] === 0x8b;
+  const out = isGzip ? new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))).arrayBuffer()) : bytes;
+  if (!(out[0] === 0x50 && out[1] === 0x53 && out[2] === 0x42)) throw new Error('轻量模型格式不对');
+  return out;
+}
+async function pruneCache(cache, keep) {
+  for (const req of await cache.keys()) if (req.url !== keep && /\.lite\.v\d+\.psbz$/.test(req.url) && !req.url.includes(`.lite.v${LITE_VERSION}.`)) cache.delete(req);
+}
+
 async function fetchBytes(url, onProgress, signal) {
   const res = await fetch(url, { signal });
   if (!res.ok) throw new Error('HTTP ' + res.status + ' ' + url);
+  return readBytes(res, onProgress, url);
+}
+async function readBytes(res, onProgress, url) {
   // Fetch transparently decodes HTTP compression. Content-Length then describes
   // wire bytes, not the decoded stream (GitHub Pages gzips the SDK logo/model).
   const encoding = res.headers.get('content-encoding');
@@ -110,9 +173,10 @@ const sleep = (ms, signal) => new Promise((resolve, reject) => {
 });
 
 export class EmoteStage extends EventTarget {
-  constructor({ canvas, base = './', resolution = 1.25, minLogoMs = 2600, view = {} }) {
+  constructor({ canvas, base = './', resolution = 1.25, minLogoMs = 2600, view = {}, poster = true }) {
     super();
     this.canvas = canvas;
+    this.posterOn = poster;
     this.base = base;
     this.k = resolution;
     this.minLogoMs = minLogoMs;
@@ -120,6 +184,7 @@ export class EmoteStage extends EventTarget {
     this.viewNow = { ...this.view };   // 当前实际视图（可被 setView 缓动）
     this.viewTween = null;
     this.alias = 'ab';
+    this.every = 1;   // 每几帧渲染一次（1 = 每帧）
     this.swapping = false;
     this.eyeVal = 0; this.eyeTarget = 0; this.eyeRate = 1; this.eyeT = 0;   // 0=睁开 1=闭上（用于开场“睁眼”）
     this.state = 'idle'; // idle | loading | ready | released | error
@@ -144,17 +209,45 @@ export class EmoteStage extends EventTarget {
     this.loadPromise = null;
     this.abort = null;
     this.gen = 0;
-    this._onVis = () => { this._updateLoop(); };
+    this._onVis = () => { this._updateLoop(); if (!document.hidden && TICK.live.size && !TICK.raf) TICK.raf = requestAnimationFrame(tick); };
     document.addEventListener('visibilitychange', this._onVis);
-    this._draw = this._draw.bind(this);
   }
 
-  _emit(type, detail = {}) { this.dispatchEvent(new CustomEvent(type, { detail })); }
+  _emit(type, detail = {}) { try { performance.mark('emote-' + type); } catch {} this.dispatchEvent(new CustomEvent(type, { detail })); }
   _setStage(stage, extra = {}) { this.stage = stage; this._emit('stage', { stage, ...extra }); }
+
+  /**
+   * 海报：模型就绪前在同一位置显示一张静态立绘（约 30 KB），就绪后淡出。
+   * 放在画布“下面”，SDK 要求的 E-mote Logo 仍在画布上照常显示。
+   */
+  _showPoster() {
+    const c = this.canvas, parent = c?.parentElement;
+    if (!this.posterOn || !parent || this.state === 'ready') return;
+    const src = this.base + MODELS[this.alias].poster;
+    let img = this.posterEl;
+    if (!img) {
+      img = this.posterEl = document.createElement('img');
+      img.className = 'emote-poster'; img.alt = ''; img.decoding = 'async'; img.setAttribute('aria-hidden', 'true');
+      Object.assign(img.style, { position: 'absolute', pointerEvents: 'none', opacity: '0', transition: 'opacity .45s ease', objectFit: 'fill', margin: '0', maxWidth: 'none' });
+      img.onload = () => { if (this.state !== 'ready') img.style.opacity = '1'; this.posterShownAt = performance.now(); this._emit('poster'); };
+      img.onerror = () => { img.remove(); this.posterEl = null; };
+      parent.insertBefore(img, c);
+      const sync = () => Object.assign(img.style, { left: c.offsetLeft + 'px', top: c.offsetTop + 'px', width: c.offsetWidth + 'px', height: c.offsetHeight + 'px', transform: getComputedStyle(c).transform === 'none' ? '' : getComputedStyle(c).transform });
+      sync(); this._posterRO = typeof ResizeObserver === 'function' ? new ResizeObserver(sync) : null; this._posterRO?.observe(c);
+      addEventListener('resize', sync, { passive: true });
+    }
+    if (!img.src.endsWith(src)) img.src = src;
+  }
+  _hidePoster() {
+    const img = this.posterEl; if (!img) return;
+    img.style.opacity = '0';
+    setTimeout(() => { if (this.state === 'ready' && this.posterEl === img) { img.remove(); this.posterEl = null; this._posterRO?.disconnect(); } }, 600);
+  }
 
   /** 开始（或重新）加载。重复调用返回同一个 promise；释放后可再次调用。 */
   start() {
     if (this.state === 'ready') return Promise.resolve();
+    this._showPoster();
     if (this.loadPromise) return this.loadPromise;
     this.state = 'loading';
     this.stats.loads++;
@@ -166,11 +259,13 @@ export class EmoteStage extends EventTarget {
       this.state = 'ready';
       this.loadPromise = null;
       this._emit('ready');
+      requestAnimationFrame(() => requestAnimationFrame(() => this._hidePoster()));
       this._updateLoop();
     }).catch((err) => {
       this.loadPromise = null;
       if (err?.name === 'AbortError' || gen !== this.gen) return;
       this.state = 'error';
+      this.posterEl?.remove(); this.posterEl = null; this._posterRO?.disconnect();
       this._teardownPlayer();
       this._emit('error', { message: String(err?.message || err) });
     });
@@ -185,6 +280,16 @@ export class EmoteStage extends EventTarget {
     this.canvas.width = W; this.canvas.height = H;
     if (!this._renderCanvasReady) {
       EmotePlayer.createRenderCanvas(W, H);
+      { // 驱动稍后才在渲染画布上创建 WebGL 上下文：拦截那一次 getContext 装上状态缓存（不能自己先建上下文，否则类型冲突）
+        const rc = EmotePlayer.renderCanvas;
+        if (rc && !/[?&]glcache=0/.test(location.search)) { const og = rc.getContext.bind(rc); rc.getContext = (type, attrs) => {
+          // WebGL2 兼容 WebGL1 的 API 与 GLSL ES 1.0 着色器，并允许非 2 次幂贴图 mipmap（?gl2=0 关闭）
+          let c = null;
+          if (type === 'webgl' && !/[?&]gl2=0/.test(location.search)) { c = og('webgl2', attrs); if (c) installMipmaps(c); }
+          c ||= og(type, attrs);
+          if (c && /webgl/.test(type)) installGlStateCache(c);
+          return c;
+        }; } }
       EmotePlayer.renderCanvas?.addEventListener('webglcontextlost', (e) => {
         e.preventDefault();
         this.state = 'error';
@@ -223,7 +328,7 @@ export class EmoteStage extends EventTarget {
     // 3) 模型：下载（带进度）与 Logo 最短展示并行
     this._setStage('model', { progress: 0 });
     const [bytes] = await Promise.all([
-      fetchBytes(this.base + MODELS[this.alias].psb, (p) => { this.progress = p; this._emit('progress', { progress: p }); }, signal),
+      fetchModelBytes(this.base, MODELS[this.alias], (p) => { this.progress = p; this._emit('progress', { progress: p }); }, signal),
       sleep(Math.max(0, this.minLogoMs - (performance.now() - logoStart)), signal),
     ]);
     if (gen !== this.gen) return;
@@ -246,8 +351,9 @@ export class EmoteStage extends EventTarget {
 
   // ---------------------------------------------------------------- 渲染循环
   _startLoopHooks() {
-    sdkState.onDevice = (device) => { this.device = device; this._updateLoop(); };
-    sdkState.onStop = () => { this.device = null; this._cancelRaf(); };
+    STAGES.add(this);
+    sdkState.onDevice = (device) => { for (const st of STAGES) { st.device = device; st._updateLoop(); } };
+    sdkState.onStop = () => { for (const st of STAGES) { st.device = null; st._cancelRaf(); } };
   }
   get _canRender() {
     const dev = sdkState.device;
@@ -256,18 +362,12 @@ export class EmoteStage extends EventTarget {
   _updateLoop(force) {
     if (this._canRender || (force && this.active && sdkState.device)) this._scheduleRaf(); else this._cancelRaf();
   }
-  _scheduleRaf() { if (!this.raf) this.raf = requestAnimationFrame(this._draw); }
-  _cancelRaf() { if (this.raf) { cancelAnimationFrame(this.raf); this.raf = 0; } this.lastT = null; }
-  _draw(t) {
-    this.raf = 0;
-    const dev = sdkState.device;
-    if (!dev || !this.active || document.hidden) { this.lastT = null; return; }
-    if (this.lastT !== null) this.vtime += Math.min(t - this.lastT, 100);
-    this.lastT = t;
-    try { dev.drawAnimation(this.vtime); this.stats.frames++; }
-    catch (e) { this.state = 'error'; this._emit('error', { message: String(e?.message || e) }); return; }
-    this.raf = requestAnimationFrame(this._draw);
-  }
+  // 所有实例共用一个 SDK device：drawAnimation(t) 会推进并绘制“全部”播放器。
+  // 因此只能有一个全局 rAF、一条共享时钟；各实例各跑一个循环会让时间线来回跳（抽搐）且重复绘制。
+  _scheduleRaf() { this.raf = 1; TICK.live.add(this); this._setHidden(false); if (!TICK.raf) TICK.raf = requestAnimationFrame(tick); }
+  _cancelRaf() { this.raf = 0; TICK.live.delete(this); this._setHidden(true); if (!TICK.live.size && TICK.raf) { cancelAnimationFrame(TICK.raf); TICK.raf = 0; TICK.last = null; } }
+  /** 不渲染的实例把播放器隐藏，SDK 就不再为它更新/绘制（另一个实例仍在渲染时尤其重要）。 */
+  _setHidden(h) { this._hid = h; if (this.player) this.player.hide = h; if (this.logo && !this.player) this.logo.hide = h; }
   /** 页面可见区域外 / 标签页隐藏时调用 false，立刻停止 rAF（零渲染开销）。 */
   setActive(on) {
     on = !!on;
@@ -428,7 +528,7 @@ export class EmoteStage extends EventTarget {
   /** 仅下载，不碰当前播放器；调用方可在黑场开始前把网络等待完成。 */
   async prepareSwap(alias) {
     if (!MODELS[alias]) throw new Error('未知形象：' + alias);
-    const bytes = await fetchBytes(this.base + MODELS[alias].psb, (progress) => {
+    const bytes = await fetchModelBytes(this.base, MODELS[alias], (progress) => {
       this.progress = progress; this._emit('progress', { progress });
     });
     return { alias, bytes };
@@ -448,7 +548,7 @@ export class EmoteStage extends EventTarget {
       // wasm 堆只有 512 MB：必须先释放旧模型，再载入新的
       this._teardownPlayer();
       this.alias = alias;
-      const bytes = prepared?.alias === alias ? prepared.bytes : await fetchBytes(this.base + MODELS[alias].psb, (pr) => { this.progress = pr; onProgress?.(pr); this._emit('progress', { progress: pr }); });
+      const bytes = prepared?.alias === alias ? prepared.bytes : await fetchModelBytes(this.base, MODELS[alias], (pr) => { this.progress = pr; onProgress?.(pr); this._emit('progress', { progress: pr }); });
       await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 30)));
       await this._mount(bytes, prevExpr);
       this._emit('swap', { phase: 'done', alias });

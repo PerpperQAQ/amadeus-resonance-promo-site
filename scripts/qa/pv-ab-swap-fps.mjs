@@ -1,0 +1,10 @@
+import { chromium } from 'playwright';
+const [W, H] = (process.argv[2] || '1440x900').split('x').map(Number);
+const b = await chromium.launch({ channel: 'chrome' }); const pg = await b.newPage({ viewport: { width: W, height: H } });
+await pg.goto('http://127.0.0.1:5291/pv-ab.html');
+await pg.waitForFunction(() => document.body.classList.contains('loaded') && __ab.B.state === 'ready', null, { timeout: 120000 });
+await pg.evaluate(() => __ab.go(1)); await pg.waitForTimeout(2500);
+const out = [];
+for (let k = 0; k < 4; k++) out.push(await pg.evaluate(() => new Promise((res) => { const ft = []; let l = performance.now(), on = true; const f = (t) => { ft.push(t - l); l = t; if (on) requestAnimationFrame(f); }; requestAnimationFrame(f);
+  __ab.swapOutfit().then(() => { on = false; const a = ft.slice(1); res({ n: a.length, mean: +(a.reduce((s, x) => s + x, 0) / a.length).toFixed(1), jank: a.filter((x) => x > 25).length, max: +Math.max(...a).toFixed(1) }); }); })));
+console.log(W, JSON.stringify(out)); await b.close();

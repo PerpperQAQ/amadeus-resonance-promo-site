@@ -14,7 +14,7 @@ OUT = os.path.join(ROOT, 'src', 'fonts')
 os.makedirs(OUT, exist_ok=True)
 
 text = ''
-for f in ['index.html'] + sorted(glob.glob(os.path.join(ROOT, 'src', '*.js')) + glob.glob(os.path.join(ROOT, 'src', '*.css'))):
+for f in ['index.html', 'terminal.html', 'fusion.html', 'cinema.html', 'split.html', 'reboot-white.html'] + sorted(glob.glob(os.path.join(ROOT, 'src', '*.js')) + glob.glob(os.path.join(ROOT, 'src', 'reboot', '*.js')) + glob.glob(os.path.join(ROOT, 'src', '*.css'))):
     f = f if os.path.isabs(f) else os.path.join(ROOT, f)
     text += open(f, encoding='utf-8').read()
 chars = set(text) | set(chr(c) for c in range(0x20, 0x7f))

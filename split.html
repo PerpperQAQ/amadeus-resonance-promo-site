@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amadeus-Resonance · 左右分栏概念稿</title>
+<meta name="description" content="Amadeus-Resonance：本地优先、单用户的牧濑红莉栖 AI 陪伴应用（开发中）。">
+<link rel="icon" href="data:,">
+</head>
+<body data-world="a" data-sec="hero">
+
+<!-- 左：纸面。只放标志、一句话，和当前章节需要点的东西 -->
+<aside class="paper" id="paper">
+  <nav class="keys" aria-label="操作">
+    <button class="key" id="k-menu" type="button" aria-expanded="false" aria-controls="menu" aria-label="目录">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 6h12M4 10h12M4 14h12"/></svg></button>
+    <button class="key" id="k-world" type="button" aria-label="切换世界线（D）" title="世界线（D）"><b id="k-world-t">α</b></button>
+    <button class="key" id="k-sound" type="button" aria-pressed="true" aria-label="声音" title="声音">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><path class="fill" d="M3 8h3l4-3.5v11L6 12H3z"/><path class="on" d="M13 7.5a3.5 3.5 0 0 1 0 5M15 5.5a6.3 6.3 0 0 1 0 9"/><path class="off" d="M13 8l4 4M17 8l-4 4"/></svg></button>
+  </nav>
+  <ol class="menu" id="menu" hidden>
+    <li><button type="button" data-go="hero">序</button></li>
+    <li><button type="button" data-go="mem">记忆</button></li>
+    <li><button type="button" data-go="perf">表演</button></li>
+  </ol>
+
+  <div class="mast">
+    <img class="logo" src="img/logo-amadeus-resonance.webp" alt="Amadeus Resonance">
+    <div class="heads">
+      <section class="hd on" data-hd="hero"><h1 class="h">她在你的电脑上，醒来。</h1><p class="dev">开发中</p></section>
+      <section class="hd" data-hd="mem"><h2 class="h">她只记得，亲历过的事。</h2>
+        <ul class="frags" id="frags" aria-label="记忆片段">
+          <li><button type="button" data-f="0" aria-pressed="false"><img src="img/cinema/mem-rooftop.webp" alt=""><span>屋顶 · 一起经历过</span></button></li>
+          <li><button type="button" data-f="1" aria-pressed="false"><img src="img/cinema/mem-lab.webp" alt=""><span>实验室 · 她自己的记忆</span></button></li>
+          <li><button type="button" data-f="2" aria-pressed="false"><img src="img/cinema/mem-radiokan.webp" alt=""><span>人工卫星 · 似曾相识</span></button></li>
+          <li><button type="button" data-f="3" aria-pressed="false" class="sealed"><img src="img/cinema/mem-meter.webp" alt=""><span>另一条世界线 · 她没经历过</span></button></li>
+        </ul></section>
+      <section class="hd" data-hd="perf"><h2 class="h">字、声、形。</h2>
+        <div class="acts" id="acts">
+          <button type="button" data-act="text" aria-pressed="false" title="只出字幕">字</button>
+          <button type="button" data-act="voice" aria-pressed="false" title="原声 + 口型">声</button>
+          <button type="button" data-act="form" aria-pressed="false" title="表情、动作、原声、字幕">形</button>
+        </div></section>
+    </div>
+  </div>
+</aside>
+
+<!-- 右：舞台。原画 + E-mote 模型合成一张画；切章时原画交叉淡化，她换机位与表情 -->
+<main class="stage" id="stage">
+  <figure class="art" id="art"><img class="a0 on" alt=""><img class="a1" alt=""></figure>
+  <div class="kurisu" id="kurisu">
+    <canvas id="emote-canvas" class="emote" width="900" height="1200" role="img" aria-label="牧濑红莉栖（E-mote 动态模型）"></canvas>
+    <img class="k-fallback" id="k-fallback" src="img/fallback-kurisu.webp" alt="" hidden>
+    <button class="k-hit" id="k-hit" type="button" aria-label="点击红莉栖"></button>
+  </div>
+  <p class="line" id="line" aria-live="polite"></p>
+  <div class="subt" id="subt" hidden aria-live="polite"><p class="subt-jp"></p><p class="subt-zh"></p></div>
+</main>
+
+<script type="module" src="/src/split.js"></script>
+</body>
+</html>

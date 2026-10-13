@@ -1,0 +1,261 @@
+/* =====================================================================
+   Amadeus-Resonance · 融合概念稿（第二版：只借 moontide 的结构）
+   保留的结构：分界逻辑、每屏一个大标题、编号章节、侧边进度导航。
+   性格：冷静、科学、略带忧郁 —— 旧纸 + 蓝图格 + 齿轮线稿；直立衬线 + 打字机等宽；
+         “观测”式动效（扫描、对焦、数字闪烁），不回弹、不倾斜。
+   全站唯一的对角线：一条细而锐的线 = 红莉栖的身份分界。
+     纸面一侧 = 作为人的她（手写批注、实验记录）；
+     终端一侧 = 作为 Amadeus 的她（读数、日志）。
+   ===================================================================== */
+:root{
+  --paper:#efece4; --paper-2:#e6e0d2; --ink:#0b0b0c; --ink-2:#141416;
+  --amb:#ff9a1f; --amb-rgb:255,154,31;
+  --sec:#ff9a1f; --sec-rgb:255,154,31;      /* 辅色：A 同主色；B 淡紫 */
+  --red:#d8322a;                            /* 只在世界线变动时出现 */
+  --pen:#6b3d14;                            /* 手写批注的墨色（褐） */
+  --grid:rgba(52,62,74,.07); --grid-major:rgba(52,62,74,.11);
+  --serif:"AR Serif","Noto Serif SC",serif;
+  --mono:"AR Mono","AR Sans",ui-monospace,monospace;
+  --sans:"AR Sans",system-ui,sans-serif;
+  --hand:"AR Display","AR Serif",serif;     /* 站酷小薇：手写批注感 */
+  --nav-h:56px; --gut:clamp(24px,4vw,72px);
+  --ease:cubic-bezier(.25,.1,.25,1); --slow:cubic-bezier(.4,0,.2,1);
+}
+body[data-world="b"]{ --sec:#b9a4ff; --sec-rgb:185,164,255; --amb:#ffb03a; --amb-rgb:255,176,58; --grid:rgba(72,62,112,.075); --grid-major:rgba(72,62,112,.12); --pen:#4b3a72; }
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-snap-type:y mandatory;background:var(--ink)}
+body{margin:0;background:var(--ink);color:var(--paper);font:400 15px/1.7 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,p,ul,ol,figure,dl,dd{margin:0;padding:0}
+ul,ol{list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------------- 导航：黑带、橙字、齿轮十字分隔 ---------------- */
+.nav{position:fixed;left:0;right:0;top:0;height:var(--nav-h);z-index:50;background:var(--ink);border-bottom:1px solid rgba(var(--amb-rgb),.35);display:flex;align-items:center;gap:18px;padding:0 var(--gut) 0 clamp(16px,2vw,32px);color:var(--amb)}
+.nav-bar{display:contents}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex:none}
+.nav-gear{width:20px;height:20px;fill:none;stroke:var(--amb);stroke-width:1.3;animation:spin 24s linear infinite}
+.nav-logo b{font:700 16px/1 var(--serif);letter-spacing:.16em;color:var(--paper)}
+.nav-logo i{font:400 10px/1 var(--mono);font-style:normal;letter-spacing:.32em;color:var(--amb)}
+.tabs{flex:1;display:flex;justify-content:center;align-items:center;min-width:0}
+.tab{position:relative;display:flex;align-items:baseline;gap:6px;padding:8px 10px;color:var(--amb);font:400 14px/1 var(--sans);letter-spacing:.14em;transition:color .3s var(--ease),opacity .3s}
+.tab small{font:400 10px/1 var(--mono);opacity:.65;letter-spacing:.08em}
+.tab[aria-disabled="true"]{opacity:.4;cursor:default}
+.tab:not([aria-disabled="true"]):hover{color:var(--paper)}
+.tab[aria-current="true"]{color:var(--paper)}
+.tab[aria-current="true"]::after{content:'';position:absolute;left:10px;right:10px;bottom:-1px;height:1px;background:var(--amb);box-shadow:0 0 6px rgba(var(--amb-rgb),.9)}
+.tsep{width:8px;height:8px;flex:none;color:rgba(var(--amb-rgb),.5);margin:0 3px}
+.tsep svg{display:block;width:100%;height:100%;fill:currentColor}
+.nav-r{display:flex;align-items:center;gap:16px;flex:none;font:400 11px/1 var(--mono);letter-spacing:.16em;color:rgba(239,236,228,.5)}
+.nav-act b,.nav-wl b{font-weight:400;color:var(--amb)}
+.nav-wl b{font-size:14px;margin-left:4px;text-shadow:0 0 8px rgba(var(--amb-rgb),.7)}
+.clock{color:var(--paper);font-size:13px}
+
+/* ---------------- 侧边进度：菱形，安静 ---------------- */
+.rail{position:fixed;right:clamp(12px,1.4vw,24px);top:50%;transform:translateY(-50%);z-index:40;display:grid;gap:clamp(12px,2.6vh,22px);--rc:var(--paper);--rb:var(--ink)}
+body[data-railbg="paper"] .rail{--rc:var(--ink);--rb:var(--paper)}
+.rail::before{content:'';position:absolute;right:5px;top:4px;bottom:4px;width:1px;background:color-mix(in srgb,var(--rc) 30%,transparent)}
+.rail-t{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:10px;height:12px;color:var(--rc)}
+.rail-t span{font:400 10px/1 var(--mono);letter-spacing:.14em;white-space:nowrap;opacity:0;transition:opacity .4s var(--ease)}
+.rail-t i{width:9px;height:9px;margin-right:1px;background:var(--rb);border:1px solid var(--rc);transform:rotate(45deg);transition:background .4s var(--ease),box-shadow .4s}
+.rail-t[aria-disabled="true"] i{opacity:.4}
+.rail-t:hover span,.rail-t:focus-visible span,.rail-t[aria-current="true"] span{opacity:.85}
+.rail-t[aria-current="true"] i{background:var(--amb);border-color:var(--amb);box-shadow:0 0 8px rgba(var(--amb-rgb),.8)}
+
+/* ---------------- 章节：直边堆叠；唯一的斜线在章节内部 ---------------- */
+.sec{position:relative;height:100vh;min-height:640px;overflow:hidden;scroll-snap-align:start;--s1:58%;--s2:50%}
+.side{position:absolute;inset:0;overflow:hidden}
+.side-l{clip-path:polygon(0 0,var(--s1) 0,var(--s2) 100%,0 100%)}
+.side-r{clip-path:polygon(var(--s1) 0,100% 0,100% 100%,var(--s2) 100%)}
+[data-on="paper"].side{background:var(--paper);color:var(--ink)}
+[data-on="ink"].side{background:var(--ink);color:var(--paper)}
+/* 旧纸：蓝图格 + 纸纹 + 边缘泛黄 */
+.grid{position:absolute;inset:0;background:
+  radial-gradient(130% 100% at 35% 40%,transparent 45%,rgba(140,110,60,.16)),
+  linear-gradient(var(--grid-major) 1px,transparent 1px) 0 0/72px 72px,
+  linear-gradient(90deg,var(--grid-major) 1px,transparent 1px) 0 0/72px 72px,
+  linear-gradient(var(--grid) 1px,transparent 1px) 0 0/12px 12px,
+  linear-gradient(90deg,var(--grid) 1px,transparent 1px) 0 0/12px 12px}
+.gears{position:absolute;inset:0;pointer-events:none}
+.gears svg{position:absolute;fill:none;stroke:rgba(30,34,40,.17);stroke-width:1}
+.gears svg .rot{transform-box:fill-box;transform-origin:50% 50%;animation:spin var(--gs,120s) linear infinite}
+.gears svg .rev{animation-direction:reverse}
+.gears svg .dim{stroke-dasharray:2 5;stroke:rgba(30,34,40,.14)}
+.gears svg text{fill:rgba(30,34,40,.34);stroke:none;font:400 9px var(--mono);letter-spacing:.14em}
+body[data-world="b"] .gears svg{stroke:rgba(66,56,110,.2)}
+/* 终端：扫描线 + 磷光 */
+.scanbg{position:absolute;inset:0;background:
+  radial-gradient(60% 60% at 72% 42%,rgba(var(--amb-rgb),.08),transparent 70%),
+  repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,transparent 1px 3px)}
+body[data-world="b"] .scanbg{background:radial-gradient(60% 60% at 30% 42%,rgba(var(--sec-rgb),.10),transparent 70%),repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 1px,transparent 1px 3px)}
+.scanbg::after{content:'';position:absolute;left:0;right:0;height:22%;background:linear-gradient(180deg,transparent,rgba(var(--amb-rgb),.05),transparent);animation:sweep 9s linear infinite}
+@keyframes sweep{from{transform:translateY(-110%)}to{transform:translateY(560%)}}
+.bignum{position:absolute;right:5vw;bottom:-3vw;font:400 clamp(200px,24vw,440px)/.8 var(--serif);color:transparent;-webkit-text-stroke:1px rgba(var(--amb-rgb),.16);letter-spacing:-.02em;pointer-events:none}
+.mem .bignum{right:auto;left:3vw;bottom:-5vw}
+/* 分界线：全站唯一的斜线，细而锐；带刻度与标注 */
+.edge{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
+.edge line{stroke:var(--amb);stroke-width:1;vector-effect:non-scaling-stroke}
+.edge .tick{stroke:var(--amb);stroke-width:1;vector-effect:non-scaling-stroke;opacity:.7}
+.edge-tag{position:absolute;z-index:2;font:400 9.5px/1 var(--mono);letter-spacing:.24em;color:var(--amb);white-space:nowrap;pointer-events:none}
+body[data-world="b"] .edge line,body[data-world="b"] .edge .tick{stroke:var(--sec)}
+body[data-world="b"] .edge-tag{color:var(--sec)}
+/* 人物：站在分界线上 */
+.slot{position:absolute;left:var(--kx,54%);bottom:0;height:calc(100% - var(--nav-h) - 1vh);aspect-ratio:3/4;transform:translateX(-50%);z-index:3}
+.kurisu{position:absolute;inset:0}
+.emote,.k-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.emote{opacity:0;transition:opacity .9s var(--ease)}
+body[data-model="ready"] .emote{opacity:1}
+.k-hit{position:absolute;left:30%;right:30%;top:8%;bottom:4%;cursor:pointer}
+.k-hit:focus-visible{outline:1px dashed var(--amb)}
+/* 终端一侧盖在人物身上的扫描线：她一半是人，一半是 Amadeus */
+.scanover{position:absolute;inset:0;z-index:4;pointer-events:none;mix-blend-mode:multiply;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,.32) 0 1px,transparent 1px 3px)}
+.scanover::after{content:'';position:absolute;inset:0;background:rgba(var(--amb-rgb),.07);mix-blend-mode:screen}
+.hero .scanover{clip-path:polygon(var(--s1) 0,100% 0,100% 100%,var(--s2) 100%)}
+.mem .scanover{clip-path:polygon(0 0,var(--s1) 0,var(--s2) 100%,0 100%)}
+/* 她的话：终端里是一行输出，纸面上是一行字 */
+.say{position:absolute;left:66%;top:16%;width:max-content;max-width:min(320px,24vw);font:400 15px/1.7 var(--sans);opacity:0;transition:opacity .5s var(--ease);z-index:6;pointer-events:none;border-left:1px solid var(--amb);padding:2px 0 2px 12px}
+.say.on{opacity:1}
+.say b{display:block;font:400 10px/1 var(--mono);letter-spacing:.26em;color:var(--amb);margin-bottom:6px}
+.hero .say{color:var(--paper)}
+.mem .say{left:auto;right:66%;color:var(--paper);text-align:right;border-left:0;border-right:1px solid var(--amb);padding:2px 12px 2px 0}
+.say span::after{content:'▌';color:var(--amb);animation:blink .8s steps(1) infinite;margin-left:2px}
+.say.done span::after{content:''}
+
+/* ---------------- 内容 ---------------- */
+.ui{position:absolute;z-index:5}
+[data-on="paper"].ui{color:var(--ink)}
+[data-on="ink"].ui{color:var(--paper)}
+.report{font:400 11.5px/1.4 var(--mono);letter-spacing:.18em;text-transform:uppercase;opacity:.7}
+.report i{font-style:normal;color:var(--amb);margin:0 .5em;opacity:.9}
+.tags{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font:400 11px/1 var(--mono);letter-spacing:.18em;opacity:.75}
+.tags span{padding-top:6px;border-top:1px solid currentColor}
+.tags b{font:700 12px/1 var(--sans);letter-spacing:.2em;color:var(--amb)}
+[data-on="paper"] .tags b{color:var(--ink);box-shadow:inset 0 -.45em 0 rgba(var(--amb-rgb),.75)}
+.h{margin-top:clamp(18px,3vh,30px);font:700 clamp(40px,4.2vw,76px)/1.16 var(--serif);letter-spacing:.02em}
+.h span{display:block;white-space:nowrap}
+.h em{font-style:normal}
+[data-on="paper"] .h em{box-shadow:inset 0 -.18em 0 rgba(var(--amb-rgb),.8)}
+[data-on="ink"] .h em{color:var(--amb);text-shadow:0 0 16px rgba(var(--amb-rgb),.45)}
+.lead{margin-top:clamp(14px,2.2vh,22px);font:400 clamp(14px,1.06vw,17px)/1.8 var(--sans);opacity:.82;max-width:33em}
+.tw{margin-top:clamp(12px,2vh,20px);font:400 12px/1.8 var(--mono);letter-spacing:.08em;max-width:48ch;opacity:.66}
+.tw::after{content:'_';animation:blink 1s steps(1) infinite;color:var(--amb)}
+.note{font:400 clamp(17px,1.35vw,22px)/1.45 var(--hand);color:var(--pen);transform:rotate(-1.2deg);letter-spacing:.04em}
+.stats{display:flex;gap:clamp(26px,3.4vw,52px);margin-top:clamp(16px,2.4vh,26px)}
+.stats li{display:grid;gap:6px}
+.stats b{font:400 clamp(32px,3vw,48px)/.9 var(--serif)}
+.stats span{font:400 11px/1 var(--mono);letter-spacing:.16em;opacity:.65}
+.cta{display:flex;gap:22px;align-items:center;margin-top:clamp(18px,3vh,30px)}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:.85em 1.5em;font:500 14px/1 var(--sans);letter-spacing:.16em;text-decoration:none;transition:background .3s var(--ease),color .3s var(--ease)}
+.btn i{font-style:normal;font-family:var(--mono)}
+.btn-ink{background:var(--ink);color:var(--paper)}
+.btn-ink:hover{background:var(--amb);color:var(--ink)}
+[data-on="ink"] .btn-ink{background:transparent;color:var(--amb);box-shadow:inset 0 0 0 1px var(--amb)}
+[data-on="ink"] .btn-ink:hover{background:var(--amb);color:var(--ink)}
+.btn-line{padding:.85em 0;border-bottom:1px solid currentColor}
+
+/* 01 序：纸面在左（她作为人），终端在右（她作为 Amadeus） */
+.hero{--s1:58%;--s2:49%;--kx:53.5%}
+.hero .ui-l{left:var(--gut);top:calc(var(--nav-h) + clamp(70px,12vh,130px));width:min(560px,38vw)}
+.hero .note-hero{margin-top:clamp(16px,2.6vh,26px)}
+.hero .ui-r{right:calc(var(--gut) + 34px);top:calc(var(--nav-h) + clamp(150px,24vh,250px));width:min(320px,22vw)}
+.read{font:400 12px/1.7 var(--mono);letter-spacing:.06em}
+.read-h{font:400 10px/1 var(--mono);letter-spacing:.24em;color:var(--amb);margin-bottom:14px}
+.read-h span{color:currentColor;opacity:.5;font-family:var(--sans);letter-spacing:.1em}
+[data-on="ink"] .read-h span{color:var(--paper)}
+.nixie{font:400 clamp(30px,2.6vw,42px)/1 var(--mono);letter-spacing:.1em;color:var(--amb);text-shadow:0 0 6px rgba(var(--amb-rgb),.9),0 0 22px rgba(var(--amb-rgb),.4);margin-bottom:16px}
+.nixie .fl{animation:flick 2.6s steps(1) infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.35}95%{opacity:1}96%{opacity:.6}}
+.kv{display:grid;gap:3px;border-left:1px solid rgba(var(--amb-rgb),.6);padding-left:12px}
+.kv div{display:grid;grid-template-columns:58px 1fr auto;gap:8px;align-items:baseline}
+.kv dt{opacity:.45;letter-spacing:.14em;font-size:10.5px}
+.kv dd{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kv dd.st{color:var(--amb);letter-spacing:.2em}
+[data-on="paper"] .read .nixie{color:var(--ink);text-shadow:none}
+[data-on="paper"] .read .kv{border-left-color:var(--ink)}
+[data-on="paper"] .read .kv dd.st{color:var(--ink)}
+/* 底部：一行安静的状态记录（不倾斜、慢速） */
+.ticker{position:absolute;left:0;right:0;bottom:0;height:30px;background:var(--ink);color:rgba(239,236,228,.55);overflow:hidden;z-index:7;display:flex;align-items:center;border-top:1px solid rgba(var(--amb-rgb),.35)}
+.tk{display:flex;white-space:nowrap;animation:mq 80s linear infinite;font:400 11px/1 var(--mono);letter-spacing:.22em}
+.tk span{display:inline-flex;align-items:center;gap:1.4em;padding-right:1.4em}
+.tk svg{width:8px;height:8px;fill:var(--amb);opacity:.8}
+.tk em{font-style:normal;color:var(--amb)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* 04 记忆：终端在左（她从终端里说话），纸面在右（实验记录） */
+.mem{--s1:57%;--s2:65%;--kx:60%}
+.mem .ui-l{left:var(--gut);top:calc(var(--nav-h) + clamp(56px,9vh,100px));bottom:clamp(30px,5vh,56px);width:min(620px,44vw);display:flex;flex-direction:column}
+.mem .h{font-size:clamp(36px,3.5vw,62px)}
+.mlog-box{margin-top:auto;border-left:1px solid var(--amb);padding:4px 0 4px 16px;width:min(540px,38vw)}
+body[data-world="b"] .mlog-box{border-left-color:var(--sec)}
+.mlog{height:calc(1.8em * 7);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;font:400 11.5px/1.8 var(--mono);color:rgba(239,236,228,.55)}
+.mlog li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:lin .5s var(--ease)}
+@keyframes lin{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+.mlog .t{opacity:.5;margin-right:10px}
+.mlog b{font-weight:400;margin-right:10px;color:var(--amb)}
+.mlog .k{color:var(--paper);margin-right:10px}
+.mlog .op-skip b,.mlog .op-hold b{color:rgba(239,236,228,.4)}
+.mlog .op-read b{color:var(--ink);background:var(--amb);padding:0 4px}
+.mlog .op-deny b{color:var(--ink);background:var(--sec);padding:0 4px}
+.mlog li.hot .k,.mlog li.hot .v{color:var(--paper)}
+.mem .ui-r{right:calc(var(--gut) + 34px);top:calc(var(--nav-h) + clamp(50px,8vh,90px));width:min(390px,26vw)}
+.note-mem{margin:0 0 14px 6px}
+.form{position:relative;padding:4px 0 0}
+.form-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:8px}
+.form-h b{font:400 11.5px/1 var(--mono);letter-spacing:.24em}
+.form-h span{font:400 11px/1 var(--sans);opacity:.6;letter-spacing:.08em}
+.tiers li{position:relative;display:grid;grid-template-columns:20px 30px 1fr;grid-template-rows:auto auto;column-gap:8px;padding:10px 4px;border-bottom:1px solid rgba(11,11,12,.22);cursor:pointer;outline:none;transition:background .35s var(--ease)}
+.tiers .box{grid-row:1/3;align-self:center;width:12px;height:12px;border:1px solid var(--ink);transition:background .3s}
+.tiers b{grid-row:1/3;align-self:center;font:400 12px/1 var(--mono);opacity:.6}
+.tiers span{font:700 18px/1.25 var(--serif);letter-spacing:.08em}
+.tiers small{font:400 11.5px/1.5 var(--sans);opacity:.62}
+.tiers li:hover,.tiers li:focus-visible{background:rgba(var(--amb-rgb),.1)}
+.tiers li.on{background:rgba(11,11,12,.05)}
+.tiers li.on::before{content:'';position:absolute;left:-14px;top:50%;width:8px;height:1px;background:var(--amb)}
+.tiers li.on .box{background:var(--ink);box-shadow:inset 0 0 0 2px var(--paper)}
+.tiers li.on b{opacity:1;color:var(--ink)}
+.tiers li[data-t="3"].on .box{background:var(--sec)}
+.detail{display:grid;grid-template-columns:148px 1fr;gap:16px;margin-top:16px;align-items:start}
+.obs{position:relative;background:#f8f6f0;padding:5px 5px 20px;box-shadow:0 1px 0 rgba(0,0,0,.25),0 6px 18px rgba(60,40,10,.18);opacity:0;transition:opacity .6s var(--ease)}
+.obs.on{opacity:1}
+.obs img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;filter:sepia(.4) saturate(.8) contrast(1.02);transition:filter 1.2s var(--ease)}
+.obs.focusing img{filter:sepia(.4) saturate(.8) blur(4px)}
+.obs figcaption{position:absolute;left:6px;right:6px;bottom:4px;font:400 8.5px/12px var(--mono);letter-spacing:.12em;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.obs .redact{position:absolute;inset:5px 5px 20px;display:none;place-content:center;text-align:center;background:var(--ink);color:var(--sec);font:400 11px/1.5 var(--mono);letter-spacing:.24em}
+.obs .redact small{display:block;font:400 10px/1.6 var(--sans);color:rgba(239,236,228,.6);letter-spacing:.2em}
+.obs.redacted .redact{display:grid}
+.obs.flick img{animation:oflick .9s steps(1)}
+@keyframes oflick{0%{opacity:.3}20%{opacity:1}35%{opacity:.5}50%{opacity:1}}
+.tw-rule{margin:0;max-width:none;opacity:.82;font-size:11.5px;min-height:6em}
+
+/* 其余（占位） */
+.rest{background:var(--paper);color:var(--ink)}
+.rest-in{position:absolute;left:var(--gut);top:38%;display:grid;gap:20px;justify-items:start}
+.rest-t{font:700 clamp(26px,2.5vw,42px)/1.35 var(--serif)}
+.rest-t code{font:400 .5em var(--mono)}
+
+/* ---------------- 世界线变动：横向扫描 + 读数逐位跳变（唯一出现红色的时刻） ---------------- */
+.shift{position:fixed;inset:0;z-index:80;pointer-events:none;display:grid;place-content:center;justify-items:center;gap:14px;background:rgba(11,11,12,.94);opacity:0;transition:opacity .35s var(--ease)}
+.shift.on{opacity:1}
+.shift::before{content:'';position:absolute;left:0;right:0;top:0;height:2px;background:var(--red);box-shadow:0 0 14px var(--red);opacity:0}
+.shift.on::before{opacity:1;animation:scanY 1.4s var(--slow) infinite}
+@keyframes scanY{from{transform:translateY(0)}to{transform:translateY(100vh)}}
+.shift-n{font:400 clamp(60px,8.5vw,140px)/1 var(--mono);letter-spacing:.08em;color:var(--amb);text-shadow:0 0 10px rgba(var(--amb-rgb),.9),0 0 40px rgba(var(--amb-rgb),.45)}
+.shift-t{font:400 12px/1 var(--mono);letter-spacing:.5em;color:var(--red)}
+
+.credit{position:fixed;left:calc(var(--gut) - 6px);bottom:36px;z-index:60;font:400 9px/1 var(--mono);letter-spacing:.14em;color:rgba(120,110,100,.6);pointer-events:none;margin:0}
+body[data-sec="mem"] .credit{bottom:8px}
+
+/* B 世界线：同一系统，终端一侧占主导；辅色淡紫 */
+body[data-world="b"] .hero{--s1:42%;--s2:34%;--kx:38%}
+body[data-world="b"] .hero .ui-l{width:min(500px,30vw)}
+body[data-world="b"] .mem{--s1:64%;--s2:72%;--kx:66%}
+body[data-world="b"] .mem .ui-r{width:min(330px,23vw)}
+body[data-world="b"] .say b{color:var(--sec)}
+body[data-world="b"] .say{border-color:var(--sec)}
+
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (max-width:1320px){.tab{padding:8px 7px;font-size:13px;letter-spacing:.08em}.nav-wl{display:none}.tsep{margin:0 1px}}

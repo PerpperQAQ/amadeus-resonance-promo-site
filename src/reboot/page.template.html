@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amadeus-Resonance · {{TITLE}}</title>
+<meta name="description" content="Amadeus-Resonance：本地优先、单用户的牧濑红莉栖 AI 陪伴项目（开发中，开源）。">
+<link rel="icon" href="data:,">
+</head>
+<!-- 由 scripts/build-reboot-pages.mjs 从 src/reboot/page.template.html 生成，请改模板 -->
+<body data-variant="{{VARIANT}}" data-world="a">
+
+<div class="loader" id="loader" aria-hidden="true"><img src="img/logo-gear-major.webp" alt=""></div>
+
+<div class="ctl" id="ctl">
+  <a class="blk blk-text" href="https://github.com/PerpperQAQ/Amadeus-Resonance" target="_blank" rel="noopener">GitHub</a>
+  <button class="blk" id="b-menu" type="button" aria-expanded="false" aria-controls="menu" aria-label="打开目录"><i class="burger" aria-hidden="true"><b></b><b></b><b></b></i></button>
+</div>
+
+<nav class="menu" id="menu" aria-label="目录" hidden>
+  <ul>
+    <li><a href="#top" data-jump="top"><b>TOP</b><span>首 页</span></a></li>
+    <li><a href="#news" data-jump="news"><b>NEWS</b><span>开 发 日 志</span></a></li>
+    <li><a href="#intro" data-jump="intro"><b>INTRODUCTION</b><span>介 绍</span></a></li>
+    <li><a href="#story" data-jump="story"><b>STORY</b><span>项 目 缘 起</span></a></li>
+    <li><a href="#character" data-jump="character"><b>CHARACTER</b><span>角 色</span></a></li>
+    <li><a href="#system" data-jump="system"><b>SYSTEM</b><span>系 统</span></a></li>
+    <li><a href="#gallery" data-jump="gallery"><b>GALLERY</b><span>画 廊</span></a></li>
+    <li><a href="#product" data-jump="product"><b>PRODUCT</b><span>获 取 方 式</span></a></li>
+  </ul>
+</nav>
+
+<div class="over" id="over" role="dialog" aria-modal="true" aria-label="查看大图" hidden>
+  <figure><img id="over-img" alt=""><figcaption id="over-cap"></figcaption></figure>
+  <button class="blk over-x" id="over-x" type="button" aria-label="关闭">✕</button>
+</div>
+
+<main id="main">
+<!-- ============ TOP ============ -->
+<section class="mod top scene" id="top" data-mod="top">
+  <figure class="top-art"><img id="hero-img" src="img/reboot/hero.webp" alt=""></figure>
+  <div class="top-copy">
+    <img class="logo" src="img/logo-amadeus-resonance.webp" alt="Amadeus Resonance">
+    <p class="h cap" data-reveal><span class="cap-line"><span class="txt">本地优先的牧濑红莉栖 AI 陪伴</span></span></p>
+    <p class="status"><span class="dot" aria-hidden="true"></span>开发中 · 开源</p>
+    <div class="top-btns">
+      <a class="blk blk-text blk-wide" href="https://github.com/PerpperQAQ/Amadeus-Resonance" target="_blank" rel="noopener">GitHub 仓库</a>
+      <button class="pv" id="pv" type="button"><img src="img/cinema/ex-glare.webp" alt=""><span><b>▶ 角色演示</b><small>E-mote 模型 + 游戏原声</small></span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWS ============ -->
+<section class="mod news" id="news" data-mod="news">
+  <header class="mh"><b data-scramble>NEWS</b><span>开 发 日 志</span></header>
+  <ul class="cards">
+    <li><figure><img src="img/reboot/app-vn-t.webp" alt=""></figure><time>2026.09.26</time><p>VN / E-mote 后继双包离线验收（有限接受）</p></li>
+    <li><figure><img src="img/reboot/app-daily-t.webp" alt=""></figure><time>2026.07.27</time><p>Stage 8：日常舞台与 Overlay 控件完成</p></li>
+    <li><figure><img src="img/reboot/app-overlay-t.webp" alt=""></figure><time>2026.07.14</time><p>Stage 6.26d：VN 表演导演完成</p></li>
+  </ul>
+</section>
+
+<!-- ============ INTRODUCTION ============ -->
+<section class="mod intro" id="intro" data-mod="intro">
+  <header class="mh"><b data-scramble>INTRODUCTION</b><span>介 绍</span></header>
+  <div class="band">
+    <img src="img/cinema/mem-rooftop-obs.webp" alt="">
+    <h2 class="h cap" data-reveal><span class="cap-line"><span class="txt"><ruby>她<rt>Amadeus</rt></ruby>在你的<ruby>本机<rt>世界线</rt></ruby>上，</span></span><br><span class="cap-line"><span class="txt">醒来。</span></span></h2>
+  </div>
+  <p class="lead">一个本地优先、单用户的牧濑红莉栖 AI 陪伴项目。<br>两种核心模式：日常陪伴，与 VN 陪玩。</p>
+  <div class="feats">
+    <article><small>FEATURE 001</small><h3>日常陪伴</h3><p>文本、语音、长期记忆、TTS 与角色动态，一起构成日常的对话。</p><a class="blk blk-text blk-sm" href="#character" data-jump="character">角色 →</a></article>
+    <article><small>FEATURE 002</small><h3>VN 陪玩</h3><p>她观察你选定的游戏窗口，以自己的身份和知识边界读剧情、做选择判断；点击由你来做。</p><a class="blk blk-text blk-sm" href="#gallery" data-jump="gallery">画廊 →</a></article>
+    <article><small>FEATURE 003</small><h3>长期记忆</h3><p>你的长期记忆与 VN 剧情状态分开保存；原始截图和完整游戏文本默认不留存。</p><a class="blk blk-text blk-sm" href="#system" data-jump="system">系统 →</a></article>
+    <article><small>FEATURE 004</small><h3>本地运行</h3><p>三层服务都跑在你的电脑上；模型服务商由你自己选择、自己配置。</p><a class="blk blk-text blk-sm" href="#product" data-jump="product">获取 →</a></article>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="mod story" id="story" data-mod="story">
+  <header class="mh"><b data-scramble>STORY</b><span>项 目 缘 起</span></header>
+  <div class="story-in">
+    <figure><img src="img/cinema/mem-meter-obs.webp" alt=""></figure>
+    <div class="h cap story-cap" data-reveal>
+      <span class="cap-line"><span class="txt">受《命运石之门 0》启发，</span></span><br>
+      <span class="cap-line"><span class="txt">一个人维护的 <ruby>Amadeus<rt>实验</rt></ruby>。</span></span>
+    </div>
+    <p class="note">不是官方项目。角色、作品与商标归各自权利人所有。</p>
+  </div>
+</section>
+
+<!-- ============ CHARACTER（唯一出现 E-mote 模型的地方） ============ -->
+<section class="mod character scene" id="character" data-mod="character">
+  <header class="mh"><b data-scramble>CHARACTER</b><span>角 色</span></header>
+  <div class="ch-in">
+    <div class="ch-stage">
+      <canvas id="emote-canvas" class="emote" width="900" height="1200" role="img" aria-label="牧濑红莉栖（E-mote 动态模型）"></canvas>
+      <img class="k-fallback" id="k-fallback" src="img/fallback-kurisu.webp" alt="" hidden>
+      <p class="ch-load" id="ch-load">模型载入中</p>
+    </div>
+    <div class="ch-info">
+      <p class="labmem">LAB MEM <b>No.004</b></p>
+      <h2 class="ch-name">牧濑红莉栖</h2>
+      <p class="ch-en">Makise Kurisu</p>
+      <p class="ch-prof">本项目里的她：日常聊天、记得你确认过的事；VN 陪玩时和你一起读剧情，给出她自己的选择判断。</p>
+      <p class="ch-state" id="state-name">平静</p>
+      <div class="states">
+        <button class="blk arrow" id="st-prev" type="button" aria-label="上一个状态">←</button>
+        <ul class="thumbs" id="thumbs" aria-label="状态"></ul>
+        <button class="blk arrow" id="st-next" type="button" aria-label="下一个状态">→</button>
+        <button class="blk wl" id="b-world" type="button" aria-label="切换世界线（D）" title="世界线（D）"><span id="b-world-t">α</span></button>
+      </div>
+      <p class="line" id="line" aria-live="polite"><span class="cap-line"><span class="txt" id="line-t"></span></span></p>
+      <div class="subt" id="subt" hidden aria-live="polite"><p class="subt-jp"></p><p class="subt-zh"></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SYSTEM ============ -->
+<section class="mod system" id="system" data-mod="system">
+  <header class="mh"><b data-scramble>SYSTEM</b><span>系 统</span></header>
+  <div class="sys-in">
+    <ol class="tiers" id="tiers" role="tablist" aria-label="本地三层服务">
+      <li><button type="button" role="tab" data-t="0" aria-selected="true"><small>:5173</small><b>Frontend</b></button></li>
+      <li><button type="button" role="tab" data-t="1" aria-selected="false"><small>:3002</small><b>Node Proxy</b></button></li>
+      <li><button type="button" role="tab" data-t="2" aria-selected="false"><small>:8001</small><b>Python WebRTC</b></button></li>
+    </ol>
+    <figure class="sys-fig"><img class="s0 on" src="img/reboot/app-daily.webp" alt=""><img class="s1" alt=""><figcaption id="sys-cap">日常舞台与 VN 面板。</figcaption></figure>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section class="mod gallery" id="gallery" data-mod="gallery">
+  <header class="mh"><b data-scramble>GALLERY</b><span>画 廊</span></header>
+  <button class="viewer" id="viewer" type="button" aria-label="查看大图"><img class="g0 on" alt=""><img class="g1" alt=""><span class="vcap" id="vcap"></span></button>
+  <ul class="strip" id="strip" aria-label="截图"></ul>
+  <p class="note">实际界面截图，来自主项目验收记录（开发中，非最终界面）。</p>
+</section>
+
+<!-- ============ PRODUCT ============ -->
+<section class="mod product" id="product" data-mod="product">
+  <header class="mh"><b data-scramble>PRODUCT</b><span>获 取 方 式</span></header>
+  <div class="prod-in">
+    <div class="h cap" data-reveal><span class="cap-line"><span class="txt">开源，自己在本机运行。</span></span></div>
+    <p class="lead">目前没有经过验收的预编译客户端；克隆源码、配置自己的模型服务后启动三层服务。</p>
+    <div class="tabs" role="tablist" aria-label="运行方式">
+      <button type="button" role="tab" id="tab-mac" aria-controls="pane-mac" aria-selected="true">macOS</button>
+      <button type="button" role="tab" id="tab-win" aria-controls="pane-win" aria-selected="false" tabindex="-1">Windows</button>
+      <button type="button" role="tab" id="tab-req" aria-controls="pane-req" aria-selected="false" tabindex="-1">配置要求</button>
+    </div>
+    <div class="pane" id="pane-mac" role="tabpanel" aria-labelledby="tab-mac"><pre>git clone https://github.com/PerpperQAQ/Amadeus-Resonance.git
+npm ci &amp;&amp; npm run dev                      # Frontend :5173
+cd service &amp;&amp; npm ci &amp;&amp; npm run dev       # Node Proxy :3002
+cd service/webrtc &amp;&amp; python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt &amp;&amp; python server.py   # :8001</pre></div>
+    <div class="pane" id="pane-win" role="tabpanel" aria-labelledby="tab-win" hidden><pre>git clone https://github.com/PerpperQAQ/Amadeus-Resonance.git
+npm ci; npm run dev                         # Frontend :5173
+cd service; npm ci; npm run dev             # Node Proxy :3002
+cd service\webrtc; python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt; python server.py      # :8001</pre></div>
+    <div class="pane" id="pane-req" role="tabpanel" aria-labelledby="tab-req" hidden><ul class="req">
+      <li><b>Node.js</b>20 或 22（npm 10）</li><li><b>Python</b>3.10</li><li><b>系统</b>macOS 或 Windows</li>
+      <li><b>模型服务</b>自行选择服务商并配置凭据；本项目不提供模型服务或 API Key</li></ul></div>
+    <a class="blk blk-text blk-wide" href="https://github.com/PerpperQAQ/Amadeus-Resonance" target="_blank" rel="noopener">前往 GitHub</a>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <img class="logo" src="img/logo-amadeus-resonance.webp" alt="Amadeus Resonance">
+  <p>E-mote 模型 © M2 ／ 《命运石之门》角色与作品 © MAGES. 等各自权利人</p>
+  <p>本页原画仅作参考（official_reference_only），公开发布前须替换 ／ 课堂作业概念稿</p>
+  <a class="blk totop" id="totop" href="#top" aria-label="回到顶部">↑</a>
+</footer>
+
+<script type="module" src="/src/reboot/reboot.js"></script>
+</body>
+</html>

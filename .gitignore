@@ -10,3 +10,7 @@ public/models/*.psb
 public/vendor/emote/
 # 角色原声（版权属原权利方）不进入 Git 历史；Pages 通过 Release 附件恢复
 public/audio/
+
+# E-mote lite derivatives (copyrighted, regenerate with scripts/model-lite.py)
+public/models/*.psbz
+public/models/*.poster.v*.webp

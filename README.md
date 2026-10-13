@@ -10,10 +10,11 @@ Owner 于 2026-10-12 明确选择完整效果公开展示，允许访客下载�
 
 - 网站：<https://perpperqaq.github.io/amadeus-resonance-promo-site/>
 - 仓库：<https://github.com/PerpperQAQ/amadeus-resonance-promo-site>
-- 开发保留在本地 `main`。提交后运行 `npm run deploy`，将当前源码快照推送到远程 `pages-source`；Actions 随后自动构建并发布，也可在 Actions 中手动执行。发布快照排除历史截图和未采用候选图，本地提交历史保留；`deployment-source.json` 记录对应本地提交。
-- 模型、SDK、原声保存在 Release `runtime-assets-r10-v1` 的 `runtime-assets.tar.gz` 附件。Actions 下载到 `public/`，按 `scripts/pages-assets.json` 校验文件大小和 SHA-256，再构建并核验 `dist/`。附件不进入 Git 历史。
+- 当前正式网页以 Owner 于 2026-10-13 敲定的 `concept/terminal` / `0067226` 版本为基线；`index.html` 是唯一首页源文件，`pv-ab.html` 仅作为兼容跳转。旧八章首页已退出发布构建。
+- 开发保留在本地 `concept/terminal`。提交后运行 `npm run deploy`，将当前源码快照推送到远程 `pages-source`；Actions 随后自动构建并发布，也可在 Actions 中手动执行。发布快照排除历史截图和未采用候选图，本地提交历史保留；`deployment-source.json` 记录对应本地提交。
+- 原模型、轻量模型 v2、两套占位图、SDK、原声保存在 Release `runtime-assets-pv-ab-v2` 的 `runtime-assets.tar.gz` 附件。Actions 下载到 `public/`，按 `scripts/pages-assets.json` 校验文件大小和 SHA-256，再构建并核验 `dist/`。附件不进入 Git 历史。
 - 本地检查：`node scripts/verify-pages-assets.mjs public && npm run build && node scripts/verify-pages-assets.mjs dist`。`base: './'` 支持 Pages 仓库子路径。
-- 素材更新时创建新版本 Release 附件，更新校验清单中的版本、大小及哈希后推送；不要覆盖旧附件或强制把素材加入 Git。源码/文案更新提交到本地 `main` 后运行 `npm run deploy`；不要把完整截图历史作为 Pages 源码推送。
+- 素材更新时创建新版本 Release 附件，更新校验清单中的版本、大小及哈希后推送；不要覆盖旧附件或强制把素材加入 Git。源码/文案更新提交到当前开发分支 后运行 `npm run deploy`；不要把完整截图历史作为 Pages 源码推送。
 
 ## 启动与构建
 
@@ -31,7 +32,17 @@ npm run preview        # 默认 http://127.0.0.1:5287，读取 dist/
 
 默认使用 `strictPort`，端口被占用时会退出。如果需要另开服务，先检查端口，再用 `npx vite --host 127.0.0.1 --port 5291 --strictPort` 等未占用端口；不要关闭其他项目的服务。旧 `scripts/serve-bg.sh` 是此前的启动辅助脚本，已有服务时无需再运行。
 
-## 页面与操作
+## 当前页面与验证
+
+六屏：INDEX → KURISU → FEATURES → OBSERVE → REPORT → MORE。
+
+- 主地址直接打开本版页面；`pv-ab.html` 跳转到首页并保留查询参数和 hash。
+- 人物页的单齿轮只对齐中文姓名行，不跨越上方英文名。
+- 生产构建只发布新版首页和兼容跳转，保留本地其他概念页源码供历史查阅。
+- `node scripts/qa/pages-release.mjs` 验证生产子路径、11 项运行素材、真实双模型加载/换装、六屏导航和三个宽度的齿轮对齐。默认需要将 `dist` 挂在 `http://127.0.0.1:5313/amadeus-resonance-promo-site/`；可用 `PAGES_URL`、`PAGES_QA_OUT` 指定线上地址和证据目录。
+- Actions 产物中保留 `deployment-source.json`，用于核对线上对应的源提交。
+
+## 历史页面与操作（已退出发布构建）
 
 八章：序 → 定位 → 双模式 → 边界 → 表演 → 本地 → 路线 → 终。
 
@@ -57,7 +68,7 @@ npm run preview        # 默认 http://127.0.0.1:5287，读取 dist/
 
 标题使用站酷小薇体，重点词用 Noto Serif SC，正文用 Noto Sans SC，英文标注用 Barlow Condensed / Share Tech Mono；均以内置 WOFF2 加载。修改文案后可运行 `python3 scripts/build-fonts.py` 重做子集（需要 `.tmp/fonts/` 源字体和 Python fontTools / Brotli）；正常启动、构建无需运行字体脚本。
 
-## 验证
+## 历史八章页面验证命令
 
 ```bash
 npm run test:e2e
@@ -96,3 +107,19 @@ PERF_RES=1920x1080 PERF_DPR=2 NO_SHIFT=1 PERF_OUT=output/playwright/performance/
 - 本项目与正式 Amadeus 工程分离，不代表正式产品的阶段验收、后端接入或发布。
 
 历次视觉研究保留在 `docs/round*-progress.md`、`docs/boot-assessment.md`、`docs/worldline-reference.md`；它们是历史记录，当前实现以源码及交接文档为准。
+
+## PV 预览（pv.html）
+
+`npm run dev` 后打开 http://127.0.0.1:5287/pv.html（或当前 dev 端口）。点右上 ▶ 自动播放约 88 s，滚轮/触摸/按键即暂停，右侧 1–6 跳段。分镜：docs/PV_STORYBOARD_v2.md。原作语音仅演示用，表情为手工编排。
+
+## 轻量 E-mote 模型（lite）
+
+页面统一经 `src/emote-stage.js` 加载：先显示 `models/<alias>.poster.vN.webp` 海报，后台拉取 `models/<alias>.lite.vN.psbz`（RGBA4444 + 4×4 有序抖动，gzip 原始字节，扩展名不会被服务器自动加 Content-Encoding），用 `DecompressionStream('gzip')` 解压后淡入实时模型；结果存入 Cache Storage（`emote-models`）。无 `DecompressionStream` 或 lite 文件 404 时回退原始 `.psb`。
+
+重新生成（原始 `.psb` 不会被修改；lite 与海报是受版权保护的派生素材，已 gitignore，仅限演示）：
+
+```sh
+python3 scripts/model-lite.py --version 2   # 输出 public/models/*.lite.v2.psbz
+```
+
+然后把 `src/emote-stage.js` 里的 `LITE_VERSION` 改为相同的 N（海报文件同样改名为 `.poster.vN.webp`）。版本号变更即缓存失效，旧版本缓存条目会被自动清理。QA：`node scripts/qa-lite.mjs [baseURL] [pages]`。

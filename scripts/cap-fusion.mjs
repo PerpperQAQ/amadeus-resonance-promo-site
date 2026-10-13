@@ -1,0 +1,44 @@
+// 融合概念稿截图：node scripts/cap-fusion.mjs <输出目录> <宽> <高> [--b] [--shift]
+import { chromium } from 'playwright';
+import fs from 'node:fs';
+const pos = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const [OUT = 'docs/screenshots/concept-fusion', W = '1440', H = '900'] = pos;
+const flags = Object.fromEntries(process.argv.slice(2).filter((a) => a.startsWith('--')).map((a) => { const [k, v] = a.slice(2).split('='); return [k, v ?? true]; }));
+const URL = flags.url || 'http://127.0.0.1:5291/fusion.html';
+fs.mkdirSync(OUT, { recursive: true });
+const errors = [];
+const browser = await chromium.launch({ channel: 'chrome', headless: !process.env.HEADFUL });
+const p = await browser.newPage({ viewport: { width: +W, height: +H } });
+p.setDefaultTimeout(90000);
+p.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
+p.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') errors.push(m.type() + ': ' + m.text().slice(0, 200)); });
+p.on('requestfailed', (r) => errors.push('requestfailed: ' + r.url().slice(-80) + ' ' + (r.failure()?.errorText || '')));
+const tag = `${flags.b ? 'b-' : ''}${W}x${H}`;
+const info = () => p.evaluate(() => window.__fusion.info());
+await p.goto(URL + (flags.b ? '?wl=b' : ''));
+await p.waitForFunction(() => window.__fusion?.info().model === 'ready', null, { timeout: 120000 });
+await p.mouse.move(+W * 0.25, +H * 0.45);
+await p.waitForTimeout(3800);
+await p.screenshot({ path: `${OUT}/${tag}-01-hero.png` });
+await p.evaluate(() => window.__fusion.goTo('mem'));
+await p.waitForTimeout(3400);
+await p.screenshot({ path: `${OUT}/${tag}-02-memory-idle.png` });
+await p.click('#tiers li[data-t="2"]');
+await p.waitForTimeout(2600);
+await p.screenshot({ path: `${OUT}/${tag}-03-memory-read-t2.png` });
+await p.click('#tiers li[data-t="3"]');
+await p.waitForTimeout(2600);
+await p.screenshot({ path: `${OUT}/${tag}-04-memory-read-t3.png` });
+if (flags.shift) {
+  await p.evaluate(() => window.__fusion.goTo('hero'));
+  await p.waitForTimeout(1500);
+  await p.keyboard.press('d');
+  await p.waitForTimeout(500);
+  await p.screenshot({ path: `${OUT}/${tag}-05-shift-mid.png` });
+  await p.waitForFunction(() => !window.__fusion.info().shifting, null, { timeout: 120000 });
+  await p.waitForTimeout(2200);
+  await p.screenshot({ path: `${OUT}/${tag}-06-hero-after-shift.png` });
+}
+console.log(tag, JSON.stringify(await info()));
+console.log('errors', errors.length, JSON.stringify(errors));
+await browser.close();

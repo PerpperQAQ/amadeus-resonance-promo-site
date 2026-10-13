@@ -2,6 +2,14 @@
 
 更新：2026-10-12（Asia/Shanghai），第十轮见下文“2026-10-12 第十轮”。2026-10-11：用户已明确确认 Grok 停止修改，由 Codex 接手现有未提交改动。
 
+## 2026-10-13 Owner 敲定新版首页与 Pages 后继发布
+
+当前发布基线为 Owner 指定的 `concept/terminal` / `0067226`（上一笔 `215541b`）。新版六屏页面迁入 `index.html`，作为后续唯一首页；`pv-ab.html` 只作兼容跳转，保留查询参数/hash。旧八章首页退出构建，其他概念页只保留本地源码。齿轮从跨英文名/中文名两行改为仅在中文姓名行居中；MORE 背景 URL 移入样式表，修复生产子路径 404。
+
+运行素材清单更新至 `runtime-assets-pv-ab-v2`，包含 11 项（原模型、轻量 v2 模型、占位图、SDK、原声）；新附件与清单逐项校验通过，旧附件保留。Pages 继续通过 `npm run deploy` → `pages-source` → Actions 发布。产物公开 `deployment-source.json` 供源提交绑定核查；具体使用和后续维护见 [README](README.md#github-pages-发布)。
+
+本地生产构建和素材校验通过；Pages 仓库子路径下双模型 ready、A→B→A、六屏导航均正常，缺图/HTTP 错误/pageerror 为 0。齿轮在 1440×900、900×700、390×844 的垂直中心偏差均 <0.01 CSS px。证据：`output/playwright/pages-pv-ab/local/`；构建日志：`output/playwright/pages-pv-ab/build.log`；线上发布后以 Actions 结果、源码绑定、HTTP/资源及浏览器实测为准。未改动正式应用工程或更新其接受状态。
+
 ## 2026-10-12 GitHub Pages 发布配置
 
 以 `94e77f6` 为基线；Owner 明确授权完整效果公开下载，模型、SDK、原声仍不进入 Git 历史。独立仓库、网站地址、自动部署流程和素材版本维护方式统一见 [README 发布说明](README.md#github-pages-发布)。正式工程范围不变。

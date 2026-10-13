@@ -1,0 +1,151 @@
+/* Amadeus-Resonance · 剧场概念稿 v3（cinema.html）
+   视觉：整幅原画 + E-mote 模型，上下黑边画幅；黑底字幕条标题、ruby、网点 + 色差原画、做旧章节名。
+   交互逻辑参考 RE:BOOT 宣传页（自写代码）：加载器 → 一次淡入；右上角菜单 / 世界线；原生滚动；
+   入场只有两种：黑块遮罩退去（标题 / 台词）与英文章节名的 0/1 乱码解码。 */
+@font-face{font-family:"AR Grunge";src:url(./fonts/ar-grunge.woff2) format("woff2");font-weight:400;font-display:swap}
+:root{
+  --ink:#0a0705; --paper:#efe6d6; --dim:rgba(239,230,214,.6); --amb:#f0a040;
+  --bar:clamp(40px,7vh,84px);
+  --serif:"AR Serif","Noto Serif SC","Songti SC",serif; --sans:"AR Sans","Noto Sans SC","PingFang SC",sans-serif;
+  --ease:cubic-bezier(.22,.7,.2,1); --io:cubic-bezier(.7,0,.2,1);
+}
+body[data-world="b"]{--amb:#c9b8ea; --paper:#ece8f2; --dim:rgba(236,232,242,.6)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--ink);scroll-behavior:auto}
+body{font:400 15px/1.7 var(--sans);color:var(--paper);background:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body:not([data-loaded]){overflow:hidden}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--amb);outline-offset:3px}
+
+/* ---------- 加载器 ---------- */
+.loader{position:fixed;inset:0;z-index:100;background:var(--ink);display:grid;place-items:center;transition:opacity .7s var(--ease),visibility 0s .7s}
+.loader img{width:54px;height:54px;opacity:.85;animation:spin 2.4s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+body[data-loaded] .loader{opacity:0;visibility:hidden}
+main{opacity:0;transition:opacity .9s var(--ease) .15s}
+body[data-loaded] main{opacity:1}
+
+/* ---------- 黑块按钮：实心黑 + 细微青 / 品红错位阴影 ---------- */
+.blk{width:44px;height:44px;background:#000;color:#fff;display:grid;place-items:center;font:700 17px/1 var(--serif);box-shadow:-2px -1px 0 rgba(0,225,255,.8),2px 1px 0 rgba(255,0,170,.8);transition:transform .25s var(--ease)}
+.blk:hover{transform:translate(-1px,-1px)}
+.burger{display:grid;gap:4px}
+.burger b{display:block;width:18px;height:2px;background:currentColor;transition:transform .3s var(--ease),opacity .3s}
+body.menu-open .burger b:nth-child(1){transform:translateY(6px) rotate(45deg)}
+body.menu-open .burger b:nth-child(2){opacity:0}
+body.menu-open .burger b:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+/* 右上角控件：首屏内随页面，滚过首屏后固定 */
+.ctl{position:absolute;z-index:60;top:calc(var(--bar) + 18px);right:3vw;display:flex;gap:10px;opacity:0;transition:opacity .6s var(--ease) .3s}
+body[data-loaded] .ctl{opacity:1}
+body.stuck .ctl,body.menu-open .ctl{position:fixed;top:18px;animation:drop .4s var(--ease)}
+@keyframes drop{from{transform:translateY(-12px);opacity:0}to{transform:none;opacity:1}}
+
+/* 目录浮层 */
+.menu{position:fixed;inset:0;z-index:50;background:rgba(6,4,3,.96);display:grid;place-items:center;opacity:0;transition:opacity .4s var(--ease)}
+.menu[hidden]{display:none}
+.menu.open{opacity:1}
+.menu ul{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6vh 8vw}
+.menu a{display:flex;flex-direction:column;gap:.5em;color:var(--dim);transition:color .3s}
+.menu a:hover,.menu a:focus-visible,.menu a[aria-current="true"]{color:var(--paper)}
+.menu b{font:400 clamp(44px,5.4vw,96px)/.9 "AR Grunge",var(--sans)}
+.menu span{font-size:13px;letter-spacing:.8em;padding-left:.3em}
+.menu a[aria-current="true"] span{color:var(--amb)}
+
+.totop{position:fixed;z-index:40;right:3vw;bottom:4vh;opacity:0;visibility:hidden;transition:opacity .4s,visibility 0s .4s}
+body.stuck .totop{opacity:1;visibility:visible;transition:opacity .4s}
+
+/* ---------- 台词：屏幕下方黑底字幕条 ---------- */
+.line,.subt{position:fixed;z-index:30;left:0;right:0;bottom:calc(var(--bar) + 3vh);text-align:center;pointer-events:none;padding:0 14vw}
+.line .cap-line{font-size:clamp(14px,1.15vw,18px);letter-spacing:.06em;padding:.45em .9em}
+.line:not(.on){visibility:hidden}
+body.is-performing .line{visibility:hidden}
+.subt{opacity:0;transition:opacity .35s}
+.subt.on{opacity:1}
+.subt p{display:inline-block;background:#000;padding:.2em .7em}
+.subt-jp{font-size:12px;color:var(--dim)}
+.subt-zh{display:table!important;margin:4px auto 0;font-size:clamp(14px,1.15vw,18px);letter-spacing:.06em}
+
+/* ---------- 入场 a：黑块遮罩退去 ---------- */
+.cap-line{display:inline-block;position:relative;background:#000;color:#fff}
+.txt{display:inline-block}
+[data-reveal] .cap-line,.line .cap-line{clip-path:inset(0 100% 0 0)}
+[data-reveal] .txt,.line .txt{clip-path:inset(0 100% 0 0)}
+[data-reveal].in .cap-line,.line.in .cap-line{clip-path:inset(0 0 0 0);transition:clip-path .38s var(--io) calc(var(--i,0) * .14s)}
+[data-reveal].in .txt,.line.in .txt{clip-path:inset(-1em 0 0 0);transition:clip-path .42s var(--io) calc(var(--i,0) * .14s + .34s)}
+
+/* ---------- 画面 ---------- */
+.sc{position:relative;min-height:100vh;overflow:hidden;background:var(--ink)}
+.plate{position:absolute;overflow:hidden;top:var(--bar);bottom:var(--bar)}
+.plate img{display:block;width:100%;height:100%;object-fit:cover}
+.plate::after{content:"";position:absolute;inset:0;background:#8e7bbd;mix-blend-mode:color;opacity:0;transition:opacity .6s;pointer-events:none}
+body[data-world="b"] .plate::after{opacity:.62}
+.copy{position:absolute;z-index:6}
+.h.cap{font:900 clamp(26px,2.6vw,46px)/1 var(--serif);letter-spacing:.04em}
+.h.cap .cap-line{padding:.24em .34em .2em;margin-bottom:6px}
+.h.cap .cap-line:has(ruby){padding-top:.56em}
+.h.cap ruby{display:inline-block;position:relative;ruby-position:over}
+.h.cap rt{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);white-space:nowrap;padding-bottom:.25em;font:500 .3em/1 var(--sans);letter-spacing:.12em;color:var(--amb)}
+.s{margin-top:.9em;font-size:clamp(13px,1.05vw,16px);color:var(--dim);letter-spacing:.06em}
+.secname{display:flex;flex-direction:column;align-items:flex-start;gap:.35em;margin-bottom:3vh;pointer-events:none}
+.secname b{font:400 clamp(40px,4.6vw,84px)/.9 "AR Grunge",var(--sans);letter-spacing:.02em;white-space:nowrap}
+.secname span{font-size:12px;letter-spacing:.9em;color:var(--dim);padding-left:.2em}
+.slot{position:absolute;z-index:4}
+.kurisu{position:absolute;inset:0}
+.emote,.k-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%}
+.emote{filter:sepia(.12) saturate(.94) brightness(.96) drop-shadow(-14px 6px 26px rgba(0,0,0,.6)) drop-shadow(10px 0 26px rgba(240,140,40,.16))}
+body[data-world="b"] .emote{filter:saturate(.86) brightness(.95) drop-shadow(-14px 6px 26px rgba(0,0,0,.6)) drop-shadow(10px 0 26px rgba(170,140,230,.2))}
+.kurisu{transition:opacity .45s var(--ease)}
+.kurisu.swapping{opacity:0}
+
+/* 01 序 */
+.plate-kv{right:0;width:58vw;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 42%);mask-image:linear-gradient(90deg,transparent 0,#000 42%)}
+.plate-kv img{height:122%;margin-top:-6%;object-position:30% 22%;filter:saturate(.86) contrast(.97);will-change:transform}
+.hero .slot{top:calc(var(--bar) + 2vh);bottom:var(--bar);left:29vw;aspect-ratio:3/4}
+.secname-hero{position:absolute;z-index:6;left:6vw;top:calc(var(--bar) + 5vh)}
+.hero .copy{left:6vw;bottom:calc(var(--bar) + 7vh);width:34vw}
+.hero .logo{display:block;width:min(22vw,330px);margin:0 0 4vh -8px;filter:invert(1) hue-rotate(180deg) brightness(.96)}
+.hero .h.cap{font-size:clamp(28px,2.9vw,52px)}
+
+/* 02 记忆：画廊（两张图交叉淡化 0.6s） */
+.plate-mem{left:0;width:72vw;-webkit-mask-image:linear-gradient(90deg,#000 48%,transparent 100%);mask-image:linear-gradient(90deg,#000 48%,transparent 100%)}
+.plate-mem img{position:absolute;inset:0;opacity:0;transition:opacity .6s var(--ease),filter .6s var(--ease)}
+.plate-mem img.on{opacity:.82}
+.plate-mem img[data-sealed]{filter:blur(22px) brightness(.4) saturate(.3)}
+.plate-mem::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,7,5,.78) 0,rgba(10,7,5,.25) 46%,transparent 70%)}
+.mem .slot{top:var(--bar);bottom:var(--bar);right:1vw;aspect-ratio:3/4}
+.mem .copy{left:6vw;top:calc(var(--bar) + 5vh);width:36vw}
+.frags{position:absolute;z-index:6;left:6vw;bottom:calc(var(--bar) + 7vh);display:flex;gap:1.1vw;list-style:none}
+.frags button{display:block;position:relative;width:clamp(120px,10.4vw,190px);aspect-ratio:16/9;transition:transform .4s var(--ease)}
+.frags img{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.42) saturate(.55);transition:filter .4s var(--ease)}
+.frags .sealed img{filter:blur(5px) brightness(.28) saturate(.3)}
+.frags button:hover img,.frags button:focus-visible img{filter:brightness(.85) saturate(.9)}
+.frags .sealed:hover img,.frags .sealed:focus-visible img{filter:blur(4px) brightness(.45) saturate(.4)}
+.frags button[aria-pressed="true"]{transform:translateY(-6px)}
+.frags button[aria-pressed="true"] img{filter:none}
+.frags .sealed[aria-pressed="true"] img{filter:blur(4px) brightness(.5) saturate(.4)}
+.frags span{position:absolute;left:0;top:calc(100% + 10px);white-space:nowrap;font-size:12px;letter-spacing:.08em;color:var(--dim);opacity:0;transition:opacity .3s}
+.frags button:hover span,.frags button:focus-visible span,.frags button[aria-pressed="true"] span{opacity:1}
+.frags button[aria-pressed="true"] span{color:var(--amb)}
+
+/* 03 她：模型左 / 中，标题右，下方一排状态缩略图 */
+.plate-stage{left:0;right:0}
+.plate-stage img{filter:brightness(.34) saturate(.75);object-position:50% 60%}
+.plate-stage::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(270deg,rgba(10,7,5,.88) 0,rgba(10,7,5,.35) 46%,transparent 66%)}
+.her .slot{top:calc(var(--bar) + 1vh);bottom:var(--bar);left:12vw;aspect-ratio:3/4}
+.her .copy{right:6vw;top:calc(var(--bar) + 6vh);width:40vw}
+.her .s{color:var(--amb);letter-spacing:.3em}
+.states{display:flex;align-items:center;gap:12px;margin-top:3vh}
+.thumbs{display:flex;gap:8px;list-style:none}
+.thumbs button{display:block;width:clamp(46px,3.9vw,66px);aspect-ratio:1;overflow:hidden;background:#000;position:relative;transition:transform .4s var(--ease)}
+.thumbs img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(.85) brightness(.6);transition:filter .4s var(--ease)}
+.thumbs button:hover img,.thumbs button:focus-visible img{filter:grayscale(.2) brightness(.9)}
+.thumbs button[aria-pressed="true"]{transform:translateY(-4px);box-shadow:-2px -1px 0 rgba(0,225,255,.8),2px 1px 0 rgba(255,0,170,.8)}
+.thumbs button[aria-pressed="true"] img{filter:none}
+.thumbs .v{position:absolute;right:2px;bottom:1px;font-size:10px;color:#fff;text-shadow:0 0 3px #000}
+.arrow{width:36px;height:36px;font:400 16px/1 var(--sans)}
+
+@media (prefers-reduced-motion: reduce){
+  *{transition:none!important;animation:none!important}
+  [data-reveal] .cap-line,[data-reveal] .txt,.line .cap-line,.line .txt{clip-path:none!important}
+}

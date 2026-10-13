@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amadeus-Resonance · PV 预览</title><link rel="icon" href="data:,">
+<meta name="description" content="Amadeus-Resonance 宣传 PV 预览：滚动即播放头。开发中的个人项目，非官方。">
+</head>
+<body data-seg="0">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="mis" color-interpolation-filters="sRGB">
+    <feColorMatrix in="SourceGraphic" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="r"/>
+    <feOffset in="r" id="mis-r" dx="2" dy="0" result="ro"/>
+    <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="g"/>
+    <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="b"/>
+    <feOffset in="b" id="mis-b" dx="-2" dy="0" result="bo"/>
+    <feBlend mode="screen" in="ro" in2="g" result="rg"/>
+    <feBlend mode="screen" in="rg" in2="bo"/>
+  </filter>
+</svg>
+
+<div class="loader" id="loader" aria-hidden="true"><img src="img/logo-gear-major.webp" alt=""></div>
+
+<main id="journey" aria-label="Amadeus-Resonance PV：滚动即播放">
+<div class="stage" id="stage">
+
+  <!-- 后层：真实原画 / 场景，镜头在里面推拉 -->
+  <div class="cam" id="cam">
+    <figure class="plate p-boot" id="pl-boot"><img src="img/boot-cg.webp" alt=""></figure>
+    <figure class="plate p-lab" id="pl-lab"><img src="img/cinema/stage-lab.webp" alt=""></figure>
+    <figure class="plate p-local" id="pl-local"><img src="img/bg-local.webp" alt=""></figure>
+  </div>
+  <figure class="plate p-game" id="pl-game"><img src="img/pv/play-game.webp" alt="游戏画面（原作截图）"></figure>
+  <figure class="plate p-game p-talk" id="pl-talk"><img src="img/pv/talk-mayuri.webp" alt="游戏画面：真由理（原作 CG）"></figure>
+
+  <!-- 中层：E-mote 红莉栖 -->
+  <div class="actor" id="actor"><canvas id="emote-canvas" width="720" height="960" role="img" aria-label="E-mote 红莉栖"></canvas><img id="fallback" src="img/fallback-kurisu.webp" alt="红莉栖（静帧）" hidden></div>
+
+  <!-- 前层：真实物件 -->
+  <img class="fg" id="fg-ibm" src="img/props/ibm5100.webp" alt="" aria-hidden="true">
+
+  <!-- 开场 Logo -->
+  <div class="boot-logo" id="boot-logo" aria-hidden="true"><div class="logo"><img class="lg-base" src="img/logo-base.webp" alt=""><img class="lg-gear lg-g1" src="img/logo-gear-major.webp" alt=""><img class="lg-gear lg-g2" src="img/logo-gear-minor.webp" alt=""></div></div>
+
+  <!-- 1 ───────── -->
+  <section class="seg s1" data-seg="1" aria-label="序章·初见">
+    <div class="chap"><b class="jp">邂逅のプロローグ</b><i class="en">Hello, World Line</i><small>序章 · 初见</small></div>
+    <h2 class="bars"><span>初次见面。先说好，</span><span>我不是来陪你闲聊的——</span><span>好吧，偶尔也可以。</span></h2>
+    <div class="name"><b><span>牧瀬</span><ruby>紅莉栖<rt>Makise Kurisu</rt></ruby></b><small>CV 今井麻美</small></div>
+    <div class="tags">
+      <button class="paper tag" data-tag="0">18 岁 · 脑科学研究者</button>
+      <button class="paper tag" data-tag="1">美国 · 脑科学研究所</button>
+      <button class="paper tag" data-tag="2">＠channel 重度用户（？）</button>
+    </div>
+    <div class="paper setup" id="setup"><small>初次设置 · 你是谁</small><button class="blk wide" id="self">本人</button></div>
+  </section>
+
+  <!-- 2 ───────── -->
+  <section class="seg s2" data-seg="2" aria-label="声与形">
+    <div class="chap"><b class="jp">同期共鳴のトリニティ</b><i class="en">Synchronized Resonance</i><small>声与形</small></div>
+    <h2 class="bars"><span>同一句话，我会写给你、说给你，</span><span>也会<ruby>写在脸上<rt>表情</rt></ruby>。</span></h2>
+    <p class="sub">中途想插话也行，我会停下来听。</p>
+    <div class="row">
+      <div class="tri"><button class="blk" data-act="text">字</button><button class="blk" data-act="voice">声</button><button class="blk" data-act="form">形</button></div>
+      <div class="groups">
+        <button class="paper gcard" data-g="0"><span>日常</span><em>24 种预设 · 4 组</em></button>
+        <button class="paper gcard" data-g="1"><span>亲近</span><em>24 种预设 · 4 组</em></button>
+        <button class="paper gcard" data-g="2"><span>质疑</span><em>24 种预设 · 4 组</em></button>
+        <button class="paper gcard" data-g="3"><span>担忧</span><em>24 种预设 · 4 组</em></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ───────── -->
+  <section class="seg s3" data-seg="3" aria-label="记忆">
+    <div class="chap"><b class="jp">記憶領域のアーカイブ</b><i class="en">Memory Archive</i><small>记忆</small></div>
+    <h2 class="bars"><span>记住你这件事，</span><span>你来决定我怎么做。</span></h2>
+    <p class="sub">你和我的事，与看过的故事，我分两个抽屉放。</p>
+    <div class="tri mem"><button class="blk wide" data-mem="mem0">Mem0<i class="note">推荐</i></button><button class="blk wide" data-mem="local">本地</button><button class="blk wide" data-mem="off">关闭</button></div>
+    <div class="cabinet" id="cabinet">
+      <button class="paper drawer" data-drawer="us"><img src="img/pv/mem-story.webp" alt=""><span>你和我</span></button>
+      <button class="paper drawer" data-drawer="story"><img src="img/cinema/mem-lab-obs.webp" alt=""><span>看过的故事</span></button>
+      <div class="paper memcard" id="memcard"><img src="img/pv/mem-card.webp" alt=""><span>考试周 · 熬夜</span></div>
+      <div class="paper box" id="localbox"><span>本机</span></div>
+      <button class="blk wide eject" id="eject">⏏ 断开</button>
+    </div>
+  </section>
+
+  <!-- 4 ───────── -->
+  <section class="seg s4" data-seg="4" aria-label="一起看">
+    <div class="chap right"><b class="jp">既視感のオブザーバー</b><i class="en">Déjà-vu Observer</i><small>一起看</small></div>
+    <div class="copy-r">
+      <h2 class="bars"><span>你玩，我看。</span><span>偶尔<ruby>多嘴一句<rt>短评</rt></ruby>。</span></h2>
+      <p class="sub">选项是你的。我只负责说出我的看法。</p>
+    </div>
+    <div class="windows" id="windows">
+      <button class="paper win" data-win="game"><img src="img/pv/win-game.webp" alt=""><span>游戏窗口</span></button>
+      <button class="paper win" data-win="browser"><img src="img/pv/win-browser.webp" alt=""><span>浏览器</span></button>
+      <button class="paper win" data-win="editor"><img src="img/pv/win-editor.webp" alt=""><span>编辑器</span></button>
+    </div>
+    <button class="blk ask" id="ask" aria-label="她知道多少？">?</button>
+    <div class="choices" id="choices"><button class="blk choice" data-ch="A">A　先去研究所</button><button class="blk choice" data-ch="B">B　留下来问清楚</button></div>
+  </section>
+
+  <!-- 5 ───────── -->
+  <section class="seg s5" data-seg="5" aria-label="分寸">
+    <div class="chap right"><b class="jp">沈黙律のエピグラフ</b><i class="en">Silent Epigraph</i><small>分寸</small></div>
+    <div class="copy-r"><h2 class="bars"><span>别人说话的时候，</span><span>我会<ruby>等<rt>沉默</rt></ruby>。</span></h2></div>
+    <div class="film" id="film">
+      <button class="frame" data-lv="0" style="--fx:8%"><i>静</i></button>
+      <button class="frame" data-lv="1" style="--fx:30%"><i>表情</i></button>
+      <button class="frame" data-lv="2" style="--fx:52%"><i>字幕</i></button>
+      <button class="frame" data-lv="3" style="--fx:74%"><i>开口</i></button>
+      <button class="frame" data-lv="4" style="--fx:96%"><i>判断</i></button>
+    </div>
+  </section>
+
+  <!-- 6 ───────── -->
+  <section class="seg s6" data-seg="6" aria-label="本机">
+    <div class="chap"><b class="jp">局在座標のエピローグ</b><i class="en">Local Coordinate</i><small>本机</small></div>
+    <h2 class="bars"><span>我就住在你<ruby>这台电脑<rt>本机</rt></ruby>里。</span><span>用的，也是你自己的服务。</span></h2>
+    <p class="sub">截图看完就忘，不会留在硬盘上。</p>
+    <div class="tray" id="tray">
+      <div class="paper icard" data-cap="chat"><button class="face">对话</button><div class="back"><img src="img/pv/cfg-chat.webp" alt=""><div class="acts"><button class="blk wide" data-k="key">填入密钥</button><button class="blk wide" data-k="test">测试连接</button></div></div><b class="stamp"></b></div>
+      <div class="paper icard" data-cap="voice"><button class="face">语音</button><div class="back"><img src="img/pv/cfg-voice.webp" alt=""><div class="acts"><button class="blk wide" data-k="key">填入密钥</button><button class="blk wide" data-k="test">测试连接</button></div></div><b class="stamp"></b></div>
+      <div class="paper icard" data-cap="mem"><button class="face">记忆</button><div class="back"><img src="img/pv/cfg-mem.webp" alt=""><div class="acts"><button class="blk wide" data-k="key">填入密钥</button><button class="blk wide" data-k="test">测试连接</button></div></div><b class="stamp"></b></div>
+      <div class="paper icard" data-cap="screen"><button class="face">读屏</button><div class="back"><img src="img/pv/cfg-screen.webp" alt=""><div class="acts"><button class="blk wide" data-k="key">填入密钥</button><button class="blk wide" data-k="test">测试连接</button></div></div><b class="stamp"></b></div>
+    </div>
+  </section>
+
+  <!-- 结尾 -->
+  <div class="ending" id="ending">
+    <p class="status">已完成：日常对话 · 日语语音 · 记忆 · 读屏短评　｜　进行中：新一代 VN 陪看 · 桌面版</p>
+    <div class="logo end-logo" id="end-logo"><img class="lg-base" src="img/logo-base.webp" alt="Amadeus Resonance"><img class="lg-gear lg-g1" src="img/logo-gear-major.webp" alt=""><img class="lg-gear lg-g2" src="img/logo-gear-minor.webp" alt=""></div>
+    <footer class="credits">开发中的个人项目 · 非官方 · 角色及素材版权归原权利方<br>IBM 5100 照片 Sandstein CC BY-SA 3.0 · E-mote © M2 Co., Ltd. · 原作素材 ©MAGES./Chiyo St. Inc.</footer>
+    <button class="blk replay" id="replay" aria-label="重播">↺</button>
+  </div>
+
+  <!-- 字幕：她（黑）、你（灰）、游戏（灰底） -->
+  <div class="lines" id="lines" aria-live="polite">
+    <p class="ln you" id="you"></p>
+    <p class="ln game" id="game"></p>
+    <p class="ln her" id="her"><span class="jp" id="her-jp"></span><span class="zh" id="her-zh"></span></p>
+  </div>
+
+  <!-- 全局：右上播放、右侧章节、角落小注、底部播放头 -->
+  <div class="ctl"><button class="blk" id="play" aria-pressed="false" aria-label="播放 PV">▶</button></div>
+  <nav class="jumps" aria-label="章节"><button class="blk sm" data-jump="0">1</button><button class="blk sm" data-jump="1">2</button><button class="blk sm" data-jump="2">3</button><button class="blk sm" data-jump="3">4</button><button class="blk sm" data-jump="4">5</button><button class="blk sm" data-jump="5">6</button></nav>
+  <p class="corner" id="corner">表情为演示编排</p>
+  <div class="head" aria-hidden="true"><span id="head"></span></div>
+</div>
+</main>
+<script type="module" src="/src/pv/pv.js"></script>
+</body>
+</html>

@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5287 --strictPort",
-    "build": "vite build",
+    "build": "vite build && node scripts/finalize-pages.mjs",
     "deploy": "node scripts/publish-pages-source.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 5287 --strictPort",
     "fonts": "python3 scripts/build-fonts.py",

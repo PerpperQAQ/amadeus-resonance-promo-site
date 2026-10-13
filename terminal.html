@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Amadeus-Resonance · 终端概念</title>
+<meta name="description" content="Amadeus-Resonance：本地优先的牧濑红莉栖 AI 陪伴应用（开发中）。宣传页终端概念稿。">
+<link rel="icon" href="data:,">
+<link rel="preload" href="models/kurisu_ab-catalog.json" as="fetch" crossorigin>
+</head>
+<body data-world="a" data-screen="hero" data-boot="on">
+
+<!-- 唯一的舞台：Amadeus 终端。内容滚动时只改终端里的状态，不换整页背景。 -->
+<div class="crt" id="crt">
+  <div class="bezel">
+    <!-- 系统栏 -->
+    <header class="sys">
+      <div class="sys-id">
+        <span class="gear" aria-hidden="true"><img src="img/logo-gear-major.webp" alt=""></span>
+        <b>AMADEUS</b><i>RESONANCE</i>
+        <span class="tag-dev" title="项目状态">开发中<small>DEV BUILD</small></span>
+      </div>
+      <div class="sys-ch" aria-live="polite"><span class="ch-no" id="ch-no">CH.01</span><span class="ch-name" id="ch-name">会话 · SESSION</span></div>
+      <div class="sys-st">
+        <span class="st-link"><i class="dot"></i>127.0.0.1<small>LOCAL</small></span>
+        <span class="st-wl">WL<b id="wl-read">1.048596</b></span>
+        <span class="st-clock" id="clock">--:--:--</span>
+      </div>
+    </header>
+
+    <div class="view" id="view">
+      <!-- 人物：始终在终端画面里 -->
+      <div class="feed" id="feed">
+        <div class="feed-grid" aria-hidden="true"></div>
+        <div class="feed-glow" aria-hidden="true"></div>
+        <div class="feed-body" id="feed-body">
+          <canvas id="emote-canvas" class="emote" width="900" height="1200" role="img" aria-label="牧濑红莉栖（E-mote 动态模型），点击会换表情"></canvas>
+          <img class="feed-fallback" id="feed-fallback" src="img/fallback-kurisu.webp" alt="" hidden>
+          <button class="feed-hit" id="feed-hit" type="button" aria-label="点击红莉栖"></button>
+        </div>
+        <div class="feed-scan" aria-hidden="true"></div>
+        <div class="feed-hud" aria-hidden="true">
+          <span class="fh fh-tl">FEED 01 · KURISU_<b id="feed-model">AB</b></span>
+          <span class="fh fh-tr" id="feed-fps">-- FPS</span>
+          <span class="fh fh-bl">E-MOTE · REALTIME</span>
+          <span class="fh fh-br" id="feed-zoom">×1.00</span>
+          <i class="cb cb1"></i><i class="cb cb2"></i><i class="cb cb3"></i><i class="cb cb4"></i>
+          <i class="ticks ticks-l"></i><i class="ticks ticks-b"></i>
+        </div>
+        <!-- 记忆碎片 / 观测帧：原 CG 只在这里短暂出现 -->
+        <figure class="frag" id="frag" aria-hidden="true"><img id="frag-img" alt=""><figcaption id="frag-cap">OBSERVATION FRAME</figcaption><i class="frag-redact">ACCESS DENIED<small>未解锁的剧情 · 禁止读取</small></i></figure>
+        <div class="feed-msg" id="feed-msg" hidden>RECALIBRATING · 世界线变动中</div>
+      </div>
+
+      <!-- 屏 01：会话 / 首屏 -->
+      <section class="scr scr-hero" data-scr="hero" aria-labelledby="h-hero">
+        <p class="prompt"><span>&gt;</span> session.open <em>--local</em> <i class="cur"></i></p>
+        <h1 class="big" id="h-hero"><span class="ln">牧濑红莉栖，</span><span class="ln">在你的电脑上<em>醒来</em>。</span></h1>
+        <p class="sub">Amadeus-Resonance · 本地优先、单用户的 AI 陪伴应用 · 仍在开发中</p>
+        <p class="reply reply-hero" aria-live="polite"><span class="who">KURISU&gt;</span><q id="reply-hero">……</q></p>
+        <div class="console" aria-label="实时状态：本页里真实模型的运行状态">
+          <div class="con-h"><span>LIVE · 本页实时状态</span><span class="con-note">网页演示，不连接对话后端</span></div>
+          <dl class="kv" id="kv">
+            <div><dt>model</dt><dd id="kv-model">kurisu_ab · E-mote</dd><dd class="st" id="kv-state">LOADING</dd></div>
+            <div><dt>expr</dt><dd id="kv-expr">—</dd></div>
+            <div><dt>gaze</dt><dd id="kv-gaze">+0.00 / +0.00</dd><dd class="bar"><i id="kv-gbar"></i></dd></div>
+            <div><dt>render</dt><dd id="kv-fps">— fps</dd><dd class="spark"><canvas id="spark" width="120" height="16"></canvas></dd></div>
+          </dl>
+          <ol class="evlog" id="evlog"></ol>
+        </div>
+        <p class="hint"><b>点她一下</b>换表情 · 移动指针她会看过来 · <b>向下</b>读取记忆</p>
+      </section>
+
+      <!-- 屏 04：记忆 / 知识边界（展示屏） -->
+      <section class="scr scr-mem" data-scr="mem" aria-labelledby="h-mem">
+        <p class="prompt"><span>&gt;</span> memory.inspect <em>--tiers</em> <i class="cur"></i></p>
+        <h2 class="big" id="h-mem"><span class="ln">记得你说过的事，</span><span class="ln">也知道<em>哪些不该知道</em>。</span></h2>
+        <p class="sub">长期记忆按来源分层读写；你的记忆与 VN 剧情状态分开存放。</p>
+        <div class="mem">
+          <ul class="tiers" id="tiers" role="listbox" aria-label="四层知识来源，点击读取">
+            <li role="option" tabindex="0" data-t="0"><b>T0</b><span>亲历</span><small>确定的个人记忆</small><i class="lvl"></i></li>
+            <li role="option" tabindex="0" data-t="1"><b>T1</b><span>所见</span><small>你选定的窗口</small><i class="lvl"></i></li>
+            <li role="option" tabindex="0" data-t="2"><b>T2</b><span>既视感</span><small>别的世界线·碎片</small><i class="lvl"></i></li>
+            <li role="option" tabindex="0" data-t="3"><b>T3</b><span>禁区</span><small>未解锁的剧情</small><i class="lvl"></i></li>
+          </ul>
+          <div class="memlog">
+            <div class="con-h"><span>MEMORY I/O</span><span class="con-note">示例记录 · 非真实数据</span></div>
+            <ol class="mlog" id="mlog" aria-live="off"></ol>
+          </div>
+        </div>
+        <p class="reply" id="reply" aria-live="polite"><span class="who">KURISU&gt;</span><q id="reply-q">选一层，我告诉你我能说多少。</q></p>
+      </section>
+    </div>
+
+    <footer class="sys-f">
+      <nav class="chs" aria-label="频道">
+        <button type="button" data-go="hero" class="on"><b>01</b>会话</button>
+        <i class="chs-gap" aria-hidden="true"><u>02</u><u>03</u></i>
+        <button type="button" data-go="mem"><b>04</b>记忆</button>
+        <i class="chs-gap" aria-hidden="true"><u>05</u><u>06</u><u>07</u><u>08</u></i>
+      </nav>
+      <div class="ruler" aria-hidden="true"><i class="ruler-head" id="ruler-head"></i></div>
+      <div class="sys-f-r"><kbd>D</kbd> 世界线变动 <span class="credit">E-mote © M2 Co., Ltd.</span></div>
+    </footer>
+  </div>
+  <div class="fx-scan" aria-hidden="true"></div>
+  <div class="fx-vig" aria-hidden="true"></div>
+  <div class="wipe" id="wipe" aria-hidden="true"><img id="wipe-img" alt=""></div>
+</div>
+
+<!-- 开机：简单的启动日志，模型就绪后进入终端 -->
+<div class="boot" id="boot" aria-live="polite">
+  <img class="boot-gear" src="img/logo-gear-major.webp" alt="" aria-hidden="true">
+  <ol class="boot-log" id="boot-log"></ol>
+  <p class="boot-skip">点击跳过</p>
+</div>
+
+<!-- 滚动轨道：每一屏一段，滚动只切换终端状态 -->
+<div class="track" aria-hidden="true"><div data-scr="hero"></div><div data-scr="mem"></div></div>
+
+<script type="module" src="/src/term.js"></script>
+</body>
+</html>

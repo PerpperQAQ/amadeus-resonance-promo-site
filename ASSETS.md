@@ -74,3 +74,101 @@
 - 听写：faster-whisper medium（日语、词级时间戳）后人工校正；中文为本页翻译。
 - 已排除：`imai_asami_*.mp3`（听写确认含其他角色语音，不适用）。
 - 06 底图此前曾临时使用 `amadeus-system-new/public/local-private-assets/scenes/shrine.jpg`，已按用户更正替换为上表来源。
+
+## 概念稿 · cinema.html / split.html 用图（`public/img/cinema/`，branch concept/terminal）
+
+> ⚠️ **版权**：以下源图在美术参考库 `RIGHTS_AND_USAGE.md` / `CATALOG.csv` 中均标为 `official_reference_only`：官方宣传素材，**未获再分发 / 公开发布授权**。仅限本机课堂演示，**公开发布前必须替换**。
+
+源库：`/Users/perpperqaq/Pictures/Amadeus-Resonance-Art-References/2026-07-26/`（只读，未修改）。由 `scripts/build-cinema.py` 裁切 / 缩放 / 转 WebP。
+
+| 输出 | 源文件 | 处理 | 来源 URL | 权利 |
+|---|---|---|---|---|
+| `kv-ghost.webp` | `01_games_original/steinsgate_zero_key_visual.jpg` | 裁切 (780,0,1440,1300) → 宽 1000 | https://steinsgate0.jp/common/img/top/image5.jpg | official_reference_only |
+| `mem-rooftop.webp` | `03_reboot/reboot_background_04.jpg` | 宽 1600 | https://steinsgate.jp/reboot/zh-hans/common/img/gallery/bg4.jpg | official_reference_only |
+| `mem-lab.webp` | `03_reboot/reboot_intro_03.jpg` | 宽 1600 | https://steinsgate.jp/reboot/zh-hans/common/img/intro3.jpg | official_reference_only |
+| `mem-radiokan.webp` | `03_reboot/reboot_intro_04.jpg` | 宽 1600 | https://steinsgate.jp/reboot/zh-hans/common/img/intro4.jpg | official_reference_only |
+| `mem-meter.webp` | `03_reboot/reboot_story.jpg` | 宽 1600（页面里始终模糊显示） | https://steinsgate.jp/reboot/zh-hans/common/img/story.jpg | official_reference_only |
+| `stage-lab.webp` | `03_reboot/reboot_background_03.jpg` | 宽 1600（页面里压暗） | https://steinsgate.jp/reboot/zh-hans/common/img/gallery/bg3.jpg | official_reference_only |
+
+另复用：`public/img/logo-amadeus-resonance.webp`（本项目标志）、E-mote 模型 `kurisu_ab` / `kurisu_ab_labcoat`、`public/audio/` 两段原声（git-ignored）。split.html 只参考 steinsgate0-anime.com 的版式比例，未使用该站任何素材或代码。
+
+### cinema v2 追加
+- `public/img/cinema/*-obs.webp`：上表 6 张图的“被观测画面”版本，由 `scripts/build-cinema.py` 的 `observe()` 生成（R/B 通道各错位 2px + 45° 细网点半调，强度 0.11），只处理图像本身。权利同源图：`official_reference_only`，公开发布前必须替换。
+- 字体 `src/fonts/ar-grunge.woff2`：**Rubik Distressed**（Google Fonts，SIL OFL 1.1，许可全文 `src/fonts/OFL-RubikDistressed.txt`），来源 https://github.com/google/fonts/tree/main/ofl/rubikdistressed ，用 fontTools 子集化为 A–Z / 0–9。仅用于章节英文名（PROLOGUE / MEMORY / PERFORM）。
+- 视觉语言（黑底字幕条标题、ruby 双关、网点 + 色差、做旧章节名、带青 / 品红错位阴影的黑块按钮）参考 https://steinsgate.jp/reboot/zh-hans/ ；未使用该站任何素材或代码。
+- cinema v3：`public/img/cinema/ex-*.webp`（8 张状态缩略图）是用本项目 E-mote 模型（kurisu_ab）在页面里渲染后截取的脸部，由 `scripts/cap-cinema-stills.mjs` 生成；模型本身的权利说明同上文模型条目。加载器齿轮复用本项目 `public/img/logo-gear-major.webp`。
+
+## 概念稿 · reboot-*.html（`public/img/reboot/`）
+- `app-daily / app-vn / app-health / app-boot / app-overlay`（+ `-t` 缩略图）← 主项目 `amadeus-system-new/artifacts/wp8-8/frontend-acceptance/wp8-8-1280-{daily,vn,health,boot}.png`、`wp8-8-overlay.png`；`app-history / app-settings` ← `artifacts/wp8-6/frontend-daily/wp8-6-1280-{history,settings}-drawer.png`；`app-bootlogo` ← `artifacts/frontend-boot-logo-20260907/boot-1920x1080.png`。本项目自己的界面截图，缩放转 WebP（`scripts/build-reboot.py`），原件未改。截图里出现的角色立绘 / 背景本身仍属原权利方。
+- `hero.webp` ← 美术参考库 `03_reboot/reboot_intro_03.jpg`（https://steinsgate.jp/reboot/zh-hans/common/img/intro3.jpg），1920 宽 + 同 cinema 的观测处理；**official_reference_only，公开发布前须替换**。
+- 其余复用 `public/img/cinema/`（同上表，official_reference_only）与本项目标志 / 齿轮图。字体 Rubik Distressed 子集扩展为 A–Z a–z 0–9（OFL 1.1）。
+- 页面结构与交互逻辑参考 https://steinsgate.jp/reboot/zh-hans/ ，未使用其任何素材或代码。
+
+## PV 预览素材（pv.html，`public/img/pv/`）
+
+全部由 `scripts/build-pv.py` 从原图**派生**（裁切 + 缩放 + 细网点半调 + R/B 各错位约 1–6px + 轻微纸色），原图未改动。
+
+| 文件 | 来源 | 用途 | 权利 |
+|---|---|---|---|
+| `mem-story.webp` | `amadeus-system-new/artifacts/wp8-6/frontend-daily/wp8-6-1280-history-drawer.png` 右侧对话记录抽屉 | 3 记忆：「你和我」抽屉贴图 | 作者自己项目的真实截图 |
+| `mem-card.webp` | `/Volumes/GM7 2T/…/amadeus-resonance-frontend-claude-20260925/captures/11-record.png` 记录区 | 3 记忆：飞入抽屉的记忆卡 | 作者项目的**设计稿截图（mock）**，页面不标注为已上线界面 |
+| `cfg-chat.webp` / `cfg-voice.webp` / `cfg-screen.webp` | 同上 captures：`13-config-llm-filled.png`、`14-config-tts-error.png`、`cfg-diag.png` 配置区 | 6 本机：索引卡背面 | 设计稿截图（mock），不标注为已上线界面 |
+| `cfg-mem.webp` | `amadeus-system-new/artifacts/wp8-8/frontend-acceptance/wp8-8-1280-health.png` 服务健康面板（含 Mem0 行） | 6 本机：「记忆」卡背面 | 作者项目真实截图 |
+| `win-game.webp`、`play-game.webp` | 美术参考库 `03_reboot/reboot_character_scene_03.jpg`（真由理、桶田至，原作游戏画面，含原 UI） | 4 一起看：游戏窗口缩略图 / 选中后的游戏画面 | official_reference_only，**公开发布前必须替换** |
+| `talk-mayuri.webp` | 美术参考库 `03_reboot/reboot_intro_02.jpg`（真由理在研究所） | 5 分寸：别人说话的游戏画面与胶片格 | official_reference_only，**公开发布前必须替换** |
+| `win-browser.webp` | Playwright 截取 https://steinsgate.jp/ 首屏（2026-10-12） | 4 一起看：浏览器窗口缩略图 | 官方网站截图，同上仅限演示 |
+| `win-editor.webp` | Playwright 渲染本仓库 `src/pv/voice.js` 前 34 行的代码视图 | 4 一起看：编辑器窗口缩略图 | 本项目代码 |
+
+「看过的故事」抽屉沿用 `img/cinema/mem-lab-obs.webp`（见上表）。5 段的游戏台词「大家今天也辛苦啦——先吃点东西再继续吧？」为演示编写，**不是原作台词**，字幕标注说话人「真由理」。
+
+## UI 语言对照页（pv-ui.html）
+
+- 没有引入新的外部图片。四种材质（纸卡纤维、胡桃木管座、辉光管玻璃/网格/灯丝光晕、金属铭牌、翻盖手机机身与按键、液晶像素格、白板、便利贴、记号笔圈与箭头、标签带、拍立得与纸胶带）全部由 `src/pv-ui/pv-ui.css` 中的 CSS 渐变与内联 SVG（feTurbulence / feDisplacementMap）绘制，无许可问题。
+- 复用：`img/cinema/stage-lab.webp`、`img/cinema/mem-lab-obs.webp`（official_reference_only，见上）、`img/pv/mem-story.webp`（见「PV 预览素材」）、E-mote 模型与字体同主站。手写体使用系统楷体（Kaiti SC / STKaiti），未打包字体文件。
+
+## PV 预览 A+B（pv-ab.html）
+
+| 文件 | 来源 | 处理 | 权利 |
+|---|---|---|---|
+| `src/fonts/oswald.woff2` | Oswald（https://github.com/google/fonts/tree/main/ofl/oswald ，可变字重） | `fontTools.subset` 仅保留 ASCII + `·` `—`，woff2 | SIL OFL 1.1，许可全文 `src/fonts/OFL-Oswald.txt` |
+| `public/img/pv-ab/face-{calm,smug,joy,surprise,shy,pout,glare,worry}.webp` | 本项目 E-mote 模型（`kurisu_ab.expressions.psb`）在 pv-ui.html 中实时渲染的画布截图（Playwright，8 种表情） | `scripts/build-pv-ab.py`：裁头部 → 去色 → 粗网点半调 → 透明底；页面上再加 R/B 错位与 20% 不透明度 | 同 E-mote 模型（© M2 / 原作权利方），仅限演示 |
+
+中文字体按 Source Han Sans SC → Noto Sans SC → PingFang SC 的顺序调用系统字体，未打包。原作语音与模型同前文说明，仅演示。
+
+## pv-ab v4 — 道具粒子 / 背景（public/img/pv-ab/props, scripts/pv-ab-props.py）
+| 文件 | 来源 | 权利 |
+|---|---|---|
+| ibn5100.webp | Wikimedia Commons File:IBM_5100_-_MfK_Bern.jpg, 摄影 Sandstein | CC BY-SA 3.0（需署名，衍生同协议） |
+| phone_sg001.webp | STEINS;GATE RE:BOOT 手机触发画面裁切，短信文字区域已涂空 | official_reference_only |
+| phone_microwave.webp | STEINS;GATE RE:BOOT 实验室背景裁切 | official_reference_only |
+| metal_upa.webp | STEINS;GATE 原作 CG（经 fandom wiki） | official_reference_only |
+| divergence_meter.webp | STEINS;GATE RE:BOOT 剧情 CG 裁切 | official_reference_only |
+| play-game.webp（陪看演示窗口画面） | 原作游戏画面截图 | official_reference_only；演示台词为原创 |
+粒子仅以主题色网格点渲染，不展示原图；原图不再分发到其他用途。
+
+## pv-ab v5 — 字体（src/fonts，子集由 scripts/pv-ab-fonts.py 从页面全部文字含 JS 动态字符串生成）
+| 文件 | 字体 | 来源 | 许可 |
+|---|---|---|---|
+| serif-sc.woff2 | Noto Serif SC（可变 wght） | github.com/google/fonts ofl/notoserifsc | SIL OFL 1.1（src/fonts/OFL-NotoSerifSC.txt） |
+| sans-sc.woff2 | Noto Sans SC（可变 wght） | github.com/google/fonts ofl/notosanssc | SIL OFL 1.1（src/fonts/OFL-NotoSC.txt） |
+| cormorant.woff2 / cormorant-italic.woff2 | Cormorant Garamond（可变 wght） | github.com/google/fonts ofl/cormorantgaramond | SIL OFL 1.1（src/fonts/OFL-Cormorant.txt） |
+pv-ab 页面不再使用 Oswald / Archivo（文件仍保留供其他页面使用）。
+
+## pv-ab v6 — 第 5 屏 REPORT 拼贴道具（public/img/pv-ab/report，scripts/pv-ab-report-props.py 由 .tmp/props2/*/cutout.png 生成）
+| 文件 | 来源 | 权利 |
+|---|---|---|
+| ibn5100.webp | Wikimedia Commons File:IBM_5100_-_MfK_Bern.jpg，摄影 Sandstein（IBN 5100 原型 IBM 5100 实物） | CC BY-SA 3.0 |
+| radio_kaikan.webp | Wikimedia Commons File:Akihabara_Radio_Kaikan_-01.jpg，Aimaimyi | CC BY-SA 3.0（同时作第 5 屏淡化背景） |
+| dr_pepper.webp | Wikimedia Commons File:50_cl_Dr_Pepper,_september_2017.jpg，Kuriosatempel | CC BY-SA 4.0；Dr Pepper 商标归 Keurig Dr Pepper |
+| phone_microwave.webp | STEINS;GATE RE:BOOT 实验室背景 reboot_background_02.jpg 裁切放大 | official_reference_only |
+| divergence_meter.webp | STEINS;GATE RE:BOOT 官网 story.jpg | official_reference_only |
+| time_leap_machine.webp | steins-gate.fandom.com File:Time_Leap_Machine.png（动画截图裁切） | official_reference_only |
+| future_gadget_12.webp | steins-gate.fandom.com File:FG_-_12.jpg（比翼恋理のだーりん） | official_reference_only |
+| upa_green.webp | steins-gate.fandom.com File:Upa.jpg | official_reference_only |
+
+## pv-ab v7 — 第 4 屏「观测」小窗（移植自 Amadeus 前端样稿 amadeus-resonance-frontend-claude-20260925，只读参考）
+| 文件 | 来源 | 权利 |
+|---|---|---|
+| public/img/pv-ab/observe/kurisu.webp | 前端 public/assets/kurisu.png（原作白大褂静态帧，小窗替身） | official_reference_only |
+| public/img/pv-ab/observe/room.webp | 前端 public/assets/laboratory-lounge-reboot.jpg（RE:BOOT 实验室背景） | official_reference_only |
+小窗的结构、样式数值与台词（MINI_LINES / MINI_REPLY / 暂停与中断说明）取自前端 screens/PlayFlow.jsx 与 styles/play.css；无后端，全部为演示脚本。
